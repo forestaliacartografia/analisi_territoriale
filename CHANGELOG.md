@@ -7,10 +7,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 
 ## [Non rilasciato] - Tessuto dati nazionale e contratto delle tavole
 
-La versione resta **0.1.1**: restano fuori CTR, ZVN e il vincolo idrogeologico come
-engine proprio.
-Suite: **472 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
-+77), 0 falliti, 16 saltati. Bandit 0 rilievi, Flake8 0 E741.
+La versione resta **0.1.1**: il bump appartiene a chi decide il rilascio.
+Suite: **495 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
++100), 0 falliti, 16 saltati. Bandit 0 rilievi, Flake8 0 E741.
 
 ### Aggiunto
 
@@ -30,6 +29,43 @@ Suite: **472 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione
 - Algoritmo Processing **Valida tavola**, sullo stesso engine della GUI e dell'export.
 - `docs/SHEET_QA.md`, `docs/probes/PCN_MASE_PROBE_LOG.md`,
   `docs/probes/TOSCANA_PROBE_LOG.md`.
+
+### Aggiunto (terzo blocco)
+
+- **`engines/hydrogeological_constraint/`**, engine proprio del R.D.L. 3267/1923 e del
+  R.D. 1126/1926, deliberatamente separato da pericolosita e rischio. Esiti
+  `PRESENTE` / `ASSENTE` / `PARZIALE` / `NON_VERIFICABILE`. Con una fonte scaricabile
+  calcola superficie e percentuale; con una fonte solo consultabile interroga punti
+  distribuiti sull'area e riporta **quanti punti**, mai una superficie stimata.
+  Fuori copertura l'esito e' `NON_VERIFICABILE` con `REGIONAL_SOURCE_REQUIRED`: mai
+  «non vincolato». Nessuna frase prodotta afferma che il vincolo si applica.
+- **GetFeatureInfo** in `services/ogc/raster.py`, sullo stesso `HttpClient`: e' cosi'
+  che una fonte consultabile puo' comunque fare evidenza, punto per punto.
+- **22 descrittori della Regione Toscana**: vincolo idrogeologico (WMS, view-only),
+  aree boscate 2007-2016, sei strati ZVN, CTR 1:10.000 e 1:2.000 con l'indice dei
+  fogli, idrografia, sentieri, toponimi, edificato.
+- Categoria di tassonomia `nitrate_vulnerable_zones`; tavole «Carta delle zone
+  vulnerabili ai nitrati» e «Carta Tecnica Regionale» con i rispettivi contratti.
+- Algoritmo Processing «Analizza vincolo idrogeologico». Totale 19.
+
+### Verificato sul campo (terzo blocco)
+
+- **ZVN**: il WFS espone sei strati `zvn1..zvn6` mentre la scheda ne documenta uno.
+  Attributi reali: `zona`, `idrt` e un flag per ciascuna D.G.R. (520, 521, 522 del
+  2007; 18 del 2021) che dice con quale atto il poligono e' stato designato.
+  La perimetrazione di dettaglio e' per fogli catastali: lo strato ne e' la
+  trasposizione, come dichiara la fonte.
+- **CTR**: il WFS espone soltanto gli indici dei fogli e un layer geodetico. La banca
+  dati topografica vettoriale non e' pubblicata: i 68 strati WMS sono fogli resi.
+  Curve di livello, idrografia, sentieri, toponimi ed edificato stanno nei temi
+  dedicati, ciascuno col proprio WFS, e i toponimi si chiamano `toponimi_ctr10k`.
+
+### Rettificato
+
+- Nella prima ricognizione le ZVN erano state riportate fra i temi dell'indice
+  GEOscopio sulla base di una sintesi automatica della pagina. L'HTML non le contiene:
+  la scheda esiste a un indirizzo che l'indice non riportava. La fonte e' stata trovata
+  e verificata, e il log delle prove porta la rettifica.
 
 ### Aggiunto (secondo blocco)
 

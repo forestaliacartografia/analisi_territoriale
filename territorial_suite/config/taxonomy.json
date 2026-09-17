@@ -361,6 +361,16 @@
       "label_it": "Incendi",
       "report_section": "Pressioni e usi del territorio",
       "description_it": "Cartografie antincendio e incendi rilevati. Il catasto delle aree percorse dal fuoco previsto dalla L. 353/2000 e comunale: una cartografia nazionale non lo sostituisce."
+    },
+    {
+      "id": "nitrate_vulnerable_zones",
+      "order": 470,
+      "kind": "knowledge",
+      "parent": "environmental_assessment",
+      "label_en": "Nitrate vulnerable zones",
+      "label_it": "Zone vulnerabili ai nitrati",
+      "report_section": "Pressioni e usi del territorio",
+      "description_it": "Zone designate ai sensi della direttiva 91/676/CEE e del D.Lgs. 152/2006. La perimetrazione di dettaglio e' individuata per fogli catastali negli atti regionali; lo strato cartografico ne e' la trasposizione."
     }
   ]
 }

@@ -11,6 +11,7 @@ from qgis.core import (
     QgsProcessingParameterEnum,
     QgsProcessingParameterFile,
     QgsProcessingParameterFileDestination,
+    QgsProcessingParameterNumber,
     QgsProcessingParameterString,
     QgsProject,
 )
@@ -254,3 +255,65 @@ class ImageryProvidersAlgorithm(TerritorialAlgorithm):
 
 #: Module key of the heritage payload, re-exported for the algorithms' callers.
 HERITAGE_MODULE = MODULE_KEY
+
+
+class HydrogeologicalConstraintAlgorithm(TerritorialAlgorithm):
+    """Look for the vincolo idrogeologico of R.D.L. 3267/1923 over the area."""
+
+    GRID = "GRID"
+    OUTPUT = "OUTPUT"
+
+    def name(self) -> str:
+        return "analyze_hydrogeological_constraint"
+
+    def displayName(self) -> str:  # noqa: N802 - QGIS API
+        return "Analizza vincolo idrogeologico (R.D.L. 3267/1923)"
+
+    def shortHelpString(self) -> str:  # noqa: N802 - QGIS API
+        return ("Cerca il vincolo idrogeologico sull'area di progetto usando le fonti "
+                "cartografiche ufficiali configurate.\n\n"
+                "Quando la fonte e' scaricabile calcola la superficie interessata e la "
+                "percentuale. Quando la fonte pubblica il perimetro come sola immagine "
+                "interroga punti distribuiti sull'area e riporta quanti ricadono nella "
+                "perimetrazione: in quel caso la superficie NON e' calcolabile e non "
+                "viene stimata.\n\n"
+                "Se nessuna fonte copre l'area l'esito e' NON_VERIFICABILE: il vincolo "
+                "e' di competenza regionale e l'assenza di dato non equivale "
+                "all'assenza del vincolo. L'esito e' un'osservazione cartografica, non "
+                "un accertamento: la verifica compete all'ente competente.")
+
+    def initAlgorithm(self, config=None) -> None:  # noqa: N802 - QGIS API
+        self.add_area_parameter()
+        self.addParameter(QgsProcessingParameterNumber(
+            self.GRID, "Densita' del campionamento (solo fonti non scaricabili)",
+            QgsProcessingParameterNumber.Type.Integer, defaultValue=3,
+            minValue=1, maxValue=8))
+        self.addParameter(QgsProcessingParameterFileDestination(
+            self.OUTPUT, "Esito (JSON)", fileFilter="JSON (*.json)",
+            optional=True, createByDefault=False))
+
+    def processAlgorithm(self, parameters, context, feedback):  # noqa: N802 - QGIS API
+        from ...engines.hydrogeological_constraint import HydrogeologicalConstraintEngine
+
+        area = self.project_area(parameters, context, feedback)
+        grid = self.parameterAsInt(parameters, self.GRID, context)
+        outcome = HydrogeologicalConstraintEngine().run(
+            area, feedback=self.feedback_adapter(feedback), grid=grid)
+
+        feedback.pushInfo(outcome.statement())
+        if outcome.source_name:
+            feedback.pushInfo(f"Fonte: {outcome.source_name} ({outcome.capability})")
+        for act in outcome.act_references:
+            feedback.pushInfo(f"Atto riportato dal dato: {act}")
+        for warning in outcome.warnings:
+            feedback.pushWarning(warning)
+        for gap in outcome.gaps:
+            feedback.pushInfo(f"Lacuna dichiarata: {gap}")
+
+        out_path = self.parameterAsFileOutput(parameters, self.OUTPUT, context)
+        if out_path:
+            Path(out_path).write_text(
+                json.dumps(outcome.as_dict(), ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        return {self.OUTPUT: out_path or "", "ESITO": outcome.presence.value,
+                "MISURABILE": outcome.measurable}

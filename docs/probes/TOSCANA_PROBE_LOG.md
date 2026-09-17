@@ -119,3 +119,65 @@ Regione: la fonte va cercata li', non inventata dentro GEOscopio.
 
 **Da verificare:** le Zone Vulnerabili ai Nitrati sono citate nella pagina indice ma non hanno
 una scheda `.htm` con quel nome; il tema va localizzato prima di essere descritto.
+
+## 3. Zone Vulnerabili ai Nitrati — sondate il 2026-09-17
+
+**Rettifica.** Nella prima ricognizione avevo riportato le ZVN fra i temi elencati
+dall'indice GEOscopio. Il testo della pagina **non le contiene**: quell'informazione
+veniva da una sintesi automatica della pagina, non dal suo HTML, e non andava accettata.
+La scheda esiste ma sotto un indirizzo che l'indice scaricato non riportava:
+`https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm`
+
+**Endpoint:** `https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita`
+
+| Operazione | Esito |
+|---|---|
+| WMS GetCapabilities | OK, 19 strati |
+| WFS GetCapabilities 1.1.0 | OK, **sei** tipi `rt_zvn.zvn1..zvn6.rt.poly` |
+| WFS GetFeature | OK, geometria reale, 217 KB per una feature |
+
+La scheda WMS documenta **un solo** strato (`rt_zvn.zvn.rt.poly`); il WFS ne espone sei.
+
+Attributi verificati: `zona` (denominazione ufficiale, es. «Zona costiera tra San Vincenzo
+e la Fossa Calda»), `idrt` (es. `RT0030`), piu' un flag per ciascuna delibera —
+`z_07_520_a`, `z_07_520_b`, `z_07_521`, `z_07_522_a`, `z_07_522_b`, `z_21_018_a`,
+`z_21_018_b`, `z_21_018_c` — che dice **con quale atto** quel poligono e' stato designato.
+
+**Classificazione: `ANALYSABLE`.**
+
+**Avvertenza della fonte, da citare:** la perimetrazione di dettaglio e' individuata per
+**fogli catastali** negli allegati alle D.G.R. 520/2007, 521/2007, 522/2007 e 18/2021; lo
+strato cartografico ne e' la «trasposizione cartografica».
+
+## 4. Carta Tecnica Regionale — sondata il 2026-09-17
+
+**Endpoint:** `https://www502.regione.toscana.it/ows_ctr/com.rt.wms.RTmap/ows?map=owsctr`
+
+| Operazione | Esito |
+|---|---|
+| WMS GetCapabilities | OK, **68** strati (`rt_ctr.10k`, `rt_ctr.2k.liv2.any`, varianti `greylight`, `impianto`) |
+| WFS GetCapabilities | OK, ma **5 soli** tipi: `inq.ctr.2k/5k/10k.wfs_search`, `inq.igm.f50k.wfs_search`, `idpgeodet.raf7km.rt` |
+
+**La banca dati topografica vettoriale non e' pubblicata qui.** Il WFS della CTR espone
+soltanto gli **indici dei fogli** (quadri d'unione per la ricerca) e un layer di punti
+geodetici. I 68 strati WMS sono fogli cartografici resi come immagine.
+
+Verificato anche `BASI_TOPOGRAFICHE`: e' la carta 1:50.000, anch'essa raster.
+
+**Conseguenza:** curve di livello, idrografia, viabilita', sentieri, toponimi ed edificato
+**non** si ottengono dalla CTR. La Regione li pubblica in **temi dedicati**, ciascuno con
+il proprio WFS, verificati lo stesso giorno:
+
+| Tema | Endpoint | typeNames |
+|---|---|---|
+| IDROGRAFIA | `wmsraster/...?map=wmsidrogr` | 9, fra cui `corsi.rt.line`, `tronchi.rt.line`, `bacini_idrografici_amministrativi.rt.poly` |
+| SENTIERISTICA | `ows_sentieristica/...?map=owssentieristica` | `rt_sent.idsentrei.rt` |
+| TOPONOMASTICA | `wmsraster/...?map=wmstoponomastica` | `toponimi_ctr10k_ricomposti.poly` |
+| EDIFICATO | `ows2/...?map=owsedificato` | `rt_edif.unitavolumetriche`, `rt_edif.centri_matrice.poly` |
+
+I toponimi si chiamano `toponimi_ctr10k`: derivano dalla CTR 1:10.000. Il contenuto che si
+attribuisce alla «CTR interrogabile» esiste, ma distribuito per tema, ed e' li' che va
+preso.
+
+Classificazione: CTR `DISPLAY_ONLY` come base cartografica, piu' `ANALYSABLE` per gli
+indici dei fogli e per i quattro temi vettoriali dedicati.

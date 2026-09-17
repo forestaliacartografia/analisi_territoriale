@@ -13,9 +13,10 @@
         "forest_vegetation"
       ],
       "excluded_categories": [],
-      "title_keywords": ["vincoli"]
+      "title_keywords": [
+        "vincoli"
+      ]
     },
-
     "risk_map": {
       "title": "Carta del rischio",
       "theme": "risk",
@@ -26,63 +27,117 @@
         "landslide_risk",
         "landslide_inventory"
       ],
-      "optional_categories": ["hydrography", "water"],
-      "excluded_categories": ["hydro_geomorphological"],
-      "title_keywords": ["rischio", "pericolosita", "dissesto"],
+      "optional_categories": [
+        "hydrography",
+        "water"
+      ],
+      "excluded_categories": [
+        "hydro_geomorphological"
+      ],
+      "title_keywords": [
+        "rischio",
+        "pericolosita",
+        "dissesto"
+      ],
       "_comment": "hydro_geomorphological e' escluso di proposito: il vincolo idrogeologico e' un vincolo, non un rischio, e su una tavola intitolata al rischio sarebbe una affermazione sbagliata. Ha la sua tavola."
     },
-
     "flood_hazard_map": {
       "title": "Carta della pericolosita idraulica",
       "theme": "flood_hazard",
-      "required_categories": ["flood_hazard"],
-      "optional_categories": ["hydrography", "water"],
-      "excluded_categories": ["flood_risk"],
-      "title_keywords": ["pericolosita idraulica", "aree allagabili", "pgra"],
+      "required_categories": [
+        "flood_hazard"
+      ],
+      "optional_categories": [
+        "hydrography",
+        "water"
+      ],
+      "excluded_categories": [
+        "flood_risk"
+      ],
+      "title_keywords": [
+        "pericolosita idraulica",
+        "aree allagabili",
+        "pgra"
+      ],
       "primary_source": "pcn.alluvioni",
       "_comment": "Pericolosita, non rischio: la probabilita' dell'evento, non il danno atteso. Il rischio ha la sua tavola e il contratto lo esclude per impedire la confusione."
     },
-
     "flood_risk_map": {
       "title": "Carta del rischio idraulico",
       "theme": "flood_risk",
-      "required_categories": ["flood_risk"],
-      "optional_categories": ["hydrography", "water"],
-      "excluded_categories": ["flood_hazard"],
-      "title_keywords": ["rischio idraulico"],
+      "required_categories": [
+        "flood_risk"
+      ],
+      "optional_categories": [
+        "hydrography",
+        "water"
+      ],
+      "excluded_categories": [
+        "flood_hazard"
+      ],
+      "title_keywords": [
+        "rischio idraulico"
+      ],
       "primary_source": "pcn.pai.rischio.alluvione"
     },
-
     "landslide_hazard_map": {
       "title": "Carta della pericolosita da frana",
       "theme": "landslide_hazard",
-      "required_categories": ["landslide_hazard"],
-      "optional_categories": ["landslide_inventory", "terrain"],
-      "excluded_categories": ["landslide_risk"],
-      "title_keywords": ["pericolosita da frana", "pericolosita geomorfologica"],
+      "required_categories": [
+        "landslide_hazard"
+      ],
+      "optional_categories": [
+        "landslide_inventory",
+        "terrain"
+      ],
+      "excluded_categories": [
+        "landslide_risk"
+      ],
+      "title_keywords": [
+        "pericolosita da frana",
+        "pericolosita geomorfologica"
+      ],
       "primary_source": "pcn.pai.pericolosita.frana_01"
     },
-
     "landslide_inventory_map": {
       "title": "Carta dei fenomeni franosi",
       "theme": "landslide_inventory",
-      "required_categories": ["landslide_inventory"],
-      "optional_categories": ["landslide_hazard", "terrain"],
-      "title_keywords": ["fenomeni franosi", "frane", "dissesti", "inventario"],
+      "required_categories": [
+        "landslide_inventory"
+      ],
+      "optional_categories": [
+        "landslide_hazard",
+        "terrain"
+      ],
+      "title_keywords": [
+        "fenomeni franosi",
+        "frane",
+        "dissesti",
+        "inventario"
+      ],
       "primary_source": "pcn.frane.poligonali",
       "_comment": "Inventario di fenomeni osservati: non e' una perimetrazione di pericolosita' e non e' un vincolo."
     },
-
     "hydrogeological_constraint_map": {
       "title": "Carta del vincolo idrogeologico",
       "theme": "hydro_geomorphological",
-      "required_categories": ["hydro_geomorphological"],
-      "optional_categories": ["terrain", "forest_vegetation"],
-      "excluded_categories": ["flood_risk", "landslide_risk"],
-      "title_keywords": ["vincolo idrogeologico", "3267"],
+      "required_categories": [
+        "hydro_geomorphological"
+      ],
+      "optional_categories": [
+        "terrain",
+        "forest_vegetation"
+      ],
+      "excluded_categories": [
+        "flood_risk",
+        "landslide_risk"
+      ],
+      "title_keywords": [
+        "vincolo idrogeologico",
+        "3267"
+      ],
       "_comment": "R.D.L. 3267/1923. Il rischio e' escluso: un vincolo e un rischio non sono lo stesso istituto e mescolarli sulla stessa tavola induce in errore."
     },
-
     "protected_areas_map": {
       "title": "Carta delle aree protette",
       "theme": "nature_conservation",
@@ -93,90 +148,203 @@
         "wetlands_ramsar",
         "protected_areas_other"
       ],
-      "optional_categories": ["forest_vegetation"],
-      "title_keywords": ["aree protette", "parchi", "riserve"],
+      "optional_categories": [
+        "forest_vegetation"
+      ],
+      "title_keywords": [
+        "aree protette",
+        "parchi",
+        "riserve"
+      ],
       "primary_source": "pcn.euap"
     },
-
     "natura2000_map": {
       "title": "Carta della Rete Natura 2000",
       "theme": "natura2000",
-      "required_categories": ["natura2000"],
-      "optional_categories": ["protected_areas_national", "forest_vegetation"],
-      "title_keywords": ["natura 2000", "sic", "zsc", "zps"],
+      "required_categories": [
+        "natura2000"
+      ],
+      "optional_categories": [
+        "protected_areas_national",
+        "forest_vegetation"
+      ],
+      "title_keywords": [
+        "natura 2000",
+        "sic",
+        "zsc",
+        "zps"
+      ],
       "primary_source": "eu.eea.natura2000.sci",
       "_comment": "La fonte primaria e' l'EEA perche' espone SITETYPE e permette di distinguere SIC, ZSC e ZPS; il servizio PCN li pubblica in un unico strato senza quel campo."
     },
-
     "fire_map": {
       "title": "Carta degli incendi boschivi",
       "theme": "fire",
-      "required_categories": ["fire"],
-      "optional_categories": ["forest_vegetation", "protected_areas_national"],
-      "title_keywords": ["incendi", "aree percorse dal fuoco"],
+      "required_categories": [
+        "fire"
+      ],
+      "optional_categories": [
+        "forest_vegetation",
+        "protected_areas_national"
+      ],
+      "title_keywords": [
+        "incendi",
+        "aree percorse dal fuoco"
+      ],
       "primary_source": "pcn.aib.incendisatellite",
       "_comment": "La cartografia nazionale disponibile riguarda i Parchi nazionali: non sostituisce il catasto comunale delle aree percorse dal fuoco (L. 353/2000)."
     },
-
     "hydrographic_map": {
       "title": "Carta idrografica",
       "theme": "hydrography",
-      "required_categories": ["hydrography", "water"],
-      "optional_categories": ["terrain", "flood_hazard"],
-      "title_keywords": ["idrografia", "idrografica", "reticolo", "bacini"]
+      "required_categories": [
+        "hydrography",
+        "water"
+      ],
+      "optional_categories": [
+        "terrain",
+        "flood_hazard"
+      ],
+      "title_keywords": [
+        "idrografia",
+        "idrografica",
+        "reticolo",
+        "bacini"
+      ]
     },
-
     "elevation_map": {
       "title": "Carta altimetrica",
       "theme": "terrain",
-      "required_categories": ["terrain"],
-      "optional_categories": ["hydrography"],
-      "title_keywords": ["altimetrica", "quote", "dem", "dtm", "rilievo"]
+      "required_categories": [
+        "terrain"
+      ],
+      "optional_categories": [
+        "hydrography"
+      ],
+      "title_keywords": [
+        "altimetrica",
+        "quote",
+        "dem",
+        "dtm",
+        "rilievo"
+      ]
     },
-
     "slope_map": {
       "title": "Carta della pendenza",
       "theme": "terrain",
-      "required_categories": ["terrain"],
-      "optional_categories": ["hydrography"],
-      "title_keywords": ["pendenza", "acclivita"]
+      "required_categories": [
+        "terrain"
+      ],
+      "optional_categories": [
+        "hydrography"
+      ],
+      "title_keywords": [
+        "pendenza",
+        "acclivita"
+      ]
     },
-
     "orthophoto_map": {
       "title": "Ortofoto",
       "theme": "imagery",
-      "required_categories": ["imagery"],
-      "optional_categories": ["administrative", "cadastral"],
-      "title_keywords": ["ortofoto", "immagine"]
+      "required_categories": [
+        "imagery"
+      ],
+      "optional_categories": [
+        "administrative",
+        "cadastral"
+      ],
+      "title_keywords": [
+        "ortofoto",
+        "immagine"
+      ]
     },
-
     "cadastral_map": {
       "title": "Estratto di mappa catastale",
       "theme": "cadastral",
-      "required_categories": ["cadastral"],
-      "optional_categories": ["imagery", "administrative"],
-      "title_keywords": ["catastale", "catasto", "particelle"]
+      "required_categories": [
+        "cadastral"
+      ],
+      "optional_categories": [
+        "imagery",
+        "administrative"
+      ],
+      "title_keywords": [
+        "catastale",
+        "catasto",
+        "particelle"
+      ]
     },
-
     "landcover_map": {
       "title": "Carta dell uso e copertura del suolo",
       "theme": "landuse_planning",
-      "required_categories": ["landuse_planning"],
-      "optional_categories": ["forest_vegetation", "administrative"],
-      "title_keywords": ["uso del suolo", "copertura del suolo", "corine", "clc", "iuti"]
+      "required_categories": [
+        "landuse_planning"
+      ],
+      "optional_categories": [
+        "forest_vegetation",
+        "administrative"
+      ],
+      "title_keywords": [
+        "uso del suolo",
+        "copertura del suolo",
+        "corine",
+        "clc",
+        "iuti"
+      ]
     },
-
     "territorial_overview": {
       "title": "Inquadramento territoriale",
       "theme": "",
-      "title_keywords": ["inquadramento"],
+      "title_keywords": [
+        "inquadramento"
+      ],
       "_comment": "Tavola di contesto senza tema dominante: i controlli sul tema non si applicano, quelli sull'impaginazione si'."
     },
-
     "technical_map": {
       "title": "Carta tecnica di progetto",
       "theme": "",
-      "title_keywords": ["tecnica"]
+      "title_keywords": [
+        "tecnica"
+      ]
+    },
+    "nitrate_zones_map": {
+      "title": "Carta delle zone vulnerabili ai nitrati",
+      "theme": "nitrate_vulnerable_zones",
+      "required_categories": [
+        "nitrate_vulnerable_zones"
+      ],
+      "optional_categories": [
+        "hydrography",
+        "water",
+        "landuse_planning"
+      ],
+      "title_keywords": [
+        "nitrati",
+        "zvn",
+        "zone vulnerabili"
+      ],
+      "primary_source": "rt.zvn.1",
+      "_comment": "La perimetrazione di dettaglio e' individuata per fogli catastali negli atti regionali: lo strato e' la loro trasposizione cartografica."
+    },
+    "ctr_map": {
+      "title": "Carta Tecnica Regionale",
+      "theme": "imagery",
+      "required_categories": [
+        "imagery"
+      ],
+      "optional_categories": [
+        "administrative",
+        "hydrography",
+        "trails",
+        "places",
+        "buildings"
+      ],
+      "title_keywords": [
+        "carta tecnica",
+        "ctr"
+      ],
+      "primary_source": "rt.ctr.10k",
+      "_comment": "La CTR e' pubblicata come base cartografica resa. Il contenuto vettoriale (idrografia, sentieri, toponimi, edificato) proviene dai temi dedicati, che la Regione pubblica separatamente in WFS."
     }
   }
 }

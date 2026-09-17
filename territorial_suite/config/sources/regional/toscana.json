@@ -1,0 +1,1333 @@
+{
+ "_comment": "Fonti della Regione Toscana (GEOscopio). Evidenza in docs/probes/TOSCANA_PROBE_LOG.md. I servizi parlano WFS 1.1.0. Il vincolo idrogeologico e' WMS-only: interrogabile per punto, non scaricabile, quindi non se ne calcolano superfici.",
+ "version": "1.0",
+ "sources": [
+  {
+   "id": "rt.vincolo_idrogeologico",
+   "name": "Vincolo idrogeologico R.D.L. 3267/1923 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "hydro_geomorphological",
+   "subcategory": "vincolo_idrogeologico",
+   "type": "WMS",
+   "url": "https://www502.regione.toscana.it/ows_idrogeologico/com.rt.wms.RTmap/wms?map=owsidrogeologico",
+   "layer": "rt_idrogeol.idrd32671923.rt.poly",
+   "crs": [
+    "EPSG:3003",
+    "EPSG:3857",
+    "EPSG:32632",
+    "EPSG:25832"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.3.0",
+    "info_crs": "EPSG:3003",
+    "info_axis_order": "xy",
+    "info_format": "text/plain",
+    "feature_count": 10
+   },
+   "fields": {
+    "code": "id_idr",
+    "act": "atto",
+    "id": "idrt"
+   },
+   "evidence_level": "declaratory",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK (22.002 byte), GetMap OK (22.279 px dipinti su 160.000), GetFeatureInfo OK con attributi reali (id_idr, idrt, atto). Il WFS dello stesso servizio espone solo gli strati areeboscate: GetFeature su idrd32671923 risponde HTTP 400 «TYPENAME doesn't exist in this server». Quindi VIEW_ONLY.",
+   "quality": {
+    "score": 55,
+    "completeness": "regionale",
+    "notes": "Ricognizione operata dalle singole province nel 2011-2012 su base CTR 1:10.000, in sostituzione della copertura unica del 1983 a scala 1:25.000. Accuratezza posizionale variabile."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "R.D.L. 30 dicembre 1923, n. 3267; R.D. 16 maggio 1926, n. 1126",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "http://www502.regione.toscana.it/geoscopio/servizi/wms/VINCOLO_IDROGEOLOGICO.htm",
+   "enabled": true,
+   "priority": 10,
+   "style": "hydro_constraint",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "vincolo_idrogeologico",
+    "3267",
+    "toscana"
+   ],
+   "notes": "Consultabile e interrogabile per punto, NON scaricabile: superficie e percentuale di area vincolata non sono calcolabili da questa fonte. La scheda ufficiale dichiara che il vincolo ha valore meramente ricognitivo e che la valutazione va fatta in situ con rilievo a terra. EPSG:4326 restituisce immagine vuota per l'ordine assi di WMS 1.3.0: usare EPSG:3003."
+  },
+  {
+   "id": "rt.aree_boscate.2007",
+   "name": "Aree boscate 2007 (ricognitive) - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "forest_vegetation",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_idrogeologico/com.rt.wms.RTmap/wms?map=owsidrogeologico",
+   "layer": "rt_idrogeol.areeboscate.2007.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "comune",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 GetFeature OK, geometria reale, attributi comune/codcom/codprov.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "L.R. Toscana 39/2000, art. 3",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 40,
+   "style": "forest",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "aree boscate",
+    "toscana"
+   ],
+   "notes": "Dataset DIVERSO dal vincolo idrogeologico: sono le aree boscate estratte dall'uso del suolo, con valore dichiarato meramente ricognitivo. Calcolarci sopra una percentuale e chiamarla «vincolo idrogeologico» sarebbe un errore."
+  },
+  {
+   "id": "rt.aree_boscate.2010",
+   "name": "Aree boscate 2010 (ricognitive) - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "forest_vegetation",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_idrogeologico/com.rt.wms.RTmap/wms?map=owsidrogeologico",
+   "layer": "rt_idrogeol.areeboscate.2010.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "comune",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 GetFeature OK, geometria reale, attributi comune/codcom/codprov.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "L.R. Toscana 39/2000, art. 3",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 40,
+   "style": "forest",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "aree boscate",
+    "toscana"
+   ],
+   "notes": "Dataset DIVERSO dal vincolo idrogeologico: sono le aree boscate estratte dall'uso del suolo, con valore dichiarato meramente ricognitivo. Calcolarci sopra una percentuale e chiamarla «vincolo idrogeologico» sarebbe un errore."
+  },
+  {
+   "id": "rt.aree_boscate.2013",
+   "name": "Aree boscate 2013 (ricognitive) - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "forest_vegetation",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_idrogeologico/com.rt.wms.RTmap/wms?map=owsidrogeologico",
+   "layer": "rt_idrogeol.areeboscate.2013.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "comune",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 GetFeature OK, geometria reale, attributi comune/codcom/codprov.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "L.R. Toscana 39/2000, art. 3",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 40,
+   "style": "forest",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "aree boscate",
+    "toscana"
+   ],
+   "notes": "Dataset DIVERSO dal vincolo idrogeologico: sono le aree boscate estratte dall'uso del suolo, con valore dichiarato meramente ricognitivo. Calcolarci sopra una percentuale e chiamarla «vincolo idrogeologico» sarebbe un errore."
+  },
+  {
+   "id": "rt.aree_boscate.2016",
+   "name": "Aree boscate 2016 (ricognitive) - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "forest_vegetation",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_idrogeologico/com.rt.wms.RTmap/wms?map=owsidrogeologico",
+   "layer": "rt_idrogeol.areeboscate.2016.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "comune",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 GetFeature OK, geometria reale, attributi comune/codcom/codprov.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "L.R. Toscana 39/2000, art. 3",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 40,
+   "style": "forest",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "aree boscate",
+    "toscana"
+   ],
+   "notes": "Dataset DIVERSO dal vincolo idrogeologico: sono le aree boscate estratte dall'uso del suolo, con valore dichiarato meramente ricognitivo. Calcolarci sopra una percentuale e chiamarla «vincolo idrogeologico» sarebbe un errore."
+  },
+  {
+   "id": "rt.zvn.1",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 1 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn1.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.zvn.2",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 2 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn2.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.zvn.3",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 3 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn3.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.zvn.4",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 4 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn4.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.zvn.5",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 5 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn5.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.zvn.6",
+   "name": "Zone Vulnerabili ai Nitrati (ZVN) - gruppo 6 - Toscana",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "nitrate_vulnerable_zones",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=owszvn&language=ita",
+   "layer": "rt_zvn.zvn6.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "zona",
+    "code": "idrt"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, sei tipi zvn1..zvn6, GetFeature con geometria reale e attributi zona/idrt piu' un flag per ciascuna delibera (z_07_520_a, z_07_521, z_07_522_a, z_21_018_a, ...).",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "Direttiva 91/676/CEE; D.Lgs. 152/2006; D.G.R. Toscana 520/2007, 521/2007, 522/2007 e 18/2021",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www502.regione.toscana.it/geoscopio/servizi/wms/ZONE_VULNERABILI_NITRATI.htm",
+   "enabled": true,
+   "priority": 25,
+   "style": "planning_zone",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "zvn",
+    "nitrati",
+    "toscana"
+   ],
+   "notes": "La perimetrazione di dettaglio e' individuata per fogli catastali negli allegati alle delibere; lo strato cartografico ne e' la trasposizione, come dichiara la scheda ufficiale. I campi z_07_* e z_21_* indicano con quale atto ciascun poligono e' stato designato."
+  },
+  {
+   "id": "rt.ctr.10k",
+   "name": "Carta Tecnica Regionale - CTR 1:10.000",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "imagery",
+   "subcategory": "ctr",
+   "type": "WMS",
+   "url": "https://www502.regione.toscana.it/ows_ctr/com.rt.wms.RTmap/ows?map=owsctr",
+   "layer": "rt_ctr.10k",
+   "crs": [
+    "EPSG:3003",
+    "EPSG:3857",
+    "EPSG:32632"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK, 68 strati pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "http://www502.regione.toscana.it/geoscopio/servizi/wms/CTR.htm",
+   "enabled": true,
+   "priority": 15,
+   "style": "",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "ctr",
+    "base cartografica",
+    "toscana"
+   ],
+   "notes": "Base cartografica resa come immagine. Il WFS dello stesso servizio espone soltanto gli indici dei fogli (inq.ctr.*.wfs_search) e un layer geodetico: la banca dati topografica vettoriale NON e' pubblicata qui. Curve di livello, idrografia, viabilita' ed edificato vanno presi dai temi dedicati, che la Regione pubblica separatamente in WFS."
+  },
+  {
+   "id": "rt.ctr.10k_greylight",
+   "name": "Carta Tecnica Regionale - CTR 1:10.000 (tono chiaro)",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "imagery",
+   "subcategory": "ctr",
+   "type": "WMS",
+   "url": "https://www502.regione.toscana.it/ows_ctr/com.rt.wms.RTmap/ows?map=owsctr",
+   "layer": "rt_ctr.10k_greylight",
+   "crs": [
+    "EPSG:3003",
+    "EPSG:3857",
+    "EPSG:32632"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK, 68 strati pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "http://www502.regione.toscana.it/geoscopio/servizi/wms/CTR.htm",
+   "enabled": true,
+   "priority": 16,
+   "style": "",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "ctr",
+    "base cartografica",
+    "toscana"
+   ],
+   "notes": "Base cartografica resa come immagine. Il WFS dello stesso servizio espone soltanto gli indici dei fogli (inq.ctr.*.wfs_search) e un layer geodetico: la banca dati topografica vettoriale NON e' pubblicata qui. Curve di livello, idrografia, viabilita' ed edificato vanno presi dai temi dedicati, che la Regione pubblica separatamente in WFS."
+  },
+  {
+   "id": "rt.ctr.2k.liv2.any",
+   "name": "Carta Tecnica Regionale - CTR 1:2.000",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "imagery",
+   "subcategory": "ctr",
+   "type": "WMS",
+   "url": "https://www502.regione.toscana.it/ows_ctr/com.rt.wms.RTmap/ows?map=owsctr",
+   "layer": "rt_ctr.2k.liv2.any",
+   "crs": [
+    "EPSG:3003",
+    "EPSG:3857",
+    "EPSG:32632"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK, 68 strati pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "http://www502.regione.toscana.it/geoscopio/servizi/wms/CTR.htm",
+   "enabled": true,
+   "priority": 17,
+   "style": "",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "ctr",
+    "base cartografica",
+    "toscana"
+   ],
+   "notes": "Base cartografica resa come immagine. Il WFS dello stesso servizio espone soltanto gli indici dei fogli (inq.ctr.*.wfs_search) e un layer geodetico: la banca dati topografica vettoriale NON e' pubblicata qui. Curve di livello, idrografia, viabilita' ed edificato vanno presi dai temi dedicati, che la Regione pubblica separatamente in WFS."
+  },
+  {
+   "id": "rt.ctr.indice_10k",
+   "name": "CTR - indice dei fogli 1:10.000",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "administrative",
+   "subcategory": "ctr",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_ctr/com.rt.wms.RTmap/ows?map=owsctr",
+   "layer": "rt_ctr.inq.ctr.10k.wfs_search",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: presente fra i typeNames del WFS CTR.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 80,
+   "style": "",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "ctr",
+    "indice fogli",
+    "toscana"
+   ],
+   "notes": "Quadro d'unione: dice quali fogli CTR coprono l'area, non il loro contenuto."
+  },
+  {
+   "id": "rt.idrografia.corsi",
+   "name": "Idrografia - corsi d'acqua",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=wmsidrogr&language=ita",
+   "layer": "rt_idrogr.corsi.rt.line",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, 9 typeNames pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 30,
+   "style": "hydrography",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "idrografia",
+    "toscana"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "rt.idrografia.tronchi",
+   "name": "Idrografia - tronchi idrografici",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=wmsidrogr&language=ita",
+   "layer": "rt_idrogr.tronchi.rt.line",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, 9 typeNames pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 30,
+   "style": "hydrography",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "idrografia",
+    "toscana"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "rt.idrografia.bacini_idrografici_amministrativi",
+   "name": "Idrografia - bacini idrografici amministrativi",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "water",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=wmsidrogr&language=ita",
+   "layer": "rt_idrogr.bacini_idrografici_amministrativi.rt.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, 9 typeNames pubblicati.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 30,
+   "style": "hydrography",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "idrografia",
+    "toscana"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "rt.sentieri",
+   "name": "Rete escursionistica toscana (sentieri)",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "trails",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows_sentieristica/com.rt.wms.RTmap/wms?map=owssentieristica",
+   "layer": "rt_sent.idsentrei.rt",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 45,
+   "style": "trails",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "sentieri",
+    "toscana"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "rt.toponimi",
+   "name": "Toponomastica (toponimi CTR 1:10.000)",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "places",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/wmsraster/com.rt.wms.RTmap/wms?map=wmstoponomastica&language=ita",
+   "layer": "rt_toponomastica.toponimi_ctr10k_ricomposti.poly.wfs_search",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 50,
+   "style": "places",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "toponimi",
+    "ctr",
+    "toscana"
+   ],
+   "notes": "Derivato dalla CTR 1:10.000, come dice il nome dello strato."
+  },
+  {
+   "id": "rt.edificato.unitavolumetriche",
+   "name": "Edificato - unita' volumetriche",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "buildings",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows2/com.rt.wms.RTmap/wms?map=owsedificato",
+   "layer": "rt_edif.unitavolumetriche",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, 2 typeNames.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 55,
+   "style": "buildings",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "edificato",
+    "toscana"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "rt.edificato.centri_matrice",
+   "name": "Edificato - centri matrice",
+   "authority": "Regione Toscana - SIPT (Sistema Informativo e Pianificazione del Territorio)",
+   "country": "IT",
+   "scope": {
+    "level": "regional",
+    "codes": [
+     "09"
+    ]
+   },
+   "category": "buildings",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "https://www502.regione.toscana.it/ows2/com.rt.wms.RTmap/wms?map=owsedificato",
+   "layer": "rt_edif.centri_matrice.poly",
+   "crs": [
+    "EPSG:3003"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:3003",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WFS 1.1.0 OK, 2 typeNames.",
+   "quality": {
+    "score": 75,
+    "completeness": "regionale"
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Toscana"
+    ],
+    "notes": "Copertura limitata al territorio regionale."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti della Regione Toscana - citare la fonte",
+   "attribution": "Regione Toscana - GEOscopio",
+   "official": true,
+   "metadata_url": "https://www.regione.toscana.it/-/geoscopio-wms",
+   "enabled": true,
+   "priority": 55,
+   "style": "buildings",
+   "group": "Regione Toscana (GEOscopio)",
+   "tags": [
+    "edificato",
+    "toscana"
+   ],
+   "notes": ""
+  }
+ ]
+}

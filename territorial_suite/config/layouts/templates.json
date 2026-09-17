@@ -440,6 +440,38 @@
         "basemap": "",
         "terrain": ""
       }
+    },
+    {
+      "id": "nitrate_zones_map",
+      "order": 29,
+      "name": "29 - Carta delle zone vulnerabili ai nitrati",
+      "title": "Carta delle zone vulnerabili ai nitrati",
+      "layers": {
+        "categories": [
+          "nitrate_vulnerable_zones",
+          "hydrography",
+          "water"
+        ],
+        "basemap": "",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "ctr_map",
+      "order": 30,
+      "name": "30 - Carta Tecnica Regionale",
+      "title": "Carta Tecnica Regionale",
+      "layers": {
+        "categories": [
+          "imagery",
+          "administrative",
+          "hydrography",
+          "trails",
+          "places"
+        ],
+        "basemap": "rt.ctr.10k",
+        "terrain": ""
+      }
     }
   ],
   "series": {
