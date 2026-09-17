@@ -1526,7 +1526,7 @@
     "level": "national",
     "codes": []
    },
-   "category": "flood_hazard",
+   "category": "flood_risk",
    "subcategory": "rischio",
    "type": "WFS",
    "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
@@ -1583,7 +1583,7 @@
     "level": "national",
     "codes": []
    },
-   "category": "landslide_hazard",
+   "category": "landslide_risk",
    "subcategory": "rischio",
    "type": "WFS",
    "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
@@ -1640,7 +1640,7 @@
     "level": "national",
     "codes": []
    },
-   "category": "landslide_hazard",
+   "category": "landslide_risk",
    "subcategory": "rischio",
    "type": "WFS",
    "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",

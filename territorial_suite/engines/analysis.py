@@ -19,7 +19,7 @@ from qgis.core import Qgis
 from ..core import log, settings
 from ..core.cache import CacheManager
 from ..core.constants import PLUGIN_VERSION
-from ..core.errors import UserCancelled
+from ..core.errors import ConfigError, UserCancelled
 from ..core.feedback import ChildFeedback, Feedback, NullFeedback
 from ..core.models import (
     Alert,
@@ -75,8 +75,24 @@ class AnalysisOptions:
 
 
 #: Relative weight of each step in the global progress bar.
-_WEIGHTS = {"admin": 8, "cadastre": 17, "constraints": 38, "cultural": 4, "terrain": 20,
-            "download": 10, "rules": 5}
+#: The pipeline, declared once: step name, its share of the progress bar, and the option
+#: that switches it on. Keeping the three together is deliberate. They used to live in two
+#: places - a weights table and an if-chain - and a step added to one but not the other
+#: raised ``KeyError`` before the first handler ran, taking the whole analysis down with
+#: it. A step that is unknown here simply cannot be enabled.
+_STEPS = (
+    ("admin", 8, "resolve_admin"),
+    ("cadastre", 17, "include_cadastre"),
+    ("constraints", 38, "include_constraints"),
+    ("cultural", 4, "include_cultural_heritage"),
+    ("hazard_risk", 12, "include_hazard_risk"),
+    ("terrain", 20, "include_terrain"),
+    ("download", 10, "include_download"),
+    ("rules", 5, ""),                    # always runs
+)
+
+#: Progress weight of each step, derived from the declaration above.
+_WEIGHTS = {name: weight for name, weight, _option in _STEPS}
 
 
 class AnalysisOrchestrator:
@@ -102,7 +118,16 @@ class AnalysisOrchestrator:
             settings_snapshot=settings.snapshot(),
         )
         steps = self._enabled_steps(options)
-        total_weight = sum(_WEIGHTS[name] for name in steps) or 1
+        missing = [name for name in steps if not hasattr(self, f"_step_{name}")]
+        if missing:
+            # A configuration error, not a data one: say which step and stop, instead of
+            # failing later with the bare name of a dictionary key.
+            raise ConfigError(
+                "Fasi di analisi dichiarate ma non implementate: "
+                + ", ".join(missing),
+                detail="Ogni voce di _STEPS richiede un metodo _step_<nome> "
+                       "sull'orchestratore.")
+        total_weight = sum(_WEIGHTS.get(name, 1) for name in steps) or 1
         done = 0.0
 
         for name in steps:
@@ -135,23 +160,13 @@ class AnalysisOrchestrator:
 
     @staticmethod
     def _enabled_steps(options: AnalysisOptions) -> List[str]:
-        steps = []
-        if options.resolve_admin:
-            steps.append("admin")
-        if options.include_cadastre:
-            steps.append("cadastre")
-        if options.include_constraints:
-            steps.append("constraints")
-        if options.include_cultural_heritage:
-            steps.append("cultural")
-        if options.include_hazard_risk:
-            steps.append("hazard_risk")
-        if options.include_terrain:
-            steps.append("terrain")
-        if options.include_download:
-            steps.append("download")
-        steps.append("rules")
-        return steps
+        """The steps to run, in pipeline order, from the single declaration above.
+
+        A step with no option always runs. Reading the flags by name rather than by an
+        if-chain means a new step needs one line in ``_STEPS`` and nothing else.
+        """
+        return [name for name, _weight, option in _STEPS
+                if not option or getattr(options, option, False)]
 
     def _step_admin(self, area: ProjectArea, options: AnalysisOptions,
                     report: AnalysisReport, feedback: Feedback) -> None:

@@ -29,6 +29,7 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from ..core import log, measure, settings
+from ..core.errors import describe as describe_error
 from ..core.constants import PLUGIN_NAME
 from ..core.errors import TerritorialSuiteError
 from ..core.models import AnalysisReport
@@ -827,7 +828,12 @@ class TerritorialSuiteDock(QgsDockWidget):
 
         def failure(error):
             self._finish_task()
-            self._error(f"{description}: {error}")
+            # The message bar already shows the plugin name as the title, so repeating
+            # the description when it *is* the plugin name gave «Analisi territoriale:
+            # Analisi territoriale: ...». And a raw exception is not a sentence.
+            reason = describe_error(error)
+            self._error(reason if description == PLUGIN_NAME
+                        else f"{description}: {reason}")
 
         def cancelled():
             self._finish_task()

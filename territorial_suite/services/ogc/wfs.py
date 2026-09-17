@@ -270,9 +270,13 @@ class WfsClient:
                 feedback.push_debug(f"{self.source.id}: empty page, paging finished")
                 break
             try:
+                # The window we asked for is handed down so that a service answering
+                # with its axes the wrong way round can be noticed: the geometries would
+                # otherwise be valid, plausible and in the wrong hemisphere.
                 page_layer = vector_io.layer_from_payload(
                     response.content, work_folder, name=f"page_{page_index}",
-                    content_type=response.content_type, crs_hint=service_crs.authid())
+                    content_type=response.content_type, crs_hint=service_crs.authid(),
+                    expected=rect)
                 page_features = list(page_layer.getFeatures())
             except SourceSchemaError:
                 if features:

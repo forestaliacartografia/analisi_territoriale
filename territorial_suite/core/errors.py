@@ -78,3 +78,32 @@ class ResolutionNotApproved(EngineError):
     alternative resolution and how to accept it, so the caller can ask the user rather
     than guess on their behalf.
     """
+
+
+def describe(error: BaseException) -> str:
+    """Render any exception as a sentence somebody can act on.
+
+    Python's own wording is written for whoever is debugging, and some of it is actively
+    misleading out of context: ``KeyError('hazard_risk')`` prints as ``'hazard_risk'``,
+    which reaches a message bar as a quoted word with no verb. The plugin's own errors
+    already carry a usable message and are passed through; everything else is given the
+    kind of it was and enough context to tell a broken configuration from a broken
+    network.
+
+    The full traceback is not here on purpose: it belongs in the log, which
+    :mod:`territorial_suite.tasks.runner` already writes.
+    """
+    if isinstance(error, TerritorialSuiteError):
+        return str(error)
+    if isinstance(error, KeyError):
+        key = error.args[0] if error.args else "?"
+        return (f"voce di configurazione mancante: «{key}». "
+                f"E' un difetto del plugin, non un problema dei dati.")
+    if isinstance(error, (ImportError, ModuleNotFoundError)):
+        return f"componente non caricabile: {error}"
+    if isinstance(error, (AttributeError, TypeError, NameError)):
+        return f"errore interno del plugin ({type(error).__name__}): {error}"
+    if isinstance(error, (OSError, IOError)):
+        return f"errore di accesso a file o rete: {error}"
+    text = str(error).strip()
+    return f"{type(error).__name__}: {text}" if text else type(error).__name__

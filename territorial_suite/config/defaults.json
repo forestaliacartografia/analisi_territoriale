@@ -166,5 +166,8 @@
   "paths": {
     "last_output_dir": "",
     "last_area_dir": ""
+  },
+  "hazard_risk": {
+    "max_sources_per_theme": 40
   }
 }

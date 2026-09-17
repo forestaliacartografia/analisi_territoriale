@@ -20,7 +20,7 @@ from qgis.core import QgsVectorLayer
 
 from ...core import crs as crs_utils
 from ...core import geometry as geom_utils
-from ...core import log, measure
+from ...core import log, measure, settings
 from ...core.errors import SourceError
 from ...core.feedback import ChildFeedback, Feedback, NullFeedback
 from ...core.gaps import DataGap
@@ -140,51 +140,108 @@ class HazardRiskEngine:
                 f"il dato non e' determinabile e non viene dedotto da altri temi.")
             return result
 
-        source = sources[0]
-        result.source_id = source.id
-        result.source_name = source.name
-        result.provenance = source.provenance(
-            operation=f"{kind.label_it} - {theme}", crs=work_crs.authid())
-        rule = rule_for(source)
-        result.plan = rule.get("plan", "") or source.legal_reference
-        result.dataset_version = source.last_verified or ""
-        if rule.get("limitation"):
-            result.limitations.append(rule["limitation"])
-
-        if not self._is_measurable(source):
-            result.gaps.append(DataGap.VIEW_ONLY.value)
+        # Every source that answers the theme is consulted, not just the first. Some
+        # national datasets are partitioned - the flood layers are one per river-basin
+        # district - so "the highest-priority descriptor" is the wrong district for most
+        # areas, and taking it alone reports 0% where the data plainly exists.
+        cap = int(settings.get("hazard_risk.max_sources_per_theme", 40))
+        consulted = sources[:cap]
+        if len(sources) > len(consulted):
             result.warnings.append(
-                f"«{source.name}» e' consultabile ma non scaricabile: superficie e "
-                f"percentuale non sono calcolabili.")
-            return result
-
-        try:
-            fetched = self._fetch(area, source, feedback, refresh)
-        except SourceError as exc:
-            result.gaps.append(DataGap.SOURCE_UNAVAILABLE.value)
-            result.warnings.append(f"La fonte non ha risposto: {exc}")
-            return result
-        layer = fetched.layer(source.name) if fetched is not None else None
-        if layer is None or not layer.isValid():
-            result.gaps.append(DataGap.QUERY_FAILED.value)
-            return result
-        # A capped download turns every percentage into a share of whatever arrived
-        # first. The number is still useful, but only if it says what it is.
-        if getattr(fetched, "truncated", False):
+                f"Consultate {len(consulted)} fonti su {len(sources)}: il risultato "
+                f"potrebbe essere incompleto.")
             result.gaps.append(DataGap.PARTIAL_COVERAGE.value)
-            result.warnings.append(
-                "La risposta e' stata troncata al limite di feature configurato: le "
-                "superfici e le percentuali si riferiscono alle sole feature scaricate.")
-        if getattr(fetched, "lost_features", 0):
-            result.gaps.append(DataGap.PARTIAL_COVERAGE.value)
-            result.warnings.append(
-                f"{fetched.lost_features} feature annunciate dal servizio non sono "
-                f"state lette: il calcolo e' incompleto.")
 
-        result.classes = self._classify(layer, area, source, rule, total)
-        if not result.classes:
+        answered = 0
+        buckets: List[HazardClass] = []
+        seen_gaps: List[str] = []
+        for source in consulted:
+            if feedback.is_canceled():
+                break
+            rule = rule_for(source)
+            if not result.source_id:
+                self._attribute(result, source, rule, kind, theme, work_crs)
+            if rule.get("limitation") and rule["limitation"] not in result.limitations:
+                result.limitations.append(rule["limitation"])
+
+            if not self._is_measurable(source):
+                seen_gaps.append(DataGap.VIEW_ONLY.value)
+                result.warnings.append(
+                    f"«{source.name}» e' consultabile ma non scaricabile: superficie e "
+                    f"percentuale non sono calcolabili.")
+                continue
+            try:
+                fetched = self._fetch(area, source, feedback, refresh)
+            except SourceError as exc:
+                seen_gaps.append(DataGap.SOURCE_UNAVAILABLE.value)
+                result.warnings.append(f"«{source.name}» non ha risposto: {exc}")
+                continue
+            layer = fetched.layer(source.name) if fetched is not None else None
+            if layer is None or not layer.isValid():
+                seen_gaps.append(DataGap.QUERY_FAILED.value)
+                continue
+            answered += 1
+            # A capped or lossy download turns every percentage into a share of whatever
+            # arrived. The number stays useful only if it says what it is.
+            if getattr(fetched, "truncated", False):
+                seen_gaps.append(DataGap.PARTIAL_COVERAGE.value)
+                result.warnings.append(
+                    f"«{source.name}»: risposta troncata al limite di feature, le "
+                    f"superfici si riferiscono alle sole feature scaricate.")
+            if getattr(fetched, "lost_features", 0):
+                seen_gaps.append(DataGap.PARTIAL_COVERAGE.value)
+                result.warnings.append(
+                    f"«{source.name}»: {fetched.lost_features} feature annunciate non "
+                    f"sono state lette, il calcolo e' incompleto.")
+            found = self._classify(layer, area, source, rule, total)
+            if found:
+                # Whichever source actually carries data names the result, so the
+                # provenance points at what was measured, not at what was tried first.
+                self._attribute(result, source, rule, kind, theme, work_crs)
+            buckets.extend(found)
+
+        result.classes = self._merge(buckets)
+        for gap in seen_gaps:
+            if gap not in result.gaps:
+                result.gaps.append(gap)
+        if not answered:
+            if not any(g in result.gaps for g in (DataGap.SOURCE_UNAVAILABLE.value,
+                                                  DataGap.VIEW_ONLY.value)):
+                result.gaps.append(DataGap.QUERY_FAILED.value)
+        elif not result.classes:
             result.gaps.append(DataGap.NO_FEATURE_FOUND.value)
         return result
+
+    @staticmethod
+    def _attribute(result: ThemeOutcome, source: DataSource, rule: Dict[str, Any],
+                   kind: Kind, theme: str, work_crs) -> None:
+        """Point the result at a source: its name, its plan and its provenance."""
+        result.source_id = source.id
+        result.source_name = source.name
+        result.plan = rule.get("plan", "") or source.legal_reference
+        result.dataset_version = source.last_verified or ""
+        result.provenance = source.provenance(
+            operation=f"{kind.label_it} - {theme}", crs=work_crs.authid())
+
+    @staticmethod
+    def _merge(classes: List[HazardClass]) -> List[HazardClass]:
+        """Fold classes sharing an official code, however many sources produced them.
+
+        A partitioned dataset legitimately answers the same class from two neighbouring
+        districts when an area straddles a boundary, and two rows for one class would
+        read as two classes.
+        """
+        merged: Dict[str, HazardClass] = {}
+        for row in classes:
+            existing = merged.get(row.official_code)
+            if existing is None:
+                merged[row.official_code] = row
+                continue
+            existing.area_m2 += row.area_m2
+            existing.percentage += row.percentage
+            existing.feature_count += row.feature_count
+        return sorted(merged.values(), key=lambda c: c.area_m2, reverse=True)
+
 
     # ------------------------------------------------------------------ retrieval
 
