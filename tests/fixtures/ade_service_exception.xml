@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ServiceExceptionReport version="1.1.1"><ServiceException code="InvalidFormat"><![CDATA[Richiesta non valida ]]></ServiceException></ServiceExceptionReport>

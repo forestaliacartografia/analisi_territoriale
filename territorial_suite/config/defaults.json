@@ -1,0 +1,167 @@
+{
+  "_comment": "Built-in defaults. Never edit at runtime: user overrides are stored in QgsSettings (plugins/territorial_suite/...) and project overrides in the QGIS project file.",
+  "general": {
+    "mode": "quick",
+    "work_crs_mode": "auto_utm",
+    "work_crs": "",
+    "ellipsoid": "EPSG:7030",
+    "debug_logging": false,
+    "add_layers_to_project": true,
+    "group_layers": true
+  },
+  "network": {
+    "timeout_s": 30,
+    "retries": 3,
+    "backoff_s": 1.5,
+    "max_redirects": 5,
+    "page_size": 1000,
+    "max_features_per_source": 20000,
+    "auth_config_id": "",
+    "min_interval_s": 0.0,
+    "offline": false
+  },
+  "cache": {
+    "enabled": true,
+    "quota_mb": 2048.0,
+    "bbox_grid_m": 100,
+    "ttl_hours": {
+      "capabilities": 168,
+      "vector": 24,
+      "raster": 720,
+      "metadata": 168
+    },
+    "ttl_minutes": {
+      "health": 10
+    }
+  },
+  "analysis": {
+    "_comment_buffer": "context_buffer_m e' il raggio effettivamente scaricato attorno all'area: max_distance_m non puo' superarlo, perche' oltre quel raggio non ci sono dati da misurare.",
+    "context_buffer_m": 1000,
+    "max_distance_m": 1000,
+    "compute_distances": true,
+    "keep_intersection_geometry": true,
+    "admin_strategies": [
+      "cadastre",
+      "osm"
+    ],
+    "max_hits_per_source": 500,
+    "setback_bands_m": [
+      10,
+      30,
+      150
+    ],
+    "categories": [
+      "legal_administrative",
+      "nature_conservation",
+      "landscape_cultural",
+      "hydro_geomorphological",
+      "forest_vegetation",
+      "water",
+      "infrastructure",
+      "risk",
+      "landuse_planning",
+      "anthropic_pressure",
+      "cadastral",
+      "environmental_assessment",
+      "hydrography"
+    ]
+  },
+  "cadastre": {
+    "source_id": "it.agenziaentrate.inspire.cp",
+    "include_buildings": false,
+    "sheet_from_zoning": true,
+    "max_parcels": 5000
+  },
+  "terrain": {
+    "source_id": "",
+    "cell_size_m": 10,
+    "slope_unit": "percent",
+    "slope_classes_percent": [
+      5,
+      10,
+      20,
+      30,
+      50
+    ],
+    "aspect_classes": 8,
+    "contour_interval_m": 25,
+    "profile_samples": 500,
+    "histogram_bins": 20,
+    "hillshade_opacity": 0.55,
+    "hillshade_azimuth": 315,
+    "hillshade_altitude": 45,
+    "hillshade_z_factor": 1.0,
+    "shaded_relief": true
+  },
+  "download": {
+    "categories": [
+      "roads",
+      "hydrography",
+      "trails",
+      "buildings",
+      "places",
+      "infrastructure"
+    ],
+    "output_format": "GPKG",
+    "clip_to_area": true,
+    "buffer_m": 250
+  },
+  "cartography": {
+    "page_size": "A3",
+    "orientation": "landscape",
+    "margin_mm": 10,
+    "scales": [
+      500,
+      1000,
+      2000,
+      5000,
+      10000,
+      25000,
+      50000,
+      100000
+    ],
+    "scale_mode": "auto",
+    "grid": true,
+    "grid_crs": "",
+    "legend_max_layers": 12,
+    "north_arrow": true,
+    "scale_bar": true,
+    "attribution": true,
+    "logo_path": "",
+    "style_preset": "professional",
+    "dpi": 300,
+    "overview": {
+      "enabled": true,
+      "anchor": "panel",
+      "corner": "bottom_right",
+      "width_pct": 22,
+      "height_pct": 22,
+      "margin_mm": 4,
+      "zoom_factor": 12,
+      "basemap_source_id": "",
+      "categories": [
+        "administrative"
+      ],
+      "frame": true,
+      "frame_color": "#d32f2f",
+      "frame_width": 0.5,
+      "fill_color": "#d32f2f33",
+      "centered": true,
+      "inverted": false
+    }
+  },
+  "report": {
+    "author": "",
+    "organisation": "",
+    "include_maps": true,
+    "include_cadastre": true,
+    "include_terrain": true,
+    "include_sources": true,
+    "format": "pdf",
+    "language": "it"
+  },
+  "paths": {
+    "last_output_dir": "",
+    "last_area_dir": ""
+  }
+}

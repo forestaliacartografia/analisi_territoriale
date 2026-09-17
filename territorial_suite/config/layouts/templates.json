@@ -1,0 +1,334 @@
+{
+  "_comment": "Layout templates. 'blocks' are stacked top-down in the side panel; heights are in mm and the 'legend' block absorbs the remaining space when flexible=true. 'layers.categories' selects which analysis layers the map shows (empty = every visible layer). Add or edit templates here, or drop a file with the same shape in <QGIS profile>/territorial_suite/layouts/.",
+  "defaults": {
+    "page": {
+      "size": "A3",
+      "orientation": "landscape",
+      "margin_mm": 10
+    },
+    "map": {
+      "x_pct": 0,
+      "y_pct": 0,
+      "w_pct": 73,
+      "h_pct": 100,
+      "frame": true,
+      "grid": true
+    },
+    "panel": {
+      "x_pct": 74,
+      "y_pct": 0,
+      "w_pct": 26,
+      "h_pct": 100,
+      "background": "#ffffff",
+      "border": "#808080"
+    },
+    "blocks": [
+      {
+        "type": "title",
+        "h_mm": 14,
+        "font_size": 13,
+        "bold": true
+      },
+      {
+        "type": "subtitle",
+        "h_mm": 9,
+        "font_size": 8.5
+      },
+      {
+        "type": "overview",
+        "h_mm": 34
+      },
+      {
+        "type": "legend",
+        "h_mm": 70,
+        "font_size": 7.5,
+        "flexible": true
+      },
+      {
+        "type": "scalebar",
+        "h_mm": 16,
+        "font_size": 7
+      },
+      {
+        "type": "northarrow",
+        "h_mm": 20
+      },
+      {
+        "type": "info",
+        "h_mm": 34,
+        "font_size": 7
+      },
+      {
+        "type": "sources",
+        "h_mm": 26,
+        "font_size": 6
+      },
+      {
+        "type": "disclaimer",
+        "h_mm": 16,
+        "font_size": 6
+      },
+      {
+        "type": "footer",
+        "h_mm": 8,
+        "font_size": 6.5
+      }
+    ],
+    "style_preset": "professional"
+  },
+  "templates": [
+    {
+      "id": "territorial_overview",
+      "order": 1,
+      "name": "01 - Inquadramento territoriale",
+      "title": "Inquadramento territoriale",
+      "layers": {
+        "categories": [],
+        "basemap": "osm.basemap.standard",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "cadastral_map",
+      "order": 2,
+      "name": "02 - Carta catastale",
+      "title": "Estratto di mappa catastale",
+      "page": {
+        "size": "A3",
+        "orientation": "portrait"
+      },
+      "layers": {
+        "categories": [
+          "cadastral"
+        ],
+        "basemap": "",
+        "terrain": ""
+      },
+      "map": {
+        "grid": true
+      },
+      "scale_hint": 2000
+    },
+    {
+      "id": "constraints_map",
+      "order": 3,
+      "name": "03 - Carta dei vincoli",
+      "title": "Carta dei vincoli e delle sensibilita",
+      "layers": {
+        "categories": [
+          "legal_administrative",
+          "landscape_cultural",
+          "hydro_geomorphological",
+          "nature_conservation",
+          "forest_vegetation",
+          "risk"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "environmental_map",
+      "order": 4,
+      "name": "04 - Carta ambientale",
+      "title": "Carta ambientale e naturalistica",
+      "layers": {
+        "categories": [
+          "nature_conservation",
+          "forest_vegetation",
+          "water"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "forestry_map",
+      "order": 5,
+      "name": "05 - Carta forestale",
+      "title": "Carta forestale e uso del suolo",
+      "layers": {
+        "categories": [
+          "forest_vegetation",
+          "landuse_planning"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "hydrographic_map",
+      "order": 6,
+      "name": "06 - Carta idrografica",
+      "title": "Carta idrografica",
+      "layers": {
+        "categories": [
+          "water",
+          "hydrography",
+          "hydro_geomorphological"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "infrastructure_map",
+      "order": 7,
+      "name": "07 - Carta delle infrastrutture",
+      "title": "Carta delle infrastrutture",
+      "layers": {
+        "categories": [
+          "infrastructure",
+          "roads",
+          "trails",
+          "buildings",
+          "places"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "risk_map",
+      "order": 8,
+      "name": "08 - Carta del rischio",
+      "title": "Carta del rischio",
+      "layers": {
+        "categories": [
+          "risk",
+          "hydro_geomorphological"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "orthophoto_map",
+      "order": 9,
+      "name": "09 - Ortofoto",
+      "title": "Ortofoto",
+      "layers": {
+        "categories": [
+          "cadastral"
+        ],
+        "basemap": "esri.basemap.world_imagery",
+        "terrain": ""
+      },
+      "blocks_override": [
+        {
+          "type": "title",
+          "h_mm": 14,
+          "font_size": 13,
+          "bold": true
+        },
+        {
+          "type": "subtitle",
+          "h_mm": 9,
+          "font_size": 8.5
+        },
+        {
+          "type": "legend",
+          "h_mm": 40,
+          "font_size": 7.5,
+          "flexible": true
+        },
+        {
+          "type": "scalebar",
+          "h_mm": 16,
+          "font_size": 7
+        },
+        {
+          "type": "northarrow",
+          "h_mm": 20
+        },
+        {
+          "type": "info",
+          "h_mm": 34,
+          "font_size": 7
+        },
+        {
+          "type": "sources",
+          "h_mm": 30,
+          "font_size": 6
+        },
+        {
+          "type": "disclaimer",
+          "h_mm": 20,
+          "font_size": 6
+        },
+        {
+          "type": "footer",
+          "h_mm": 8,
+          "font_size": 6.5
+        }
+      ]
+    },
+    {
+      "id": "elevation_map",
+      "order": 10,
+      "name": "10 - Carta altimetrica",
+      "title": "Carta altimetrica",
+      "layers": {
+        "categories": [
+          "terrain"
+        ],
+        "basemap": "",
+        "terrain": "dem"
+      }
+    },
+    {
+      "id": "slope_map",
+      "order": 11,
+      "name": "11 - Carta della pendenza",
+      "title": "Carta della pendenza",
+      "layers": {
+        "categories": [
+          "terrain"
+        ],
+        "basemap": "",
+        "terrain": "slope"
+      }
+    },
+    {
+      "id": "technical_map",
+      "order": 12,
+      "name": "12 - Carta tecnica",
+      "title": "Carta tecnica di progetto",
+      "page": {
+        "size": "A2",
+        "orientation": "landscape"
+      },
+      "layers": {
+        "categories": [],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    }
+  ],
+  "series": {
+    "default": [
+      "territorial_overview",
+      "cadastral_map",
+      "constraints_map",
+      "environmental_map",
+      "hydrographic_map",
+      "infrastructure_map",
+      "risk_map",
+      "orthophoto_map",
+      "elevation_map",
+      "slope_map"
+    ],
+    "minimal": [
+      "territorial_overview",
+      "cadastral_map",
+      "constraints_map"
+    ],
+    "forestry": [
+      "territorial_overview",
+      "forestry_map",
+      "hydrographic_map",
+      "elevation_map",
+      "slope_map"
+    ]
+  }
+}

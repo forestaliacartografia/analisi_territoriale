@@ -1,0 +1,1181 @@
+{
+  "_comment": "Ministero della Cultura - SITAP. Ogni descrittore 'verified' riporta in verification_note l'esito di richieste realmente eseguite (vedi docs/SOURCE_MATRIX.md). Le fonti non verificabili restano nel catalogo con uno stato non operativo: documentano un dato esistente che il plugin non puo' interrogare, e non vengono mai usate in analisi. Licenza d'uso non dichiarata dal servizio (pagina verificata il 2026-09-17): il dato e' pubblico ma le condizioni di riuso non sono esplicitate. Citare sempre la fonte.",
+  "sources": [
+    {
+      "id": "it.mic.sitap.art136.poligoni",
+      "name": "Beni paesaggistici dichiarati - art. 136 (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_assets_declared",
+      "subcategory": "art136",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:wms_sitap_v1497_pol_136",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "oggetto",
+        "code": "codvin",
+        "act_date": "data_decreto",
+        "act_authority": "ente",
+        "act_law": "legge",
+        "updated": "data_aggiornamento"
+      },
+      "evidence_level": "verified_act",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 7 feature/733 ms, Milano 5/1078 ms, Bolzano 76/9937 ms, Bari 13/1047 ms, Roma 18/625 ms, Palermo 0/203 ms.",
+      "quality": {
+        "score": 85,
+        "completeness": "nazionale con densita' disomogenea",
+        "currency": "campo data_aggiornamento per singolo bene"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [
+        "it.mic.sitap.art136.poligoni.storico"
+      ],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 136 (gia' L. 1497/1939)",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art136",
+        "1497",
+        "decreto"
+      ],
+      "notes": "Ogni poligono riporta gli estremi dichiarati del provvedimento (data del decreto, ente, legge). Il dato cartografico non sostituisce la verifica del provvedimento presso l'ente competente."
+    },
+    {
+      "id": "it.mic.sitap.art136.poligoni.storico",
+      "name": "Beni paesaggistici ex L. 1497/1939 - poligoni (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_assets_declared",
+      "subcategory": "art136",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:v1497pol_wgs84",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "uso",
+        "code": "codvr",
+        "unnamed_label": "Bene paesaggistico ex L. 1497/1939"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 5 feature/1218 ms.",
+      "quality": {
+        "score": 65,
+        "completeness": "nazionale",
+        "notes": "Senza estremi del provvedimento: usare come ripiego."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "L. 1497/1939",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art136",
+        "1497"
+      ],
+      "notes": "Versione storica dello stesso tematismo, mantenuta come fonte di ripiego."
+    },
+    {
+      "id": "it.mic.sitap.beni.tutelati",
+      "name": "Beni culturali tutelati - art. 10 (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cultural_heritage_assets",
+      "subcategory": "art10",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:tab_benitutelati2",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Point",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "bene",
+        "holder": "ente",
+        "place": "toponimo",
+        "municipality": "nome_comun",
+        "istat": "cod_istat"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 75 feature/655 ms, Palermo 9/641 ms; Milano, Roma, Bari e Bolzano 0.",
+      "quality": {
+        "score": 45,
+        "completeness": "discontinua",
+        "notes": "Il campo 'ente' indica il soggetto detentore del bene (per esempio 'Comune di Firenze'), non la Soprintendenza competente."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Copertura molto discontinua, verificata: 75 elementi su Firenze e 9 su Palermo contro 0 su Milano, Roma, Bari e Bolzano. L'assenza di elementi non prova l'assenza di beni tutelati. Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 10",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "generic_point",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "beni culturali",
+        "art10"
+      ],
+      "notes": "Anagrafica puntuale dei beni tutelati. Il punto localizza il bene, non ne delimita l'estensione."
+    },
+    {
+      "id": "it.mic.sitap.giardini",
+      "name": "Giardini e parchi storici tutelati (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cultural_heritage_assets",
+      "subcategory": "giardini",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:tab_giardini_2",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Point",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "nome_giard",
+        "place": "indirizzo",
+        "period": "epoca",
+        "act_law": "legge",
+        "act_document": "documento",
+        "ownership": "proprieta"
+      },
+      "evidence_level": "verified_act",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 48 feature/641 ms, Milano 62/641 ms, Roma 6/717 ms, Bari 1/812 ms.",
+      "quality": {
+        "score": 60,
+        "completeness": "discontinua",
+        "notes": "Alcuni campi testuali contengono entita' HTML (per esempio 'de&#39;'), normalizzate dal plugin."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 10 c. 4 lett. f",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "generic_point",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "beni culturali",
+        "giardini"
+      ],
+      "notes": "Riporta gli estremi dichiarati della notifica di vincolo (campi 'legge' e 'documento')."
+    },
+    {
+      "id": "it.mic.sitap.vir.beni",
+      "name": "Vincoli in Rete - anagrafica beni culturali (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cultural_heritage_assets",
+      "subcategory": "vir",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:tab_vir_v_geo_anagrafica_beni",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "Point",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:4326",
+        "page_size": 500,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "denominazi",
+        "type": "tipo_bene",
+        "class": "classe",
+        "municipality": "comune",
+        "province": "provincia",
+        "code": "id_cartari"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze, Milano, Palermo, Bari e Roma oltre il tetto di 400 elementi in 1,3-1,6 s; Bolzano 97/703 ms.",
+      "quality": {
+        "score": 70,
+        "completeness": "nazionale",
+        "notes": "Il campo 'classe' porta la classificazione della fonte."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [],
+        "notes": "Unica fonte MiC con risposta su tutte le aree di prova. E' un'anagrafica di beni, non una perimetrazione di vincolo."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 Parte II",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "generic_point",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "beni culturali",
+        "vincoli in rete",
+        "iccd"
+      ],
+      "notes": "Confluenza dei sistemi Vincoli in Rete. La densita' e' alta: in aree urbane il risultato puo' raggiungere il tetto configurato."
+    },
+    {
+      "id": "it.mic.sitap.vir.aree_archeologiche",
+      "name": "Aree archeologiche vincolate - Vincoli in Rete (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "archaeological_heritage",
+      "subcategory": "archeologia",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:tab_vir_geo_aree_archeol_vincolate",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:4326",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "nome",
+        "type": "tipo"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Roma 45 feature/703 ms, Milano 8/781 ms; Firenze, Palermo, Bari e Bolzano 0.",
+      "quality": {
+        "score": 60,
+        "completeness": "discontinua"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Copertura discontinua verificata. Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 10 e art. 142 c. 1 lett. m",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "archeologia"
+      ],
+      "notes": "Perimetrazioni di aree archeologiche gia' oggetto di provvedimento."
+    },
+    {
+      "id": "it.mic.sitap.unesco.punti",
+      "name": "Siti UNESCO - componenti (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "unesco_heritage",
+      "subcategory": "unesco",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:Unesco_point",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Point",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "componente,sito",
+        "site": "sito",
+        "code": "cod_unesco",
+        "type": "tipo_area",
+        "unnamed_label": "Componente di sito UNESCO"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Roma 9 feature/687 ms.",
+      "quality": {
+        "score": 55,
+        "completeness": "puntuale",
+        "notes": "Punti delle componenti, non perimetri dei siti."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [],
+        "notes": "Le geometrie poligonali UNESCO pubblicate da SITAP non sono leggibili (GML non valido): restano disponibili i punti delle componenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "Convenzione UNESCO 1972; L. 77/2006",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "generic_point",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "unesco"
+      ],
+      "notes": "L'iscrizione nella lista UNESCO non e' di per se' un vincolo: le tutele applicabili discendono dagli strumenti nazionali."
+    },
+    {
+      "id": "it.mic.sitap.soprintendenze",
+      "name": "Soprintendenze - ambiti di competenza (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "heritage_administration",
+      "subcategory": "soprintendenze",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:wms_soprintendenze_attuali",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "denominazione",
+        "code": "codice",
+        "website": "sito",
+        "pec": "pec",
+        "office_type": "tipo_ufficio"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "reference_base",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 2 feature/967 ms, Milano 2/859 ms, Bari 1/875 ms, Roma 1/859 ms; Palermo e Bolzano 0.",
+      "quality": {
+        "score": 80,
+        "completeness": "nazionale salvo autonomie",
+        "notes": "Un'area a cavallo di un confine puo' ricadere in piu' ambiti: il plugin li riporta tutti."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.P.C.M. di organizzazione del Ministero della Cultura",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "admin_boundaries",
+      "group": "Amministrazione MiC",
+      "tags": [
+        "soprintendenza",
+        "mic"
+      ],
+      "notes": "Ambito territoriale degli uffici periferici del Ministero. Serve a indicare a chi rivolgersi, non a qualificare un vincolo."
+    },
+    {
+      "id": "it.mic.sitap.art142g.boschi",
+      "name": "Boschi - art. 142 c. 1 lett. g (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_areas_by_law",
+      "subcategory": "art142g",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:vw_vasvia_boschi",
+      "crs": [
+        "EPSG:23032"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:23032",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 60,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "tipobos",
+        "unnamed_label": "Superficie boscata (art. 142 lett. g)"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 2 feature/4484 ms.",
+      "quality": {
+        "score": 50,
+        "completeness": "ricognitiva",
+        "notes": "Risposta piu' lenta delle altre (oltre 4 s sull'area di prova)."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Ricognizione cartografica nazionale; la definizione di bosco applicabile e' quella della normativa regionale. Il produttore avverte che i dati di fonte regionale sono suscettibili di riallineamento periodico: per il dato originario aggiornato consultare il portale cartografico regionale competente."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c. 1 lett. g",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art142",
+        "boschi"
+      ],
+      "notes": "La tutela ope legis opera per legge: la mappa e' ricognitiva e non costitutiva."
+    },
+    {
+      "id": "it.mic.sitap.art142h.usi_civici",
+      "name": "Usi civici - art. 142 c. 1 lett. h (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_areas_by_law",
+      "subcategory": "art142h",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:tab_usi_civici",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "codice",
+        "code": "gdi",
+        "unnamed_label": "Area gravata da uso civico (art. 142 lett. h)"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: servizio interrogato con esito valido (0 elementi nel box di prova, 187 ms); 1 elemento in Casentino alla verifica del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "incompleta"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Gli usi civici sono accertati dai commissariati regionali: la ricognizione SITAP e' incompleta per costruzione. Il produttore avverte che i dati di fonte regionale sono suscettibili di riallineamento periodico: per il dato originario aggiornato consultare il portale cartografico regionale competente."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c. 1 lett. h; L. 168/2017",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art142",
+        "usi civici"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "it.mic.sitap.art142l.vulcani",
+      "name": "Vulcani - art. 142 c. 1 lett. l (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_areas_by_law",
+      "subcategory": "art142l",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_public:vulcani",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:32632",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "nome",
+        "code": "codice"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Napoli 2 feature/921 ms.",
+      "quality": {
+        "score": 60,
+        "completeness": "nazionale"
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Italia"
+        ],
+        "notes": "Tematismo di estensione limitata alle aree vulcaniche."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c. 1 lett. l",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art142",
+        "vulcani"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "it.mic.sitap.art142i.zone_umide",
+      "name": "Zone umide - art. 142 c. 1 lett. i (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "wetlands_ramsar",
+      "subcategory": "art142i",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:vw_vasvia_zone_umide",
+      "crs": [
+        "EPSG:23032"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:23032",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "nome",
+        "unnamed_label": "Zona umida (art. 142 lett. i)"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: servizio interrogato con esito valido, 0 elementi nelle aree di prova (203 ms).",
+      "quality": {
+        "score": 55,
+        "completeness": "nazionale"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Corrisponde alle zone umide di importanza internazionale (Ramsar) recepite nell'art. 142. Nessun geoservizio Ramsar dedicato risulta verificato."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c. 1 lett. i; Convenzione di Ramsar",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Aree protette",
+      "tags": [
+        "paesaggio",
+        "art142",
+        "ramsar",
+        "zone umide"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "it.mic.sitap.aree_rispetto",
+      "name": "Aree di rispetto dei beni paesaggistici (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "landscape_areas_by_law",
+      "subcategory": "aree_rispetto",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:vw_vasvia_aree_di_rispetto",
+      "crs": [
+        "EPSG:23032"
+      ],
+      "geometry": "Polygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:23032",
+        "page_size": 200,
+        "max_features": 2000,
+        "timeout_s": 45,
+        "retries": 2,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "inside",
+        "unnamed_label": "Area di rispetto di bene paesaggistico"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "2026-09-17: Firenze 10 feature/952 ms.",
+      "quality": {
+        "score": 45,
+        "completeness": "ricognitiva",
+        "notes": "Attributi minimi: il solo campo 'inside'."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Sicilia",
+          "Provincia autonoma di Trento",
+          "Provincia autonoma di Bolzano",
+          "Valle d'Aosta"
+        ],
+        "notes": "Regione Siciliana, province autonome di Trento e Bolzano e Valle d'Aosta esercitano competenze proprie in materia di paesaggio e beni culturali: in quelle aree una risposta vuota non equivale ad assenza di tutele e va verificata sui portali regionali competenti."
+      },
+      "fallback_sources": [],
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "legal_reference": "D.Lgs. 42/2004 art. 142",
+      "update_frequency": "aggiornamento continuo dichiarato dal produttore",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "metadata_url": "",
+      "scale": "",
+      "enabled": true,
+      "priority": 20,
+      "style": "",
+      "group": "Patrimonio culturale",
+      "tags": [
+        "paesaggio",
+        "art142"
+      ],
+      "notes": "Fasce di rispetto ricognitive associate ai tematismi art. 142; gli attributi disponibili non identificano il bene di riferimento."
+    },
+    {
+      "id": "it.mic.sitap.unesco.poligoni",
+      "name": "Siti UNESCO - perimetri (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "unesco_heritage",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:vw_unesco_sito",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "query": {
+        "version": "2.0.0"
+      },
+      "fields": {},
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "unverified",
+      "verification_note": "2026-09-17: il servizio risponde ma le geometrie GML sono rifiutate ('Invalid surfaceMember'): 1 elemento annunciato, 0 leggibili.",
+      "quality": {
+        "score": 0
+      },
+      "coverage": {
+        "completeness": "unknown"
+      },
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "enabled": true,
+      "priority": 90,
+      "group": "Patrimonio culturale",
+      "tags": [
+        "censita"
+      ],
+      "notes": "Perimetri dei siti UNESCO. Non utilizzabile finche' il produttore non corregge il GML. Usare 'it.mic.sitap.unesco.punti'."
+    },
+    {
+      "id": "it.mic.sitap.unesco.poligoni.2026",
+      "name": "Siti UNESCO 2026 - core zone (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "unesco_heritage",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_wms_bounce:unesco_official_2026_polygon_core",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "query": {
+        "version": "2.0.0"
+      },
+      "fields": {},
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "unverified",
+      "verification_note": "2026-09-17: 3 elementi annunciati su Firenze, 0 leggibili ('Invalid surfaceMember').",
+      "quality": {
+        "score": 0
+      },
+      "coverage": {
+        "completeness": "unknown"
+      },
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "enabled": true,
+      "priority": 90,
+      "group": "Patrimonio culturale",
+      "tags": [
+        "censita"
+      ],
+      "notes": "Stesso difetto GML del layer storico."
+    },
+    {
+      "id": "it.mic.sitap.soprintendenze.paesaggio",
+      "name": "Soprintendenze - competenza paesaggistica (SITAP)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "heritage_administration",
+      "type": "WFS",
+      "url": "https://sitap.cultura.gov.it/geoserver/wfs",
+      "layer": "sitap_ws:vw_sitap_soprintendenze_paesaggio",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "query": {
+        "version": "2.0.0"
+      },
+      "fields": {},
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "unavailable",
+      "verification_note": "Risposta oltre 30 s alla verifica del 2026-09-16: inutilizzabile in analisi.",
+      "quality": {
+        "score": 0
+      },
+      "coverage": {
+        "completeness": "unknown"
+      },
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "enabled": true,
+      "priority": 90,
+      "group": "Patrimonio culturale",
+      "tags": [
+        "censita"
+      ],
+      "notes": "Sostituita da 'it.mic.sitap.soprintendenze' (sitap_ws:wms_soprintendenze_attuali), verificata a 0,9 s."
+    },
+    {
+      "id": "it.iccd.vincoli_in_rete",
+      "name": "Vincoli in Rete (portale ICCD/MiC)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cultural_heritage_assets",
+      "type": "REST",
+      "url": "http://vincoliinrete.beniculturali.it/",
+      "layer": "",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "query": {
+        "version": "2.0.0"
+      },
+      "fields": {},
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "discovery_required",
+      "verification_note": "Portale di consultazione web: nessun endpoint OGC o REST pubblico verificato al 2026-09-17.",
+      "quality": {
+        "score": 0
+      },
+      "coverage": {
+        "completeness": "unknown"
+      },
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "enabled": true,
+      "priority": 90,
+      "group": "Patrimonio culturale",
+      "tags": [
+        "censita"
+      ],
+      "notes": "I contenuti sono comunque raggiungibili attraverso i layer 'tab_vir_*' pubblicati da SITAP, gia' operativi nel catalogo."
+    },
+    {
+      "id": "it.iccd.carta_del_rischio",
+      "name": "Carta del Rischio del Patrimonio Culturale (ICCD)",
+      "authority": "Ministero della Cultura",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cultural_heritage_assets",
+      "type": "REST",
+      "url": "http://www.cartadelrischio.beniculturali.it/",
+      "layer": "",
+      "crs": [
+        "EPSG:32632"
+      ],
+      "query": {
+        "version": "2.0.0"
+      },
+      "fields": {},
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "discovery_required",
+      "verification_note": "Consultazione solo web: nessun servizio geografico pubblico verificato.",
+      "quality": {
+        "score": 0
+      },
+      "coverage": {
+        "completeness": "unknown"
+      },
+      "documentation_url": "https://sitap.cultura.gov.it/",
+      "last_verified": "2026-09-17",
+      "license": "",
+      "attribution": "Ministero della Cultura - SITAP",
+      "official": true,
+      "enabled": true,
+      "priority": 90,
+      "group": "Patrimonio culturale",
+      "tags": [
+        "censita"
+      ],
+      "notes": "Censita per documentare il dato esistente, non interrogabile dal plugin."
+    }
+  ]
+}

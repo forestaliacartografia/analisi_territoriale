@@ -1,0 +1,365 @@
+{
+  "_comment": "Centralised cartographic styles. A style named X is applied as follows: if config/styles/X.qml (or <profile>/territorial_suite/styles/X.qml) exists it wins; otherwise these definitions are used. Colours are #RRGGBB or #RRGGBBAA. Le rampe possono essere una lista di stop normalizzati 0-1 (interpolati sul minimo/massimo della banda) oppure un oggetto {type: discrete, unit, domain, items} con valori assoluti, usato per pendenza ed esposizione affinche' tavole di aree diverse restino confrontabili.",
+  "presets": {
+    "professional": {
+      "line_scale": 1.0,
+      "font": "Arial"
+    },
+    "draft": {
+      "line_scale": 0.8,
+      "font": "Arial"
+    }
+  },
+  "styles": {
+    "project_area": {
+      "geometry": "polygon",
+      "fill": "#00000000",
+      "stroke": "#d40000",
+      "stroke_width": 0.8,
+      "stroke_style": "solid",
+      "z": 100
+    },
+    "cadastral_parcel": {
+      "geometry": "polygon",
+      "fill": "#ffffff30",
+      "stroke": "#8a5a2b",
+      "stroke_width": 0.26,
+      "label_field": "parcel",
+      "label_size": 7,
+      "label_color": "#5a3a17"
+    },
+    "cadastral_zoning": {
+      "geometry": "polygon",
+      "fill": "#00000000",
+      "stroke": "#5a3a17",
+      "stroke_width": 0.6,
+      "stroke_style": "dash",
+      "label_field": "LABEL",
+      "label_size": 9,
+      "label_color": "#5a3a17"
+    },
+    "natura2000_sci": {
+      "geometry": "polygon",
+      "fill": "#7fbf7f55",
+      "stroke": "#2e7d32",
+      "stroke_width": 0.5,
+      "label_field": "SITENAME",
+      "label_size": 7
+    },
+    "natura2000_spa": {
+      "geometry": "polygon",
+      "fill": "#7f9fdf55",
+      "stroke": "#1a4f9c",
+      "stroke_width": 0.5,
+      "label_field": "SITENAME",
+      "label_size": 7
+    },
+    "protected_area": {
+      "geometry": "polygon",
+      "fill": "#8fd18f55",
+      "stroke": "#276749",
+      "stroke_width": 0.5
+    },
+    "landscape_constraint": {
+      "geometry": "polygon",
+      "fill": "#c9a2d455",
+      "stroke": "#6b3fa0",
+      "stroke_width": 0.5
+    },
+    "hydro_constraint": {
+      "geometry": "polygon",
+      "fill": "#a8c8e855",
+      "stroke": "#2d6ca2",
+      "stroke_width": 0.5
+    },
+    "risk_area": {
+      "geometry": "polygon",
+      "fill": "#e8a87c55",
+      "stroke": "#b35c2a",
+      "stroke_width": 0.5
+    },
+    "forest": {
+      "geometry": "polygon",
+      "fill": "#9ccc9c66",
+      "stroke": "#3f7a3f",
+      "stroke_width": 0.4
+    },
+    "planning_zone": {
+      "geometry": "polygon",
+      "fill": "#d9d9d955",
+      "stroke": "#767676",
+      "stroke_width": 0.4
+    },
+    "buildings": {
+      "geometry": "polygon",
+      "fill": "#c8bfb6",
+      "stroke": "#6f6259",
+      "stroke_width": 0.2
+    },
+    "water_bodies": {
+      "geometry": "polygon",
+      "fill": "#a6cee3",
+      "stroke": "#2d6ca2",
+      "stroke_width": 0.3
+    },
+    "admin_boundaries": {
+      "geometry": "polygon",
+      "fill": "#00000000",
+      "stroke": "#7a7a7a",
+      "stroke_width": 0.5,
+      "stroke_style": "dash_dot",
+      "label_field": "name",
+      "label_size": 9
+    },
+    "roads": {
+      "geometry": "line",
+      "stroke": "#4d4d4d",
+      "stroke_width": 0.5,
+      "label_field": "name",
+      "label_size": 6
+    },
+    "trails": {
+      "geometry": "line",
+      "stroke": "#8b5a2b",
+      "stroke_width": 0.35,
+      "stroke_style": "dash",
+      "label_field": "name",
+      "label_size": 6
+    },
+    "hydrography": {
+      "geometry": "line",
+      "stroke": "#2d6ca2",
+      "stroke_width": 0.4,
+      "label_field": "name",
+      "label_size": 6,
+      "label_color": "#1b4d78"
+    },
+    "railways": {
+      "geometry": "line",
+      "stroke": "#333333",
+      "stroke_width": 0.5,
+      "stroke_style": "dash"
+    },
+    "power_lines": {
+      "geometry": "line",
+      "stroke": "#b8860b",
+      "stroke_width": 0.4,
+      "stroke_style": "dash"
+    },
+    "contours": {
+      "geometry": "line",
+      "stroke": "#a0724a",
+      "stroke_width": 0.18,
+      "label_field": "elev",
+      "label_size": 6,
+      "label_color": "#7a5535"
+    },
+    "springs": {
+      "geometry": "point",
+      "fill": "#2d6ca2",
+      "stroke": "#ffffff",
+      "size": 2.2,
+      "marker": "circle",
+      "label_field": "name",
+      "label_size": 6
+    },
+    "places": {
+      "geometry": "point",
+      "fill": "#333333",
+      "stroke": "#ffffff",
+      "size": 2.0,
+      "marker": "circle",
+      "label_field": "name",
+      "label_size": 8
+    },
+    "generic_constraint": {
+      "geometry": "polygon",
+      "fill": "#ff7f0044",
+      "stroke": "#cc5500",
+      "stroke_width": 0.5
+    },
+    "generic_line": {
+      "geometry": "line",
+      "stroke": "#555555",
+      "stroke_width": 0.4
+    },
+    "generic_point": {
+      "geometry": "point",
+      "fill": "#555555",
+      "stroke": "#ffffff",
+      "size": 2.0
+    }
+  },
+  "category_defaults": {
+    "cadastral": "cadastral_parcel",
+    "nature_conservation": "protected_area",
+    "landscape_cultural": "landscape_constraint",
+    "hydro_geomorphological": "hydro_constraint",
+    "risk": "risk_area",
+    "forest_vegetation": "forest",
+    "landuse_planning": "planning_zone",
+    "water": "springs",
+    "hydrography": "hydrography",
+    "roads": "roads",
+    "trails": "trails",
+    "buildings": "buildings",
+    "places": "places",
+    "infrastructure": "power_lines",
+    "administrative": "admin_boundaries",
+    "legal_administrative": "generic_constraint",
+    "anthropic_pressure": "generic_constraint",
+    "environmental_assessment": "generic_constraint"
+  },
+  "raster": {
+    "dem": {
+      "ramp": "terrain",
+      "opacity": 1.0
+    },
+    "slope": {
+      "ramp": "slope",
+      "opacity": 0.85
+    },
+    "aspect": {
+      "ramp": "aspect",
+      "opacity": 0.8
+    },
+    "hillshade": {
+      "ramp": "gray",
+      "opacity": 0.55,
+      "blend": "multiply"
+    },
+    "shaded": {
+      "opacity": 1.0,
+      "_comment": "Composito gia' colorato: nessun renderer da applicare."
+    }
+  },
+  "ramps": {
+    "terrain": [
+      {
+        "value": 0.0,
+        "color": "#2e7d32"
+      },
+      {
+        "value": 0.25,
+        "color": "#a3c853"
+      },
+      {
+        "value": 0.5,
+        "color": "#e9d8a6"
+      },
+      {
+        "value": 0.75,
+        "color": "#bb9457"
+      },
+      {
+        "value": 1.0,
+        "color": "#ffffff"
+      }
+    ],
+    "slope": {
+      "type": "discrete",
+      "unit": "percent",
+      "domain": [
+        0.0,
+        100.0
+      ],
+      "items": [
+        {
+          "value": 5.0,
+          "color": "#f7fcf5",
+          "label": "0-5%"
+        },
+        {
+          "value": 10.0,
+          "color": "#c7e9c0",
+          "label": "5-10%"
+        },
+        {
+          "value": 20.0,
+          "color": "#fee391",
+          "label": "10-20%"
+        },
+        {
+          "value": 30.0,
+          "color": "#fdd49e",
+          "label": "20-30%"
+        },
+        {
+          "value": 50.0,
+          "color": "#fc8d59",
+          "label": "30-50%"
+        },
+        {
+          "value": 1000.0,
+          "color": "#b30000",
+          "label": "> 50%"
+        }
+      ]
+    },
+    "aspect": {
+      "type": "discrete",
+      "unit": "degrees",
+      "domain": [
+        0.0,
+        360.0
+      ],
+      "items": [
+        {
+          "value": 22.5,
+          "color": "#d73027",
+          "label": "N"
+        },
+        {
+          "value": 67.5,
+          "color": "#f46d43",
+          "label": "NE"
+        },
+        {
+          "value": 112.5,
+          "color": "#fdae61",
+          "label": "E"
+        },
+        {
+          "value": 157.5,
+          "color": "#fee08b",
+          "label": "SE"
+        },
+        {
+          "value": 202.5,
+          "color": "#d9ef8b",
+          "label": "S"
+        },
+        {
+          "value": 247.5,
+          "color": "#a6d96a",
+          "label": "SO"
+        },
+        {
+          "value": 292.5,
+          "color": "#66bd63",
+          "label": "O"
+        },
+        {
+          "value": 337.5,
+          "color": "#3288bd",
+          "label": "NO"
+        },
+        {
+          "value": 360.0,
+          "color": "#d73027",
+          "label": "N"
+        }
+      ]
+    },
+    "gray": [
+      {
+        "value": 0.0,
+        "color": "#000000"
+      },
+      {
+        "value": 1.0,
+        "color": "#ffffff"
+      }
+    ]
+  }
+}

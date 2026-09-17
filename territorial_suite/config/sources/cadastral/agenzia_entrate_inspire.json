@@ -1,0 +1,155 @@
+{
+  "_comment": "Agenzia delle Entrate - INSPIRE cadastral download service (WFS 2.0). Verified 2026-09-16: BBOX must be latitude first (EPSG:6706 urn axis order), paging works with startindex/count, GML 3.2 is the only working output format. The service carries NO registered surface: the area shown by the plugin is computed from the cadastral map geometry and is therefore a graphic surface, not the official one.",
+  "sources": [
+    {
+      "id": "it.agenziaentrate.inspire.cp.parcel",
+      "name": "Particelle catastali (INSPIRE)",
+      "authority": "Agenzia delle Entrate",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cadastral",
+      "subcategory": "parcel",
+      "type": "WFS",
+      "url": "https://wfs.cartografia.agenziaentrate.gov.it/inspire/wfs/owfs01.php",
+      "layer": "CP:CadastralParcel",
+      "crs": [
+        "EPSG:6706"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:6706",
+        "bbox_axis_order": "yx",
+        "crs_format": "urn",
+        "page_size": 1000,
+        "max_features": 20000,
+        "srsname": true,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "LABEL",
+        "code": "NATIONALCADASTRALREFERENCE",
+        "municipality": "ADMINISTRATIVEUNIT",
+        "id": "INSPIREID_LOCALID"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "reference_base",
+      "verification_status": "verified",
+      "verification_note": "GetCapabilities WFS 2.0.0 OK in 125 ms (2026-09-17); scenario live 2026-09-16: 150 particelle su 4 fogli, 6 richieste su 6 andate a buon fine a 0,5 s l'una.",
+      "quality": {
+        "score": 90,
+        "completeness": "nazionale salvo province autonome",
+        "currency": "aggiornamento continuo",
+        "positional_accuracy_m": 2,
+        "notes": "La superficie grafica della particella non coincide con la superficie censita in visura."
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Provincia autonoma di Bolzano",
+          "Provincia autonoma di Trento"
+        ],
+        "notes": "Le province autonome di Trento e Bolzano gestiscono il catasto tavolare con servizi propri e non sono pubblicate da questo servizio."
+      },
+      "legal_reference": "D.Lgs. 32/2010 (INSPIRE) - dati catastali dell'Agenzia delle Entrate",
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "Condizioni d'uso del servizio di consultazione cartografia catastale",
+      "attribution": "Agenzia delle Entrate - Cartografia catastale",
+      "official": true,
+      "metadata_url": "https://www.agenziaentrate.gov.it/portale/it/web/guest/schede/fabbricatiterreni/consultazione-cartografia-catastale/servizio-consultazione-cartografia",
+      "scale": "1:1000 - 1:4000",
+      "enabled": true,
+      "priority": 5,
+      "style": "cadastral_parcel",
+      "group": "Cadastre",
+      "tags": [
+        "catasto",
+        "particelle",
+        "inspire"
+      ],
+      "notes": "Non copre le Province autonome di Trento e Bolzano, che gestiscono il catasto per delega dello Stato. Le superfici calcolate sono grafiche (derivate dalla mappa), non le superfici censite."
+    },
+    {
+      "id": "it.agenziaentrate.inspire.cp.zoning",
+      "name": "Fogli catastali (INSPIRE)",
+      "authority": "Agenzia delle Entrate",
+      "country": "IT",
+      "scope": {
+        "level": "national",
+        "codes": []
+      },
+      "category": "cadastral",
+      "subcategory": "zoning",
+      "type": "WFS",
+      "url": "https://wfs.cartografia.agenziaentrate.gov.it/inspire/wfs/owfs01.php",
+      "layer": "CP:CadastralZoning",
+      "crs": [
+        "EPSG:6706"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "version": "2.0.0",
+        "bbox_crs": "EPSG:6706",
+        "bbox_axis_order": "yx",
+        "crs_format": "urn",
+        "page_size": 500,
+        "max_features": 5000,
+        "srsname": true,
+        "min_interval_s": 0.5
+      },
+      "fields": {
+        "label": "LABEL",
+        "code": "NATIONALCADASTRALZONINGREFERENCE",
+        "municipality": "ADMINISTRATIVEUNIT",
+        "scale": "ORIGINALMAPSCALEDENOMINATOR",
+        "date": "BEGINLIFESPANVERSION"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "reference_base",
+      "verification_status": "verified",
+      "verification_note": "GetCapabilities WFS 2.0.0 OK in 312 ms (2026-09-17); scenario live 2026-09-16: 4 fogli restituiti su Firenze e su due comuni contigui.",
+      "quality": {
+        "score": 90,
+        "completeness": "nazionale salvo province autonome",
+        "currency": "aggiornamento continuo",
+        "positional_accuracy_m": 2
+      },
+      "coverage": {
+        "completeness": "partial",
+        "covered": [
+          "Italia"
+        ],
+        "missing": [
+          "Provincia autonoma di Bolzano",
+          "Provincia autonoma di Trento"
+        ],
+        "notes": "Le province autonome di Trento e Bolzano gestiscono il catasto tavolare con servizi propri e non sono pubblicate da questo servizio."
+      },
+      "legal_reference": "D.Lgs. 32/2010 (INSPIRE) - dati catastali dell'Agenzia delle Entrate",
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "Condizioni d'uso del servizio di consultazione cartografia catastale",
+      "attribution": "Agenzia delle Entrate - Cartografia catastale",
+      "official": true,
+      "metadata_url": "https://www.agenziaentrate.gov.it/portale/it/web/guest/schede/fabbricatiterreni/consultazione-cartografia-catastale/servizio-consultazione-cartografia",
+      "enabled": true,
+      "priority": 4,
+      "style": "cadastral_zoning",
+      "group": "Cadastre",
+      "tags": [
+        "catasto",
+        "fogli",
+        "mappe",
+        "inspire"
+      ],
+      "notes": "Usato anche per individuare rapidamente i Comuni interessati dall'area di progetto (campo ADMINISTRATIVEUNIT = codice catastale)."
+    }
+  ]
+}

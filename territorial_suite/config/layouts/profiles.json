@@ -1,0 +1,320 @@
+{
+  "_comment": "Profili di layout: l'identita' grafica delle tavole, separata dal template (che decide quali dati mostrare). L'utente puo' modificarli dalla finestra Impostazioni > Layout e relazioni, oppure aggiungere i propri in <profilo QGIS>/territorial_suite/layouts/profiles.json con la stessa struttura. Chiavi di testo disponibili: author, client, project, locality, municipality, province, region, date, sheet_code, sheet_number, revision, scale, crs, notes, method_notes, legal_notes, disclaimer, header, footer. Il blocco 'overview' inserisce il riquadro di localizzazione; l'oggetto 'overview' del profilo ne regola zoom, ancoraggio, colori e livelli di contesto.",
+  "version": 1,
+  "profiles": [
+    {
+      "id": "standard",
+      "name": "Standard",
+      "description": "Tavola tecnica essenziale: mappa, legenda, scala, nord, fonti.",
+      "page_size": "A3",
+      "orientation": "landscape",
+      "margin_mm": 10,
+      "title_size": 13,
+      "body_size": 7,
+      "style_preset": "professional",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "auto",
+        "title": "Legenda",
+        "columns": 1,
+        "font_size": 7.5
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 18
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": true,
+      "coordinate_frame": true,
+      "attribution": true,
+      "texts": {},
+      "overview": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "istituzionale",
+      "name": "Istituzionale",
+      "description": "Intestazione con stemma e ente, riquadro firme, note legali estese.",
+      "page_size": "A3",
+      "orientation": "landscape",
+      "margin_mm": 12,
+      "title_size": 14,
+      "body_size": 7,
+      "style_preset": "professional",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "thematic",
+        "title": "Legenda",
+        "columns": 1,
+        "font_size": 7.5,
+        "group_by_category": true
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 20
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": true,
+      "coordinate_frame": true,
+      "attribution": true,
+      "texts": {
+        "header": "",
+        "legal_notes": "Elaborato prodotto a fini conoscitivi. Le perimetrazioni rappresentate hanno valore ricognitivo e non sostituiscono la consultazione degli atti presso gli enti competenti.",
+        "footer": "{project} - {sheet_code} - rev. {revision} - {date}"
+      },
+      "overview": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "tecnico",
+      "name": "Tecnico",
+      "description": "Massima superficie di mappa, reticolo con coordinate, legenda compatta.",
+      "page_size": "A2",
+      "orientation": "landscape",
+      "margin_mm": 8,
+      "title_size": 12,
+      "body_size": 6.5,
+      "style_preset": "technical",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "auto",
+        "title": "Legenda",
+        "columns": 2,
+        "font_size": 6.5,
+        "max_entries": 24
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 14
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": true,
+      "coordinate_frame": true,
+      "attribution": true,
+      "texts": {
+        "method_notes": "Misure ellissoidiche; superfici calcolate nel sistema di riferimento metrico indicato."
+      },
+      "overview": {
+        "enabled": true,
+        "zoom_factor": 20
+      }
+    },
+    {
+      "id": "professionale",
+      "name": "Professionale",
+      "description": "Per elaborati di progetto: loghi, committente, codice elaborato, spazio firma.",
+      "page_size": "A3",
+      "orientation": "landscape",
+      "margin_mm": 10,
+      "title_size": 13,
+      "body_size": 7,
+      "style_preset": "professional",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "thematic",
+        "title": "Legenda",
+        "columns": 1,
+        "font_size": 7.5
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 18
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": true,
+      "coordinate_frame": true,
+      "attribution": true,
+      "texts": {
+        "client": "",
+        "project": "",
+        "sheet_code": "",
+        "revision": "00",
+        "legal_notes": "Il presente elaborato ha natura ricognitiva.",
+        "footer": "{client} - {project} - tav. {sheet_number} rev. {revision}"
+      },
+      "overview": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "semplificato",
+      "name": "Semplificato",
+      "description": "Solo mappa, titolo e scala: per allegati rapidi e stampe di lavoro.",
+      "page_size": "A4",
+      "orientation": "landscape",
+      "margin_mm": 8,
+      "title_size": 12,
+      "body_size": 7,
+      "style_preset": "professional",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "none"
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 14
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": false,
+      "coordinate_frame": false,
+      "attribution": true,
+      "texts": {},
+      "blocks": [
+        {
+          "type": "title",
+          "h_mm": 12,
+          "font_size": 12,
+          "bold": true
+        },
+        {
+          "type": "overview",
+          "h_mm": 34
+        },
+        {
+          "type": "scalebar",
+          "h_mm": 16,
+          "font_size": 7
+        },
+        {
+          "type": "northarrow",
+          "h_mm": 18
+        },
+        {
+          "type": "sources",
+          "h_mm": 20,
+          "font_size": 6
+        },
+        {
+          "type": "attribution",
+          "h_mm": 8,
+          "font_size": 6
+        }
+      ],
+      "overview": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "ortofoto",
+      "name": "Ortofoto",
+      "description": "Tavola su base ortofotografica: mappa piena, attribuzione obbligatoria in evidenza.",
+      "page_size": "A3",
+      "orientation": "landscape",
+      "margin_mm": 10,
+      "title_size": 13,
+      "body_size": 7,
+      "style_preset": "professional",
+      "logos": [],
+      "images": [],
+      "legend": {
+        "mode": "auto",
+        "title": "Legenda",
+        "columns": 1,
+        "font_size": 7.5
+      },
+      "north_arrow": {
+        "enabled": true,
+        "model": "NorthArrow_02",
+        "size_mm": 18
+      },
+      "scale_bar": true,
+      "numeric_scale": true,
+      "grid": true,
+      "coordinate_frame": true,
+      "attribution": true,
+      "texts": {
+        "method_notes": "La data di ripresa dell'ortofoto varia per area e non coincide necessariamente con la data dell'elaborato."
+      },
+      "blocks": [
+        {
+          "type": "title",
+          "h_mm": 14,
+          "font_size": 13,
+          "bold": true
+        },
+        {
+          "type": "subtitle",
+          "h_mm": 9,
+          "font_size": 8.5
+        },
+        {
+          "type": "logos",
+          "h_mm": 18
+        },
+        {
+          "type": "overview",
+          "h_mm": 34
+        },
+        {
+          "type": "legend",
+          "h_mm": 52,
+          "font_size": 7.5,
+          "flexible": true
+        },
+        {
+          "type": "scalebar",
+          "h_mm": 16,
+          "font_size": 7
+        },
+        {
+          "type": "northarrow",
+          "h_mm": 20
+        },
+        {
+          "type": "info",
+          "h_mm": 30,
+          "font_size": 7
+        },
+        {
+          "type": "images",
+          "h_mm": 0
+        },
+        {
+          "type": "sources",
+          "h_mm": 22,
+          "font_size": 6
+        },
+        {
+          "type": "attribution",
+          "h_mm": 12,
+          "font_size": 6.5
+        },
+        {
+          "type": "warnings",
+          "h_mm": 12,
+          "font_size": 6
+        },
+        {
+          "type": "disclaimer",
+          "h_mm": 14,
+          "font_size": 6
+        },
+        {
+          "type": "footer",
+          "h_mm": 8,
+          "font_size": 6.5
+        }
+      ],
+      "overview": {
+        "enabled": true
+      }
+    }
+  ]
+}

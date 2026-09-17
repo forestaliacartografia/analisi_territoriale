@@ -1,0 +1,306 @@
+{
+  "_comment": "Territorial knowledge taxonomy (Quadro Conoscitivo Territoriale). Extensible: add entries here or drop a JSON file with the same shape in <profile>/territorial_suite/taxonomy.json. 'kind' = knowledge (part of the dossier) or support (operational layers). 'parent' files a category under a dossier macro-category: sub-categories describe precisely what a source maps without adding a section to the report.",
+  "version": 2,
+  "categories": [
+    {
+      "id": "legal_administrative",
+      "order": 1,
+      "kind": "knowledge",
+      "label_en": "Legal and administrative constraints",
+      "label_it": "Vincoli giuridico-amministrativi",
+      "report_section": "Vincoli",
+      "description_it": "Limiti amministrativi, usi civici, demanio, servitu, zone soggette a regimi speciali."
+    },
+    {
+      "id": "nature_conservation",
+      "order": 2,
+      "kind": "knowledge",
+      "label_en": "Nature and conservation areas",
+      "label_it": "Aree naturalistiche e conservazione",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Rete Natura 2000 (ZSC/SIC/ZPS), parchi, riserve, aree protette, IBA, corridoi ecologici."
+    },
+    {
+      "id": "landscape_cultural",
+      "order": 3,
+      "kind": "knowledge",
+      "label_en": "Landscape and cultural heritage",
+      "label_it": "Vincoli paesaggistici e culturali",
+      "report_section": "Paesaggio",
+      "description_it": "Beni paesaggistici (D.Lgs. 42/2004), beni culturali, aree tutelate per legge, vincoli archeologici."
+    },
+    {
+      "id": "hydro_geomorphological",
+      "order": 4,
+      "kind": "knowledge",
+      "label_en": "Hydraulic and geomorphological constraints",
+      "label_it": "Vincoli idraulici e geomorfologici",
+      "report_section": "Geomorfologia",
+      "description_it": "Vincolo idrogeologico, PAI, pericolosita geomorfologica e idraulica, frane."
+    },
+    {
+      "id": "forest_vegetation",
+      "order": 5,
+      "kind": "knowledge",
+      "label_en": "Forest, vegetation and natural assets",
+      "label_it": "Boschi, vegetazione e patrimonio naturale",
+      "report_section": "Uso del suolo",
+      "description_it": "Superfici boscate, carta forestale, alberi monumentali, praterie, habitat."
+    },
+    {
+      "id": "water",
+      "order": 6,
+      "kind": "knowledge",
+      "label_en": "Water",
+      "label_it": "Acque",
+      "report_section": "Acque",
+      "description_it": "Reticolo idrografico, corpi idrici, sorgenti, captazioni, aree di salvaguardia."
+    },
+    {
+      "id": "infrastructure",
+      "order": 7,
+      "kind": "knowledge",
+      "label_en": "Infrastructure and setbacks",
+      "label_it": "Infrastrutture e fasce di rispetto",
+      "report_section": "Infrastrutture",
+      "description_it": "Viabilita, ferrovie, elettrodotti, metanodotti, acquedotti, antenne e relative fasce."
+    },
+    {
+      "id": "risk",
+      "order": 8,
+      "kind": "knowledge",
+      "label_en": "Risks",
+      "label_it": "Rischi",
+      "report_section": "Rischi",
+      "description_it": "Rischio idraulico, sismico, incendi boschivi, industriale (RIR), protezione civile."
+    },
+    {
+      "id": "landuse_planning",
+      "order": 9,
+      "kind": "knowledge",
+      "label_en": "Land use and planning",
+      "label_it": "Usi e pianificazione del territorio",
+      "report_section": "Pianificazione",
+      "description_it": "Strumenti urbanistici, zonizzazioni, piani sovraordinati, uso e copertura del suolo."
+    },
+    {
+      "id": "anthropic_pressure",
+      "order": 10,
+      "kind": "knowledge",
+      "label_en": "Human activities and pressures",
+      "label_it": "Attivita antropiche e pressioni",
+      "report_section": "Pressioni",
+      "description_it": "Cave, discariche, impianti, siti contaminati, allevamenti, emissioni."
+    },
+    {
+      "id": "cadastral",
+      "order": 11,
+      "kind": "knowledge",
+      "label_en": "Cadastre and property",
+      "label_it": "Dati catastali e proprieta",
+      "report_section": "Catasto",
+      "description_it": "Particelle, fogli, zone censuarie, fabbricati."
+    },
+    {
+      "id": "environmental_assessment",
+      "order": 12,
+      "kind": "knowledge",
+      "label_en": "Data for permits and environmental assessment",
+      "label_it": "Dati utili alle autorizzazioni e valutazioni ambientali",
+      "report_section": "Valutazioni",
+      "description_it": "Elementi rilevanti per VIA, VAS, VincA, AUA e altre procedure autorizzative."
+    },
+    {
+      "id": "administrative",
+      "order": 90,
+      "kind": "support",
+      "label_en": "Administrative units",
+      "label_it": "Unita amministrative",
+      "report_section": "Localizzazione amministrativa",
+      "description_it": "Confini di comune, provincia e regione usati per localizzare l'area."
+    },
+    {
+      "id": "terrain",
+      "order": 91,
+      "kind": "support",
+      "label_en": "Terrain",
+      "label_it": "Terreno",
+      "report_section": "Dati altimetrici",
+      "description_it": "DEM/DTM e derivati (pendenza, esposizione, ombreggiatura, curve di livello)."
+    },
+    {
+      "id": "imagery",
+      "order": 92,
+      "kind": "support",
+      "label_en": "Imagery and basemaps",
+      "label_it": "Immagini e basemap",
+      "report_section": "Fonti",
+      "description_it": "Ortofoto e basemap di sfondo."
+    },
+    {
+      "id": "roads",
+      "order": 93,
+      "kind": "support",
+      "label_en": "Roads",
+      "label_it": "Viabilita",
+      "report_section": "Infrastrutture",
+      "description_it": "Rete stradale per il download dei dati d'area."
+    },
+    {
+      "id": "hydrography",
+      "order": 94,
+      "kind": "support",
+      "label_en": "Hydrography",
+      "label_it": "Idrografia",
+      "report_section": "Acque",
+      "description_it": "Reticolo idrografico per il download dei dati d'area."
+    },
+    {
+      "id": "trails",
+      "order": 95,
+      "kind": "support",
+      "label_en": "Trails and paths",
+      "label_it": "Sentieristica",
+      "report_section": "Infrastrutture",
+      "description_it": "Sentieri, CAI, ciclovie, ippovie."
+    },
+    {
+      "id": "buildings",
+      "order": 96,
+      "kind": "support",
+      "label_en": "Buildings",
+      "label_it": "Edifici",
+      "report_section": "Insediamenti",
+      "description_it": "Edificato."
+    },
+    {
+      "id": "places",
+      "order": 97,
+      "kind": "support",
+      "label_en": "Places and toponyms",
+      "label_it": "Localita e toponimi",
+      "report_section": "Insediamenti",
+      "description_it": "Centri abitati, localita, toponimi."
+    },
+    {
+      "id": "protected_areas_national",
+      "order": 210,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "National parks and state nature reserves",
+      "label_it": "Parchi nazionali e riserve naturali statali",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Aree protette istituite con atto statale (L. 394/1991), identificate da codice EUAP."
+    },
+    {
+      "id": "protected_areas_regional",
+      "order": 211,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "Regional parks and reserves",
+      "label_it": "Parchi e riserve regionali",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Parchi naturali regionali, riserve regionali e aree contigue istituite con legge regionale."
+    },
+    {
+      "id": "protected_areas_marine",
+      "order": 212,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "Marine protected areas",
+      "label_it": "Aree marine protette",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Aree marine protette e riserve naturali marine."
+    },
+    {
+      "id": "natura2000",
+      "order": 213,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "Natura 2000 network",
+      "label_it": "Rete Natura 2000",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Siti della rete Natura 2000: ZSC, SIC e ZPS, distinti per tipo di sito."
+    },
+    {
+      "id": "wetlands_ramsar",
+      "order": 214,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "Ramsar wetlands",
+      "label_it": "Zone umide Ramsar",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Zone umide di importanza internazionale designate ai sensi della Convenzione di Ramsar."
+    },
+    {
+      "id": "protected_areas_other",
+      "order": 215,
+      "kind": "knowledge",
+      "parent": "nature_conservation",
+      "label_en": "Other designated areas",
+      "label_it": "Altre aree protette",
+      "report_section": "Natura e biodiversita",
+      "description_it": "Altre designazioni nazionali o internazionali censite nei registri ufficiali (CDDA/EUAP)."
+    },
+    {
+      "id": "cultural_heritage_assets",
+      "order": 310,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "Listed cultural assets",
+      "label_it": "Beni culturali tutelati",
+      "report_section": "Paesaggio",
+      "description_it": "Beni oggetto di tutela ai sensi della Parte II del D.Lgs. 42/2004 (art. 10 e segg.)."
+    },
+    {
+      "id": "archaeological_heritage",
+      "order": 311,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "Archaeological areas and assets",
+      "label_it": "Aree e beni archeologici",
+      "report_section": "Paesaggio",
+      "description_it": "Aree archeologiche, zone di interesse archeologico e relative aree di rispetto."
+    },
+    {
+      "id": "landscape_assets_declared",
+      "order": 312,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "Declared landscape assets (art. 136)",
+      "label_it": "Beni paesaggistici dichiarati (art. 136)",
+      "report_section": "Paesaggio",
+      "description_it": "Immobili e aree di notevole interesse pubblico dichiarati con provvedimento (ex L. 1497/1939, art. 136 D.Lgs. 42/2004)."
+    },
+    {
+      "id": "landscape_areas_by_law",
+      "order": 313,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "Areas protected by law (art. 142)",
+      "label_it": "Aree tutelate per legge (art. 142)",
+      "report_section": "Paesaggio",
+      "description_it": "Ambiti tutelati ope legis dall'art. 142 c.1 lett. a-m del D.Lgs. 42/2004 (coste, fiumi, boschi, usi civici, zone umide, vulcani...)."
+    },
+    {
+      "id": "unesco_heritage",
+      "order": 314,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "UNESCO World Heritage",
+      "label_it": "Siti UNESCO",
+      "report_section": "Paesaggio",
+      "description_it": "Siti iscritti nella lista del patrimonio mondiale UNESCO e relative buffer zone."
+    },
+    {
+      "id": "heritage_administration",
+      "order": 315,
+      "kind": "knowledge",
+      "parent": "landscape_cultural",
+      "label_en": "Heritage authorities",
+      "label_it": "Competenze delle Soprintendenze",
+      "report_section": "Paesaggio",
+      "description_it": "Ambiti di competenza territoriale delle Soprintendenze e degli istituti del Ministero della Cultura."
+    }
+  ]
+}

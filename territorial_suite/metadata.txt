@@ -1,0 +1,31 @@
+[general]
+name=Analisi territoriale
+qgisMinimumVersion=3.40
+qgisMaximumVersion=4.99
+supportsQt6=True
+supportsQt5=True
+description=Territorial intelligence and cartographic production suite: define an area, analyse constraints, query the Italian cadastre, download data, build maps and reports.
+about=Analisi territoriale turns a geographic area into knowledge: it queries a configurable catalogue of official OGC services (WMS/WFS/WMTS/XYZ/OGC API), the INSPIRE cadastral service of Agenzia delle Entrate, terrain data and OpenStreetMap, measures intersections and distances, and produces organised layers, professional print layouts and a territorial dossier with full data provenance. The plugin reports cartographic evidence and always distinguishes it from legally ascertained constraints; it never issues an automatic legal assessment.
+version=0.1.0
+author=Niccolo Marco Mancini
+email=niccolomarco.mancini@gmail.com
+tracker=https://github.com/forestaliacartografia/analisi_territoriale/issues
+repository=https://github.com/forestaliacartografia/analisi_territoriale
+homepage=https://github.com/forestaliacartografia/analisi_territoriale
+category=Plugins
+icon=resources/icons/analisi_territoriale.png
+experimental=True
+deprecated=False
+hasProcessingProvider=yes
+tags=analysis,cadastre,cadastral,constraints,wfs,wms,ogc,inspire,layout,report,italy,terrain,dem,osm,download
+changelog=0.1.0 - First public release.
+    Project area from drawing, layer, selection, file, coordinates or cadastral parcels.
+    Configurable catalogue of official OGC services (WFS, WMS, WMTS, XYZ, OGC API Features,
+    ArcGIS REST, Overpass) with health probes, provenance and declared data nature.
+    Cadastral query on the INSPIRE service of Agenzia delle Entrate.
+    Cultural heritage module: records are reported as cartographic evidence and never
+    turned into an automatic legal assessment.
+    Terrain: DEM, slope, aspect and contours, with colour ramp over hillshade.
+    Print layouts with profiles, templates, orthophoto sheet and linked locator map.
+    HTML and PDF territorial dossier with full data provenance.
+    15 Processing algorithms sharing the same engines as the GUI.

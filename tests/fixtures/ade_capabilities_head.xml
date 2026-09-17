@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:WFS_Capabilities xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:wfs="http://www.opengis.net/wfs/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:CP="http://mapserver.gis.umn.edu/mapserver" xmlns:inspire_common="http://inspire.ec.europa.eu/schemas/common/1.0" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xmlns="http://www.opengis.net/wfs/2.0" version="2.0.0" xsi:schemaLocation="http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://inspire.ec.europa.eu/schemas/inspire_dls/1.0 http://inspire.ec.europa.eu/schemas/inspire_dls/1.0/inspire_dls.xsd http://inspire.ec.europa.eu/schemas/common/1.0 http://inspire.ec.europa.eu/schemas/common/1.0/common.xsd">
+  <ows:ServiceIdentification>
+    <ows:Title>Cartografia Catastale</ows:Title>
+    <ows:Abstract>Agenzia delle Entrate - Servizio di download della cartografia catastale WFS (particelle e mappe catastali). Le informazioni sono allineate con la banca dati cartografica del Catasto, costantemente aggiornata in modalità automatica mediante gli atti tecnici predisposti dai professionisti abilitati. L'Agenzia è l'amministrazione titolare dei dati.</ows:Abstract>
+    <ows:Keywords>
+      <ows:Keyword>Cadastral parcels</ows:Keyword>
+      <ows:Keyword>Cartografia catastale</ows:Keyword>
+      <ows:Keyword>Catasto</ows:Keyword>
+      <ows:Keyword>EU</ows:Keyword>
+      <ows:Keyword>Fogli catastali</ows:Keyword>
+      <ows:Keyword>Foglio catastale</ows:Keyword>
+      <ows:Keyword>Mappa catastale</ows:Keyword>
+      <ows:Keyword>Mappe catastali</ows:Keyword>
+      <ows:Keyword>Particella catastale</ows:Keyword>
+      <ows:Keyword>Particelle catastali</ows:Keyword>
+      <ows:Keyword>WFS</ows:Keyword>
+      <ows:Keyword>infoMapAccessService</ows:Keyword>
+      <ows:Keyword>open data</ows:Keyword>
+      <ows:Keyword>dati geospaziali</ows:Keyword>
+    </ows:Keywords>
+    <ows:ServiceType codeSpace="OGC">WFS</ows:ServiceType>
+    <ows:ServiceTypeVersion>2.0.0</ows:ServiceTypeVersion>
+    <ows:Fees>CC BY 4.0</ows:Fees>
+    <ows:AccessConstraints>altri vincoli</ows:AccessConstraints>
+  </ows:ServiceIdentification>
+  <ows:ServiceProvider>
+    <ows:ProviderName>Agenzia delle Entrate</ows:ProviderName>
+    <ows:ProviderSite xlink:type="simple" xlink:href="https://www.agenziaentrate.gov.it/"/>
+    <ows:ServiceContact>
+      <ows:IndividualName>Agenzia delle Entrate – Direzione Centrale Servizi Catastali, Cartografici e di Pubblicità Immobiliare</ows:IndividualName>
+      <ows:PositionName>Proprietario</ows:PositionName>
+      <ows:ContactInfo>
+        
+        <ows:Address>
+          
+          
+          
+          
+          
+          <ows:ElectronicMailAddress>assistenzaweb@agenziaentrate.it</ows:ElectronicMailAddress>
+        </ows:Address>
+        <ows:OnlineResource xlink:type="simple" xlink:href="https://www.agenziaentrate.gov.it/"/>
+        
+        
+      </ows:ContactInfo>
+      <ows:Role>Proprietario</ows:Role>
+    </ows:ServiceContact>
+  </ows:ServiceProvider>
+  <ows:OperationsMetadata>
+    <ows:Operation name="GetCapabilities">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Get xlink:type="simple" xlink:href="https://wfs.cartografia.agenziaentrate.gov.it/inspire/wfs/owfs01.php?language=ita&amp;"/>
+          
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Parameter name="AcceptVersions">
+        <ows:AllowedValues>
+          <ows:Value>2.0.0</ows:Value>
+          <ows:Value>1.1.0</ows:Value>
+          
+        </ows:AllowedValues>
+      </ows:Parameter>
+      <ows:Parameter name="AcceptFormats">
+        <ows:AllowedValues>
+          <ows:Value>text/xml</ows:Value>
+        </ows:AllowedValues>
+      </ows:Parameter>
+      <ows:Parameter name="Sections">
+        <ows:AllowedValues>
+          <ows:Value>ServiceIdentification</ows:Value>
+          <ows:Value>ServiceProvider</ows:Value>
+          <ows:Value>OperationsMetadata</ows:Value>
+          <ows:Value>FeatureTypeList</ows:Value>
+          
+        </ows:AllowedValues>
+      </ows:Parameter>
+    </ows:Operation>
+    <ows:Operation name="DescribeFeatureType">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Get xlink:type="simple" xlink:href="https://wfs.cartografia.agenziaentrate.gov.it/inspire/wfs/owfs01.php?language=ita&amp;"/>
+          
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Parameter name="outputFormat">
+        <ows:AllowedValues>
+          <ows:Value>application/gml+xml; version=3.2</ows:Value>
+          <ows:Value>text/xml; subtype=gml/3.2.1</ows:Value>
+          <ows:Value>text/xml; subtype=gml/3.1.1</ows:Value>
+          <ows:Value>text/xml; subtype=gml/2.1.2</ows:Value>
+        </ows:AllowedValues>
+      </ows:Parameter>
+    </ows:Operation>
+    <ows:Operation name="GetFeature">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Get xlink:type="simple" xlink:href="https://wfs.cartografia.agenziaentrate.gov.it/inspire/wfs/owfs01.php?language=ita&amp;"/>
+          
+        </ows:HTTP>
+      </ows:DCP>
+      <ows:Parameter name="outputFormat">
+        <ows:AllowedValues>
+          <ows:Value>application/gml+xml; version=3.2</ows:Value>
+          <ows:Value>text/xml; subtype=gml/3.2.1</ows:Value>
+          <ows:Value>text/xml; subtype=gml/3.1.1</ows:Value>
+          <ows:Value>text/xml; subtype=gml/2.1.2</ows:Value>
+          <ows:Value>text/html</ows:Value>
+        </ows:AllowedValues>
+      </ows:Parameter>
+    </ows:Operation>
+    <ows:Parameter name="version">
+      <ows:AllowedValues>
+        <ows:Value>2.0.0</ows:Value>
+        <ows:Value>1.1.0</ows:Value>
+        
+      </ows:AllowedValues>
+    </ows:Parameter>
+    <ows:Constraint name="ImplementsBasicWFS">
+      <ows:NoValues/>
+      <ows:DefaultValue>TRUE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsTransactionalWFS">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsLockingWFS">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="KVPEncoding">
+      <ows:NoValues/>
+      <ows:DefaultValue>TRUE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="XMLEncoding">
+      <ows:NoValues/>
+      <ows:DefaultValue>TRUE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="SOAPEncoding">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsInheritance">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsRemoteResolve">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsResultPaging">
+      <ows:NoValues/>
+      <ows:DefaultValue>TRUE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsStandardJoins">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsSpatialJoins">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsTemporalJoins">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ImplementsFeatureVersioning">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="ManageStoredQueries">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    <ows:Constraint name="PagingIsTransactionSafe">
+      <ows:NoValues/>
+      <ows:DefaultValue>FALSE</ows:DefaultValue>
+    </ows:Constraint>
+    
+    <ows:ExtendedCapabilities>
+      <inspire_dls:ExtendedCapabilities>
+        <inspire_common:MetadataUrl xsi:type="inspire_common:resourceLocatorType">
+          <inspire_common:URL>https://csw.cartografia.agenziaentrate.gov.it/age-inspire/srv/ita/csw?SERVICE=CSW&amp;VERSION=2.0.2&amp;REQUEST=GetRecordById&amp;ID=age:fornitura_dati_catasto_wfs&amp;ElementSetName=full&amp;outputSchema=csw:IsoRecord</inspire_common:URL>
+          <inspire_common:MediaType>application/vnd.ogc.csw.capabilities.response_xml</inspire_common:MediaType>
+        </inspire_common:MetadataUrl>
+        <inspire_common:SupportedLanguages>
+          <inspire_common:DefaultLanguage>
+            <inspire_common:Language>ita</inspire_common:Language>
+          </inspire_common:DefaultLanguage>
+        </inspire_common:SupportedLanguages>
+        <inspire_common:ResponseLanguage>
+          <inspire_common:Language>ita</inspire_common:Language>
+        </inspire_common:ResponseLanguage>
+        <inspire_dls:SpatialDataSetIdentifier>
+          <inspire_common:Code>AGE:</inspire_common:Code>
+        </inspire_d

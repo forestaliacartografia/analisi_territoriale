@@ -1,0 +1,353 @@
+{
+  "_comment": "Regole di default. Ogni regola produce una segnalazione CLASSIFICATA, mai una qualificazione giuridica: il campo legal_reference riporta il riferimento normativo dichiarato dalla fonte o dalla prassi, non un accertamento. Le soglie sono modificabili e le regole disattivabili (enabled:false) o sovrascrivibili con un file omonimo in <profilo QGIS>/territorial_suite/rules/.",
+  "rules": [
+    {
+      "id": "natura2000.intersects",
+      "title": "L'area interseca un sito della rete Natura 2000 ({source})",
+      "detail": "Secondo il dato cartografico della fonte, {count} sito/i interessa/no l'area per {area} ({pct}%). Il perimetro giuridicamente rilevante e' quello del provvedimento di designazione: verificare presso la Regione e il Ministero competente.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "nature_conservation",
+        "operation": "intersects"
+      },
+      "legal_reference": "Direttiva 92/43/CEE e 2009/147/CE; D.P.R. 357/1997 (valutazione di incidenza)",
+      "priority": 10
+    },
+    {
+      "id": "natura2000.nearby",
+      "title": "Sito Natura 2000 a {distance} dall'area ({source})",
+      "detail": "Il sito piu' vicino dista {distance} secondo il dato cartografico. La prossimita' non comporta di per se' alcun adempimento, ma puo' essere rilevante per gli effetti indiretti.",
+      "level": "ATTENTION",
+      "when": {
+        "category": "nature_conservation",
+        "operation": "distance_lt",
+        "threshold": 1000,
+        "unit": "m"
+      },
+      "legal_reference": "D.P.R. 357/1997",
+      "priority": 11
+    },
+    {
+      "id": "landscape.intersects",
+      "title": "L'area interseca un dato di tutela paesaggistica ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). Il dato cartografico segnala dove verificare: non accerta di per se' l'esistenza di un vincolo. La verifica va effettuata presso la Soprintendenza e il Comune.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "landscape_cultural",
+        "operation": "intersects",
+        "match": "exact"
+      },
+      "legal_reference": "D.Lgs. 42/2004",
+      "priority": 12
+    },
+    {
+      "id": "hydro.intersects",
+      "title": "Area interessata da vincoli idraulici o geomorfologici ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). Verificare la classificazione aggiornata presso l'Autorita' di bacino e il Comune.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "hydro_geomorphological",
+        "operation": "intersects"
+      },
+      "legal_reference": "R.D. 3267/1923; D.Lgs. 152/2006; PAI",
+      "priority": 13
+    },
+    {
+      "id": "risk.intersects",
+      "title": "Area interessata da perimetrazioni di rischio ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). La classe di rischio e le prescrizioni vanno lette nel piano vigente.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "risk",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 152/2006; piani di assetto idrogeologico",
+      "priority": 14
+    },
+    {
+      "id": "water.watercourse_150m",
+      "title": "Elemento idrografico entro {threshold} m dall'area ({source})",
+      "detail": "Elemento piu' vicino a {distance}. La tutela paesaggistica dei corsi d'acqua si applica a quelli iscritti negli elenchi delle acque pubbliche: il dato cartografico non stabilisce l'iscrizione, da verificare presso Regione/Autorita' idraulica.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "hydrography",
+        "operation": "within_or_near",
+        "threshold": 150,
+        "unit": "m"
+      },
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c.1 lett. c)",
+      "priority": 20
+    },
+    {
+      "id": "water.springs_200m",
+      "title": "Sorgenti o captazioni entro {threshold} m",
+      "detail": "{count} punto/i rilevato/i a partire da {distance} (fonte: {source}). Le aree di salvaguardia delle captazioni sono definite dall'ente gestore.",
+      "level": "ATTENTION",
+      "when": {
+        "category": "water",
+        "operation": "within_or_near",
+        "threshold": 200,
+        "unit": "m"
+      },
+      "legal_reference": "D.Lgs. 152/2006 art. 94",
+      "priority": 21
+    },
+    {
+      "id": "infrastructure.power_100m",
+      "title": "Linee elettriche entro {threshold} m",
+      "detail": "Elemento piu' vicino a {distance} (fonte: {source}). La fascia di rispetto (DPA) e' determinata dal gestore della linea in base alla tensione e alla geometria: il dato cartografico non la rappresenta.",
+      "level": "ATTENTION",
+      "when": {
+        "source_id": "osm.infrastructure.power",
+        "operation": "within_or_near",
+        "threshold": 100,
+        "unit": "m"
+      },
+      "legal_reference": "D.P.C.M. 8/7/2003; D.M. 29/5/2008",
+      "priority": 22
+    },
+    {
+      "id": "infrastructure.railway_60m",
+      "title": "Ferrovia entro {threshold} m",
+      "detail": "Elemento piu' vicino a {distance} (fonte: {source}). La fascia di rispetto ferroviaria e' stabilita dalla normativa di settore e dagli strumenti urbanistici.",
+      "level": "ATTENTION",
+      "when": {
+        "source_id": "osm.infrastructure.railway",
+        "operation": "within_or_near",
+        "threshold": 60,
+        "unit": "m"
+      },
+      "legal_reference": "D.P.R. 753/1980 art. 49",
+      "priority": 23
+    },
+    {
+      "id": "infrastructure.roads_30m",
+      "title": "Viabilita' entro {threshold} m dall'area",
+      "detail": "{count} elemento/i stradale/i in prossimita' (fonte: {source}). L'ampiezza della fascia di rispetto dipende dalla classificazione della strada e dalla zona (dentro/fuori centro abitato), non desumibile dal dato cartografico.",
+      "level": "INFO",
+      "when": {
+        "category": "roads",
+        "operation": "within_or_near",
+        "threshold": 30,
+        "unit": "m"
+      },
+      "legal_reference": "D.Lgs. 285/1992; D.P.R. 495/1992 art. 26-28",
+      "priority": 24
+    },
+    {
+      "id": "forest.intersects",
+      "title": "Superfici boscate o vegetazione tutelata nell'area ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). La qualificazione di bosco ai fini normativi segue la definizione regionale e il D.Lgs. 34/2018.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "forest_vegetation",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 34/2018; D.Lgs. 42/2004 art. 142 c.1 lett. g)",
+      "priority": 25
+    },
+    {
+      "id": "planning.intersects",
+      "title": "Zonizzazioni urbanistiche o di piano interessate ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). Le norme tecniche di attuazione vigenti prevalgono sul dato cartografico.",
+      "level": "ATTENTION",
+      "when": {
+        "category": "landuse_planning",
+        "operation": "intersects"
+      },
+      "priority": 26
+    },
+    {
+      "id": "buildings.present",
+      "title": "Edifici rilevati nell'area",
+      "detail": "{count} edificio/i intersecano l'area (fonte: {source}).",
+      "level": "INFO",
+      "when": {
+        "category": "buildings",
+        "operation": "intersects"
+      },
+      "priority": 40
+    },
+    {
+      "id": "area.multi_municipality",
+      "title": "L'area ricade in piu' Comuni ({count})",
+      "detail": "Comuni interessati: {names}. Le pratiche e i riferimenti cartografici vanno gestiti separatamente per ciascun Comune.",
+      "level": "ATTENTION",
+      "when": {
+        "subject": "area",
+        "operation": "multi_municipality"
+      },
+      "priority": 5
+    },
+    {
+      "id": "area.admin_unresolved",
+      "title": "Unita' amministrative non determinate",
+      "detail": "Non e' stato possibile individuare Comune, Provincia e Regione ({note}). Sono state interrogate solo le sorgenti nazionali ed europee: i dati regionali e comunali potrebbero mancare.",
+      "level": "CARTOGRAPHIC_ISSUE",
+      "when": {
+        "subject": "area",
+        "operation": "admin_unresolved"
+      },
+      "priority": 1
+    },
+    {
+      "id": "area.large",
+      "title": "Area estesa ({area})",
+      "detail": "Oltre {threshold} ha: alcune sorgenti potrebbero restituire risultati troncati e i tempi di analisi aumentano.",
+      "level": "INFO",
+      "when": {
+        "subject": "area",
+        "operation": "area_ha_gt",
+        "threshold": 500
+      },
+      "priority": 45
+    },
+    {
+      "id": "cadastre.multi_municipality",
+      "title": "Particelle in piu' Comuni ({count})",
+      "detail": "Comuni: {names}. La tabella catastale e' suddivisa per Comune.",
+      "level": "INFO",
+      "when": {
+        "subject": "cadastre",
+        "operation": "multi_municipality"
+      },
+      "priority": 30
+    },
+    {
+      "id": "cadastre.multi_sheet",
+      "title": "Area su piu' fogli catastali ({count})",
+      "detail": "Verificare la continuita' cartografica fra i fogli; i bordi mappa possono presentare disallineamenti.",
+      "level": "INFO",
+      "when": {
+        "subject": "cadastre",
+        "operation": "multi_sheet",
+        "threshold": 1
+      },
+      "priority": 31
+    },
+    {
+      "id": "cadastre.no_parcels",
+      "title": "Nessuna particella catastale disponibile",
+      "detail": "Il servizio nazionale non ha restituito particelle: l'area puo' ricadere nelle Province autonome di Trento o Bolzano (catasto provinciale) oppure il servizio non era disponibile.",
+      "level": "CARTOGRAPHIC_ISSUE",
+      "when": {
+        "subject": "cadastre",
+        "operation": "no_parcels"
+      },
+      "priority": 32
+    },
+    {
+      "id": "terrain.steep",
+      "title": "Pendenza media elevata ({value}%)",
+      "detail": "Pendenza media superiore al {threshold}%: rilevante per accessibilita', erosione e cantierabilita'.",
+      "level": "ATTENTION",
+      "when": {
+        "subject": "terrain",
+        "operation": "slope_mean_gt",
+        "threshold": 35
+      },
+      "priority": 35
+    },
+    {
+      "id": "terrain.steep_share",
+      "title": "Quota rilevante di area in forte pendenza ({value}%)",
+      "detail": "Oltre il {threshold}% dell'area supera la classe di pendenza {class}%.",
+      "level": "INFO",
+      "when": {
+        "subject": "terrain",
+        "operation": "slope_class_pct_gt",
+        "threshold": 30,
+        "field": "30"
+      },
+      "priority": 36
+    },
+    {
+      "id": "source.unavailable",
+      "title": "Fonte non disponibile: {source}",
+      "detail": "{error}. L'analisi e' proseguita senza questa fonte: il quadro conoscitivo e' incompleto per la relativa categoria.",
+      "level": "CARTOGRAPHIC_ISSUE",
+      "when": {
+        "category": "",
+        "source_id": "",
+        "operation": "unavailable"
+      },
+      "enabled": false,
+      "priority": 50,
+      "_note": "Disattivata perche' l'orchestratore genera gia' un alert per ogni fonte non disponibile; abilitarla solo se si disattiva quella logica."
+    },
+    {
+      "id": "heritage.art136.intersects",
+      "title": "L'area interseca un bene paesaggistico dichiarato - art. 136 ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%), {count} elemento/i. La fonte riporta gli estremi del provvedimento dichiarativo: vanno riscontrati presso la Soprintendenza competente, che detiene l'atto.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "landscape_assets_declared",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 42/2004 art. 136 e 157",
+      "priority": 12
+    },
+    {
+      "id": "heritage.art142.intersects",
+      "title": "L'area interseca un ambito tutelato per legge - art. 142 ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). La tutela dell'art. 142 opera per legge: la cartografia la rappresenta, non la costituisce. L'effettiva ricorrenza dei presupposti va verificata sul posto e presso l'ente competente.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "landscape_areas_by_law",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 42/2004 art. 142 c. 1",
+      "priority": 13
+    },
+    {
+      "id": "heritage.cultural.intersects",
+      "title": "Beni culturali censiti nell'area ({source})",
+      "detail": "{count} bene/i risultano localizzati nell'area secondo il dato cartografico. Il punto localizza il bene e non ne delimita l'estensione: la consistenza del bene e il regime di tutela vanno verificati presso la Soprintendenza.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "cultural_heritage_assets",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 42/2004 Parte II (art. 10 e segg.)",
+      "priority": 14
+    },
+    {
+      "id": "heritage.archaeology.intersects",
+      "title": "L'area interseca un'area archeologica censita ({source})",
+      "detail": "Superficie interessata: {area} ({pct}%). Nelle aree di interesse archeologico e' prassi il coinvolgimento preventivo della Soprintendenza: verificare gli adempimenti applicabili all'intervento.",
+      "level": "CHECK_REQUIRED",
+      "when": {
+        "category": "archaeological_heritage",
+        "operation": "intersects"
+      },
+      "legal_reference": "D.Lgs. 42/2004 art. 10 e art. 142 c. 1 lett. m",
+      "priority": 15
+    },
+    {
+      "id": "heritage.archaeology.nearby",
+      "title": "Area archeologica censita a {distance} dall'area ({source})",
+      "detail": "La prossimita' non comporta di per se' adempimenti, ma e' un elemento da considerare nella progettazione degli scavi.",
+      "level": "ATTENTION",
+      "when": {
+        "category": "archaeological_heritage",
+        "operation": "distance_lt",
+        "threshold": 500,
+        "unit": "m"
+      },
+      "legal_reference": "D.Lgs. 42/2004",
+      "priority": 16
+    },
+    {
+      "id": "heritage.unesco.intersects",
+      "title": "L'area ricade in un sito UNESCO censito ({source})",
+      "detail": "L'iscrizione nella lista del patrimonio mondiale non e' di per se' un vincolo: le tutele applicabili discendono dagli strumenti nazionali e dal piano di gestione del sito. Verificare presso il Comune e la Soprintendenza.",
+      "level": "ATTENTION",
+      "when": {
+        "category": "unesco_heritage",
+        "operation": "intersects"
+      },
+      "legal_reference": "Convenzione UNESCO 1972; L. 77/2006",
+      "priority": 17
+    }
+  ]
+}

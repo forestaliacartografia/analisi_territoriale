@@ -1,0 +1,639 @@
+{
+  "_comment": "OpenStreetMap through the Overpass API. OSM is a community source: it is never presented as official (official=false, evidence_level=cartographic) and its licence/attribution is always shown. Verified 2026-09-16 (a User-Agent header is mandatory, otherwise the API answers HTTP 406).",
+  "sources": [
+    {
+      "id": "osm.roads",
+      "name": "Viabilita (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "roads",
+      "subcategory": "highway",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "lines",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "LineString",
+      "query": {
+        "osm_layer": "lines",
+        "timeout": 45,
+        "max_features": 50000,
+        "filters": [
+          "way[\"highway\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "highway"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 60,
+      "style": "roads",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "strade",
+        "viabilita"
+      ],
+      "notes": "Dato collaborativo: non sostituisce il grafo stradale ufficiale di Regione/Provincia/Comune."
+    },
+    {
+      "id": "osm.trails",
+      "name": "Sentieri e percorsi (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "trails",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "lines",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "LineString",
+      "query": {
+        "osm_layer": "lines",
+        "timeout": 45,
+        "max_features": 30000,
+        "filters": [
+          "way[\"highway\"~\"^(path|track|footway|bridleway|cycleway|steps)$\"]",
+          "relation[\"route\"~\"^(hiking|foot|bicycle|horse|mtb)$\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "highway"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 61,
+      "style": "trails",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "sentieri",
+        "cai",
+        "ciclovie"
+      ],
+      "notes": "La rete sentieristica ufficiale (es. catasto sentieri regionale/CAI) va verificata presso l'ente competente."
+    },
+    {
+      "id": "osm.hydrography.lines",
+      "name": "Reticolo idrografico (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "hydrography",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "lines",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "LineString",
+      "query": {
+        "osm_layer": "lines",
+        "timeout": 45,
+        "max_features": 30000,
+        "filters": [
+          "way[\"waterway\"~\"^(river|stream|canal|ditch|drain|brook)$\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "waterway"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 62,
+      "style": "hydrography",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "fiumi",
+        "torrenti",
+        "fossi"
+      ],
+      "notes": "Il reticolo idrografico ai fini del vincolo (elenco acque pubbliche, reticolo regionale) e' un dato ufficiale distinto: questo layer serve come inquadramento."
+    },
+    {
+      "id": "osm.hydrography.water",
+      "name": "Specchi d'acqua (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "hydrography",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "multipolygons",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "osm_layer": "multipolygons",
+        "timeout": 45,
+        "max_features": 10000,
+        "filters": [
+          "way[\"natural\"=\"water\"]",
+          "relation[\"natural\"=\"water\"]",
+          "way[\"landuse\"=\"reservoir\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 63,
+      "style": "water_bodies",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "laghi",
+        "invasi"
+      ]
+    },
+    {
+      "id": "osm.springs",
+      "name": "Sorgenti e fontane (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "water",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "points",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "Point",
+      "query": {
+        "osm_layer": "points",
+        "timeout": 45,
+        "max_features": 5000,
+        "filters": [
+          "node[\"natural\"=\"spring\"]",
+          "node[\"amenity\"=\"drinking_water\"]",
+          "node[\"amenity\"=\"fountain\"]",
+          "node[\"man_made\"=\"water_well\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 64,
+      "style": "springs",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "sorgenti",
+        "fontane"
+      ]
+    },
+    {
+      "id": "osm.buildings",
+      "name": "Edifici (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "buildings",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "multipolygons",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "osm_layer": "multipolygons",
+        "timeout": 45,
+        "max_features": 30000,
+        "filters": [
+          "way[\"building\"]",
+          "relation[\"building\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "building"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 65,
+      "style": "buildings",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "edifici"
+      ]
+    },
+    {
+      "id": "osm.places",
+      "name": "Localita e toponimi (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "places",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "points",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "Point",
+      "query": {
+        "osm_layer": "points",
+        "timeout": 45,
+        "max_features": 5000,
+        "filters": [
+          "node[\"place\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "place"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "inventory",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 66,
+      "style": "places",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "localita",
+        "toponimi"
+      ]
+    },
+    {
+      "id": "osm.infrastructure.power",
+      "name": "Elettrodotti e impianti (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "infrastructure",
+      "subcategory": "power",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "lines",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "LineString",
+      "query": {
+        "osm_layer": "lines",
+        "timeout": 45,
+        "max_features": 10000,
+        "filters": [
+          "way[\"power\"~\"^(line|minor_line|cable)$\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "power",
+        "voltage": "other_tags"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 67,
+      "style": "power_lines",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "elettrodotti"
+      ],
+      "notes": "Le fasce di rispetto degli elettrodotti (DPA) sono definite dal gestore secondo il D.M. 29/05/2008: il dato OSM non le rappresenta."
+    },
+    {
+      "id": "osm.infrastructure.railway",
+      "name": "Ferrovie (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "infrastructure",
+      "subcategory": "railway",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "lines",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "LineString",
+      "query": {
+        "osm_layer": "lines",
+        "timeout": 45,
+        "max_features": 10000,
+        "filters": [
+          "way[\"railway\"~\"^(rail|light_rail|narrow_gauge|subway|tram|funicular)$\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "class": "railway"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "thematic",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 68,
+      "style": "railways",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "ferrovie"
+      ]
+    },
+    {
+      "id": "osm.admin.boundaries",
+      "name": "Confini amministrativi (OpenStreetMap)",
+      "authority": "OpenStreetMap contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "administrative",
+      "type": "OVERPASS",
+      "url": "https://overpass-api.de/api/interpreter",
+      "layer": "multipolygons",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "osm_layer": "multipolygons",
+        "timeout": 45,
+        "max_features": 500,
+        "filters": [
+          "relation[\"boundary\"=\"administrative\"][\"admin_level\"~\"^(4|6|8)$\"]"
+        ],
+        "min_interval_s": 2.0,
+        "timeout_s": 60,
+        "retries": 2
+      },
+      "fields": {
+        "label": "name",
+        "code": "osm_id",
+        "level": "admin_level"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "reference_base",
+      "verification_status": "verified",
+      "verification_note": "Overpass 'out count' OK il 2026-09-17; le stesse query sono state eseguite negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 45,
+        "completeness": "disomogenea",
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "partial",
+        "notes": "Dato collaborativo: la copertura dipende dai contributi locali e non e' omogenea. L'assenza di un elemento non significa che l'elemento non esista."
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0",
+      "attribution": "(c) OpenStreetMap contributors, ODbL",
+      "official": false,
+      "metadata_url": "https://www.openstreetmap.org/copyright",
+      "enabled": true,
+      "priority": 20,
+      "style": "admin_boundaries",
+      "group": "Data",
+      "tags": [
+        "osm",
+        "comuni",
+        "province",
+        "regioni"
+      ],
+      "notes": "Fallback per determinare le unita amministrative quando il servizio catastale non copre l'area (Province autonome di Trento e Bolzano) o non risponde."
+    }
+  ]
+}

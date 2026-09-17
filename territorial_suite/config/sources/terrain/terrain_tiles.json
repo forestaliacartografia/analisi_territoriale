@@ -1,0 +1,105 @@
+{
+  "_comment": "Remote elevation sources. TERRAIN_TILES sources are tiled GeoTIFF pyramids (Mapzen scheme): the terrain engine computes the tile range for the project area, downloads only those tiles and merges them. Verified 2026-09-16.",
+  "sources": [
+    {
+      "id": "aws.terrain_tiles.geotiff",
+      "name": "Terrain Tiles (AWS Open Data) - DEM globale",
+      "authority": "AWS Open Data / Mapzen Terrain Tiles",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "terrain",
+      "subcategory": "dem",
+      "type": "TERRAIN_TILES",
+      "url": "https://s3.amazonaws.com/elevation-tiles-prod/geotiff/{z}/{x}/{y}.tif",
+      "crs": [
+        "EPSG:3857"
+      ],
+      "query": {
+        "zmin": 0,
+        "zmax": 15,
+        "tile_size": 512,
+        "max_tiles": 64,
+        "nodata": -32768,
+        "vertical_datum": "EGM96/varies"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "elevation",
+      "verification_status": "verified",
+      "verification_note": "Tile GeoTIFF 0/0/0 scaricata in 1141 ms (2026-09-17); scenario montano live 2026-09-16: quote 597-1169 m, pendenza media 43,6 %, 5,9 s complessivi.",
+      "quality": {
+        "score": 55,
+        "completeness": "globale",
+        "currency": "statico",
+        "positional_accuracy_m": 30,
+        "notes": "Mosaico di fonti diverse: in Italia deriva in larga parte da SRTM/EU-DEM. Per il dettaglio progettuale serve un DTM ufficiale."
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Mondo"
+        ]
+      },
+      "update_frequency": "static",
+      "last_verified": "2026-09-16",
+      "license": "Open data (see per-source attribution)",
+      "attribution": "Terrain Tiles on AWS Open Data - sources include SRTM (NASA), NED/3DEP (USGS), EU-DEM, and national datasets",
+      "official": false,
+      "metadata_url": "https://registry.opendata.aws/terrain-tiles/",
+      "scale": "varies (about 30 m in Italy)",
+      "accuracy_m": 10,
+      "enabled": true,
+      "priority": 80,
+      "group": "Terrain",
+      "tags": [
+        "dem",
+        "quote",
+        "pendenza"
+      ],
+      "notes": "DEM globale di inquadramento. Per analisi di dettaglio usare un DTM ufficiale (regionale o nazionale) impostandolo come sorgente locale o come sorgente aggiuntiva nel catalogo."
+    },
+    {
+      "id": "local.dem.file",
+      "name": "DEM locale (file)",
+      "authority": "",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "terrain",
+      "subcategory": "dem",
+      "type": "RASTER",
+      "url": "file://",
+      "crs": [],
+      "query": {
+        "path": ""
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "elevation",
+      "verification_status": "declared",
+      "quality": {
+        "score": 50,
+        "notes": "Dipende dal file scelto dall'utente."
+      },
+      "coverage": {
+        "completeness": "unknown",
+        "notes": "Definita dall'estensione del file locale."
+      },
+      "last_verified": "2026-09-16",
+      "license": "",
+      "attribution": "",
+      "official": false,
+      "enabled": false,
+      "priority": 79,
+      "group": "Terrain",
+      "tags": [
+        "dem",
+        "locale"
+      ],
+      "notes": "Modello da compilare per usare un DTM gia' disponibile in locale: impostare query.path (o l'url file://) e abilitare la sorgente."
+    }
+  ]
+}

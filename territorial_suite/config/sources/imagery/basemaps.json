@@ -1,0 +1,178 @@
+{
+  "_comment": "Background imagery. Only services whose terms of use allow consumption through a standard tile client are shipped; no scraping and no undocumented endpoints. Google basemaps are deliberately NOT included: their terms do not allow generic XYZ consumption outside the Google Maps APIs (see docs/data_sources.md). La sorgente Google usa la Map Tiles API ufficiale e richiede una chiave dell'utente: resta disattivata finche' non e' configurata.",
+  "sources": [
+    {
+      "id": "osm.basemap.standard",
+      "name": "OpenStreetMap standard",
+      "authority": "OpenStreetMap Foundation",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "imagery",
+      "subcategory": "map",
+      "type": "XYZ",
+      "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "crs": [
+        "EPSG:3857"
+      ],
+      "query": {
+        "zmin": 0,
+        "zmax": 19,
+        "provider": "osm"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "imagery",
+      "verification_status": "verified",
+      "verification_note": "Tile 0/0/0 scaricata in 171 ms (2026-09-17).",
+      "quality": {
+        "score": 60,
+        "currency": "aggiornamento continuo"
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Mondo"
+        ]
+      },
+      "update_frequency": "continuous",
+      "last_verified": "2026-09-16",
+      "license": "ODbL 1.0 (data) - tile usage policy",
+      "attribution": "(c) OpenStreetMap contributors",
+      "official": false,
+      "metadata_url": "https://operations.osmfoundation.org/policies/tiles/",
+      "enabled": true,
+      "priority": 70,
+      "group": "Imagery",
+      "tags": [
+        "basemap",
+        "osm"
+      ],
+      "notes": "Soggetto alla tile usage policy della OSM Foundation: uso moderato, User-Agent identificativo obbligatorio."
+    },
+    {
+      "id": "esri.basemap.world_imagery",
+      "name": "Esri World Imagery",
+      "authority": "Esri and imagery contributors",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "imagery",
+      "subcategory": "orthophoto",
+      "type": "XYZ",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      "crs": [
+        "EPSG:3857"
+      ],
+      "query": {
+        "zmin": 0,
+        "zmax": 19,
+        "provider": "esri"
+      },
+      "evidence_level": "cartographic",
+      "data_nature": "imagery",
+      "verification_status": "verified",
+      "verification_note": "Tile 0/0/0 scaricata in 155 ms (2026-09-17).",
+      "quality": {
+        "score": 75,
+        "completeness": "globale",
+        "currency": "variabile per area",
+        "notes": "Risoluzione e data di ripresa variano molto: l'ortofoto non ha una data unica."
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Mondo"
+        ],
+        "notes": "Risoluzione e data di ripresa variano molto per area."
+      },
+      "update_frequency": "varies",
+      "last_verified": "2026-09-16",
+      "license": "Esri Master Agreement / terms of use of the service",
+      "attribution": "Esri, Maxar, Earthstar Geographics and the GIS User Community",
+      "official": false,
+      "metadata_url": "https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9",
+      "enabled": true,
+      "priority": 71,
+      "group": "Imagery",
+      "tags": [
+        "basemap",
+        "ortofoto",
+        "satellite"
+      ],
+      "notes": "La data di ripresa varia per zona e non e' esposta dal servizio a tile: non usare l'immagine come prova temporale. Verificare le condizioni d'uso per impieghi professionali."
+    },
+    {
+      "id": "google.maptiles.satellite",
+      "name": "Google Satellite (Map Tiles API)",
+      "authority": "Google",
+      "country": "*",
+      "scope": {
+        "level": "global",
+        "codes": []
+      },
+      "category": "imagery",
+      "subcategory": "ortofoto",
+      "type": "XYZ",
+      "url": "https://tile.googleapis.com/v1/2dtiles/{z}/{x}/{y}",
+      "layer": "",
+      "crs": [
+        "EPSG:3857"
+      ],
+      "query": {
+        "provider": "google",
+        "session_url": "https://tile.googleapis.com/v1/createSession",
+        "viewport_url": "https://tile.googleapis.com/tile/v1/viewport",
+        "tiles_url": "https://tile.googleapis.com/v1/2dtiles",
+        "map_type": "satellite",
+        "language": "it-IT",
+        "region": "IT",
+        "zmin": 0,
+        "zmax": 22,
+        "timeout_s": 30,
+        "retries": 2
+      },
+      "fields": {},
+      "evidence_level": "cartographic",
+      "data_nature": "imagery",
+      "verification_status": "declared",
+      "verification_note": "Endpoint documentati da Google (createSession, viewport, 2dtiles) e implementati secondo quella documentazione. Non verificati con richieste reali perche' richiedono una chiave API a pagamento intestata all'utente: per questo la sorgente e' disattivata finche' l'utente non configura la propria chiave.",
+      "quality": {
+        "score": 90,
+        "completeness": "globale",
+        "currency": "aggiornamento continuo",
+        "notes": "Qualita' elevata, ma soggetta a costi a carico dell'utente."
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Mondo"
+        ],
+        "notes": "Copertura globale dichiarata dal fornitore."
+      },
+      "fallback_sources": [
+        "esri.basemap.world_imagery"
+      ],
+      "documentation_url": "https://developers.google.com/maps/documentation/tile/overview",
+      "legal_reference": "",
+      "update_frequency": "continuo",
+      "last_verified": "2026-09-17",
+      "license": "Google Maps Platform Terms of Service (chiave API dell'utente)",
+      "attribution": "",
+      "official": false,
+      "metadata_url": "https://developers.google.com/maps/documentation/tile/policies",
+      "enabled": false,
+      "priority": 10,
+      "group": "Ortofoto",
+      "tags": [
+        "ortofoto",
+        "satellite",
+        "google"
+      ],
+      "notes": "Usa esclusivamente la Map Tiles API di Google, l'interfaccia che Google pubblica per questo scopo, con la chiave API dell'utente: il plugin non preleva tile dagli URL interni del sito Google Maps. La chiave viene conservata nel database di autenticazione cifrato di QGIS, mai nelle impostazioni in chiaro. Le tile non vengono mai mostrate senza la stringa di attribuzione che Google restituisce: se quella stringa non e' ottenibile, il plugin ripiega su un'altra ortofoto e lo dichiara nella tavola."
+    }
+  ]
+}

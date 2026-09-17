@@ -1,0 +1,130 @@
+{
+  "_comment": "European Environment Agency - Natura 2000 network (ArcGIS REST, GeoJSON output). Verified 2026-09-16: /query supports esriGeometryEnvelope + f=geojson + resultOffset paging.",
+  "sources": [
+    {
+      "id": "eu.eea.natura2000.sci",
+      "name": "Natura 2000 - Siti Direttiva Habitat (SIC/ZSC)",
+      "authority": "European Environment Agency",
+      "country": "EU",
+      "scope": {
+        "level": "european",
+        "codes": []
+      },
+      "category": "natura2000",
+      "subcategory": "habitats_directive",
+      "type": "ARCGIS_FEATURE",
+      "url": "https://bio.discomap.eea.europa.eu/arcgis/rest/services/ProtectedSites/Natura2000Sites/MapServer",
+      "layer": "0",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "bbox_crs": "EPSG:4326",
+        "page_size": 200,
+        "max_features": 2000,
+        "out_fields": "SITECODE,SITENAME,SITETYPE,Area_ha,RELEASE_DATE,MS"
+      },
+      "fields": {
+        "label": "SITENAME",
+        "code": "SITECODE",
+        "date": "RELEASE_DATE"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "Descrizione del layer ArcGIS REST OK in 250 ms (2026-09-17); interrogata negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 85,
+        "completeness": "europea",
+        "currency": "release annuale EEA"
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Unione europea"
+        ]
+      },
+      "legal_reference": "Direttiva 92/43/CEE; D.P.R. 357/1997 - valutazione di incidenza",
+      "update_frequency": "annual",
+      "last_verified": "2026-09-16",
+      "license": "EEA standard re-use policy",
+      "attribution": "European Environment Agency - Natura 2000",
+      "official": true,
+      "metadata_url": "https://www.eea.europa.eu/en/datahub/datahubitem-view/6fc8ad2d-195d-40f4-bdec-576e7d1268e4",
+      "enabled": true,
+      "priority": 10,
+      "style": "natura2000_sci",
+      "group": "Constraints",
+      "tags": [
+        "natura2000",
+        "sic",
+        "zsc",
+        "habitat"
+      ],
+      "notes": "Il perimetro ufficiale del sito e' quello adottato con il provvedimento nazionale/regionale di designazione: il dato EEA e' la trasposizione cartografica europea."
+    },
+    {
+      "id": "eu.eea.natura2000.spa",
+      "name": "Natura 2000 - Siti Direttiva Uccelli (ZPS)",
+      "authority": "European Environment Agency",
+      "country": "EU",
+      "scope": {
+        "level": "european",
+        "codes": []
+      },
+      "category": "natura2000",
+      "subcategory": "birds_directive",
+      "type": "ARCGIS_FEATURE",
+      "url": "https://bio.discomap.eea.europa.eu/arcgis/rest/services/ProtectedSites/Natura2000Sites/MapServer",
+      "layer": "1",
+      "crs": [
+        "EPSG:4326"
+      ],
+      "geometry": "MultiPolygon",
+      "query": {
+        "bbox_crs": "EPSG:4326",
+        "page_size": 200,
+        "max_features": 2000,
+        "out_fields": "SITECODE,SITENAME,SITETYPE,Area_ha,RELEASE_DATE,MS"
+      },
+      "fields": {
+        "label": "SITENAME",
+        "code": "SITECODE",
+        "date": "RELEASE_DATE"
+      },
+      "evidence_level": "declaratory",
+      "data_nature": "perimeter",
+      "verification_status": "verified",
+      "verification_note": "Descrizione del layer ArcGIS REST OK in 280 ms (2026-09-17); interrogata negli scenari live del 2026-09-16.",
+      "quality": {
+        "score": 85,
+        "completeness": "europea",
+        "currency": "release annuale EEA"
+      },
+      "coverage": {
+        "completeness": "complete",
+        "covered": [
+          "Unione europea"
+        ]
+      },
+      "legal_reference": "Direttiva 2009/147/CE; D.P.R. 357/1997 - valutazione di incidenza",
+      "update_frequency": "annual",
+      "last_verified": "2026-09-16",
+      "license": "EEA standard re-use policy",
+      "attribution": "European Environment Agency - Natura 2000",
+      "official": true,
+      "metadata_url": "https://www.eea.europa.eu/en/datahub/datahubitem-view/6fc8ad2d-195d-40f4-bdec-576e7d1268e4",
+      "enabled": true,
+      "priority": 11,
+      "style": "natura2000_spa",
+      "group": "Constraints",
+      "tags": [
+        "natura2000",
+        "zps",
+        "uccelli"
+      ],
+      "notes": "Il perimetro ufficiale del sito e' quello adottato con il provvedimento di designazione."
+    }
+  ]
+}
