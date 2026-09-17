@@ -49,6 +49,10 @@ WARNING = "warning"
 ERROR = "error"
 _ORDER = {OK: 0, WARNING: 1, ERROR: 2}
 
+#: Prefix of a baked "colour ramp x hillshade" composite. A sheet carrying one has
+#: both the tint and the shading, because the composite is the two of them flattened.
+SHADED_STYLE = "shaded"
+
 #: Titles that promise nothing in particular; flagged, never blocked.
 GENERIC_TITLES = ("carta", "mappa", "tavola", "inquadramento", "generale", "sintesi")
 
@@ -149,6 +153,10 @@ class MapSheetSpecification:
     primary_source: str = ""
     #: Extra words that also identify the theme in a title, beyond the taxonomy labels.
     title_keywords: List[str] = field(default_factory=list)
+    #: Layer styles the sheet must really carry. A DEM sheet that shows a grey raster
+    #: keeps the letter of its title and loses the point of it, so the contract can
+    #: demand the hypsometric tint and the hillshade by name.
+    required_styles: List[str] = field(default_factory=list)
 
     @classmethod
     def from_dict(cls, payload: Dict[str, Any]) -> "MapSheetSpecification":
@@ -233,6 +241,13 @@ def specification_for(template_id: str, *, title: str = "") -> MapSheetSpecifica
 def category_of(layer: QgsMapLayer) -> str:
     """The thematic category a layer was stamped with when it entered the project."""
     return (layer.customProperty(PROP_LAYER_CATEGORY, "") or "") if layer else ""
+
+
+def style_of(layer: QgsMapLayer) -> str:
+    """The style a layer was stamped with when the plugin added it to the project."""
+    from ...core.constants import PLUGIN_ID
+
+    return (layer.customProperty(f"{PLUGIN_ID}/style", "") or "") if layer else ""
 
 
 def legend_items(layout: QgsPrintLayout) -> List[QgsMapLayer]:
@@ -322,6 +337,7 @@ class SheetValidator:
             self._check_theme_is_in_legend(report, shown, legend)
             self._check_legend_is_focused(report, legend)
         self._check_excluded(report, shown)
+        self._check_required_styles(report, shown)
         if not report.findings:
             report.add(OK, "ok", "Controlli superati.")
         return report
@@ -411,6 +427,39 @@ class SheetValidator:
                        f"La legenda e' dominata da temi che il titolo non dichiara "
                        f"({', '.join(foreign)}): la tavola potrebbe non essere "
                        f"centrata sul tema annunciato.", self.spec.theme)
+
+    def _check_required_styles(self, report: QaReport,
+                               shown: List[QgsMapLayer]) -> None:
+        """Some sheets need a specific rendering, not merely the right data.
+
+        An elevation sheet carrying a grey single-band raster satisfies "the DEM is
+        present" and still fails the reader: the point of the sheet is the relief, and
+        the relief is the hypsometric tint over the hillshade. A composite counts for
+        the theme it bakes, because that is exactly what it is.
+        """
+        if not self.spec.required_styles:
+            return
+        present = set()
+        for layer in shown:
+            style = style_of(layer).lower()
+            if style:
+                present.add(style)
+                if style.startswith(SHADED_STYLE):
+                    present.add(style[len(SHADED_STYLE):].lstrip("_"))
+                    present.add("hillshade")
+        # The shading reaches paper through the baked composite, because the export
+        # drops layer blend modes. A relief sheet without one still prints, flatter.
+        if any(s in present for s in ("dem", "slope", "aspect")) and                 not any(s.startswith(SHADED_STYLE) for s in present):
+            report.add(WARNING, "relief_not_shaded",
+                       "La tavola porta il tema di terreno ma non il composito "
+                       "ombreggiato: in stampa il rilievo risultera' piatto, perche' "
+                       "l'export non conserva i blend mode.", self.spec.theme)
+        for wanted in self.spec.required_styles:
+            if wanted.lower() not in present:
+                report.add(ERROR, "required_style_missing",
+                           f"La tavola dichiara «{self.spec.theme}» ma non porta la "
+                           f"rappresentazione richiesta «{wanted}»: il dato e' presente "
+                           f"e non e' rappresentato.", self.spec.theme)
 
     def _check_excluded(self, report: QaReport, shown: List[QgsMapLayer]) -> None:
         """Some themes are explicitly forbidden on a sheet (a risk map is not a plan)."""

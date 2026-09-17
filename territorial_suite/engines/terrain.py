@@ -26,8 +26,9 @@ from ..core import cache as cache_module
 from ..core import crs as crs_utils
 from ..core import log, settings
 from ..core.cache import CacheManager, make_key
+from ..core.errors import (EngineError, ResolutionNotApproved, SourceError,
+                          SourceUnavailableError, UserCancelled)
 from ..core.gaps import DataGap
-from ..core.errors import EngineError, SourceError, SourceUnavailableError, UserCancelled
 from ..core.feedback import ChildFeedback, Feedback, NullFeedback
 from ..core.models import LayerRef, SlopeClass, SourceType, TerrainStats
 from ..core.paths import area_dir, temp_dir
@@ -45,6 +46,10 @@ class TerrainOutputs:
     stats: TerrainStats = field(default_factory=TerrainStats)
     layers: List[LayerRef] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+    #: Declared gaps, as :class:`~territorial_suite.core.gaps.DataGap` values. Present
+    #: even when no statistics were produced, because "the DEM was refused and why" is
+    #: itself a result.
+    gaps: List[str] = field(default_factory=list)
 
     @property
     def available(self) -> bool:
@@ -62,11 +67,21 @@ class TileCoverage:
     """
 
     requested_cell_size_m: float = 0.0
+    #: Best detail the source can serve at this latitude, from its own zoom range.
+    available_cell_size_m: float = 0.0
     effective_cell_size_m: float = 0.0
     zoom_requested: int = 0
     zoom_used: int = 0
     tiles_expected: int = 0
     tiles_missing: int = 0
+    #: Tile budget the acquisition had to respect.
+    max_tiles: int = 0
+    #: Tiles the requested detail would have needed, whether or not they were fetched.
+    tiles_at_requested: int = 0
+    #: Whether the caller explicitly accepted a coarser result. Without this the
+    #: acquisition refuses rather than quietly returning something else.
+    user_approved: bool = False
+    degradation_reason: str = ""
 
     @property
     def complete(self) -> bool:
@@ -94,10 +109,21 @@ class TileCoverage:
             parts.append(f"{self.tiles_missing} tile su {self.tiles_expected} non "
                          f"scaricate: il mosaico non copre l'intera area")
         if self.reduced:
+            approved = "approvato dall'utente" if self.user_approved else "non approvato"
             parts.append(f"dettaglio ridotto a {self.effective_cell_size_m:.1f} m "
-                         f"(richiesti {self.requested_cell_size_m:.1f} m) per rispettare "
-                         f"il limite di tile")
+                         f"(richiesti {self.requested_cell_size_m:.1f} m, {approved}): "
+                         f"{self.degradation_reason}")
         return "; ".join(parts)
+
+    def proposal(self) -> str:
+        """What to answer when the requested detail does not fit the tile budget."""
+        return (f"L'area richiede {self.tiles_at_requested} tile a "
+                f"{self.requested_cell_size_m:.1f} m, oltre il limite di "
+                f"{self.max_tiles}. Risoluzione alternativa proponibile: "
+                f"{self.effective_cell_size_m:.1f} m ({self.tiles_expected} tile). "
+                f"Per ottenerla occorre approvarla esplicitamente "
+                f"(terrain.allow_resolution_degradation oppure il parametro "
+                f"approve_degradation); in alternativa si riduca l'area di progetto.")
 
 
 def _gdal():
@@ -134,6 +160,12 @@ def tile_for(lon: float, lat: float, zoom: int) -> Tuple[int, int]:
     x = int((lon + 180.0) / 360.0 * n)
     y = int((1.0 - math.asinh(math.tan(math.radians(lat))) / math.pi) / 2.0 * n)
     return min(max(x, 0), n - 1), min(max(y, 0), n - 1)
+
+
+def ground_resolution(latitude: float, zoom: int, tile_size: int) -> float:
+    """Ground size of one pixel, in metres, at a zoom level and a latitude."""
+    cos_lat = max(math.cos(math.radians(latitude)), 1e-6)
+    return (EARTH_CIRCUMFERENCE / (2 ** zoom * tile_size)) * cos_lat
 
 
 def zoom_for_resolution(target_m: float, latitude: float, tile_size: int,
@@ -280,8 +312,16 @@ class TerrainEngine:
             source_id: str = "", cell_size_m: Optional[float] = None,
             compute_slope: bool = True, compute_aspect: bool = True,
             compute_hillshade: bool = True, compute_contours: bool = False,
-            refresh: bool = False) -> TerrainOutputs:
-        """Acquire the DEM and compute elevation/slope statistics for ``area``."""
+            refresh: bool = False,
+            approve_degradation: Optional[bool] = None) -> TerrainOutputs:
+        """Acquire the DEM and compute elevation/slope statistics for ``area``.
+
+        :param approve_degradation: accept a coarser DEM when the requested detail does
+            not fit the tile budget. ``None`` falls back to
+            ``terrain.allow_resolution_degradation``. Without approval the acquisition
+            raises :class:`ResolutionNotApproved` rather than quietly returning
+            something other than what was asked for.
+        """
         feedback = feedback or NullFeedback()
         outputs = TerrainOutputs()
         source = self.pick_source(source_id)
@@ -290,8 +330,11 @@ class TerrainEngine:
             return outputs
 
         cell_size = float(cell_size_m or settings.get("terrain.cell_size_m", 10))
+        approved = (bool(settings.get("terrain.allow_resolution_degradation", False))
+                    if approve_degradation is None else bool(approve_degradation))
         coverage = TileCoverage(requested_cell_size_m=cell_size,
-                                effective_cell_size_m=cell_size)
+                                effective_cell_size_m=cell_size,
+                                user_approved=approved)
         try:
             feedback.set_step(f"Acquisizione DEM ({source.name})")
             dem_path = self._acquire_dem(area, source, cell_size,
@@ -299,6 +342,13 @@ class TerrainEngine:
                                          refresh=refresh, coverage=coverage)
         except UserCancelled:
             raise
+        except ResolutionNotApproved as exc:
+            # Not a failure of the source: a decision the user has to make. It is
+            # reported as such, with the alternative, instead of being resolved here.
+            outputs.warnings.append(str(exc))
+            outputs.gaps.append(DataGap.REDUCED_RESOLUTION.value)
+            feedback.push_warning(str(exc))
+            return outputs
         except (SourceError, EngineError) as exc:
             outputs.warnings.append(f"DEM non disponibile: {exc}")
             feedback.push_warning(f"DEM non disponibile: {exc}")
@@ -309,7 +359,12 @@ class TerrainEngine:
         outputs.stats = TerrainStats(
             source_id=source.id, cell_size_m=coverage.effective_cell_size_m or cell_size,
             requested_cell_size_m=cell_size,
+            available_cell_size_m=coverage.available_cell_size_m,
             tiles_expected=coverage.tiles_expected, tiles_missing=coverage.tiles_missing,
+            max_tiles=coverage.max_tiles, tiles_at_requested=coverage.tiles_at_requested,
+            resolution_degradation=coverage.reduced,
+            degradation_reason=coverage.degradation_reason,
+            user_approved=coverage.user_approved,
             gaps=coverage.gaps(), coverage_note=coverage.note(),
             dem_path=str(dem_path), provenance=provenance, note=source.notes)
         # A DEM that covers only part of the area, or that came back coarser than asked,
@@ -326,7 +381,12 @@ class TerrainEngine:
                                        source_id=source.id, is_raster=True))
 
         feedback.set_step("Statistiche altimetriche")
+        self._describe_raster(dem_path, outputs.stats, source)
         self._elevation_stats(dem_path, outputs.stats)
+        if outputs.stats.vertical_reference == "unknown":
+            outputs.warnings.append(
+                "La fonte non documenta il riferimento verticale: le quote non vanno "
+                "confrontate con dati altimetrici di altra origine senza verifica.")
 
         if compute_slope:
             feedback.set_step("Calcolo pendenza")
@@ -390,21 +450,51 @@ class TerrainEngine:
         coverage.requested_cell_size_m = cell_size
         coverage.zoom_requested = zoom
 
-        x_min, y_max = tile_for(bbox.xMinimum(), bbox.yMinimum(), zoom)
-        x_max, y_min = tile_for(bbox.xMaximum(), bbox.yMaximum(), zoom)
+        def grid_at(level: int) -> tuple:
+            left, bottom = tile_for(bbox.xMinimum(), bbox.yMinimum(), level)
+            right, top = tile_for(bbox.xMaximum(), bbox.yMaximum(), level)
+            return left, top, right, bottom
+
+        x_min, y_min, x_max, y_max = grid_at(zoom)
+        coverage.max_tiles = max_tiles
+        coverage.tiles_at_requested = (x_max - x_min + 1) * (y_max - y_min + 1)
+        # Finest detail the source itself can serve here: the ground size of a pixel at
+        # its maximum zoom, at this latitude. Asking for less than this is asking the
+        # source for something it does not have.
+        coverage.available_cell_size_m = ground_resolution(centre.y(), zmax, tile_size)
+
         # Lowering the zoom keeps the download bounded, but it hands back a coarser DEM
-        # than the caller asked for. That is a legitimate trade-off and an illegitimate
-        # secret, so the amount of the reduction is recorded and declared.
-        while (x_max - x_min + 1) * (y_max - y_min + 1) > max_tiles and zoom > zmin:
-            zoom -= 1
-            x_min, y_max = tile_for(bbox.xMinimum(), bbox.yMinimum(), zoom)
-            x_max, y_min = tile_for(bbox.xMaximum(), bbox.yMaximum(), zoom)
+        # than the caller asked for. That trade-off is legitimate; making it silently is
+        # not, because every figure computed downstream would describe a detail nobody
+        # chose. So the reduction is worked out, and then either approved or refused.
+        if coverage.tiles_at_requested > max_tiles:
+            fallback = zoom
+            while fallback > zmin:
+                fallback -= 1
+                left, top, right, bottom = grid_at(fallback)
+                if (right - left + 1) * (bottom - top + 1) <= max_tiles:
+                    break
+            coverage.effective_cell_size_m = cell_size * (2 ** (zoom - fallback))
+            left, top, right, bottom = grid_at(fallback)
+            coverage.tiles_expected = (right - left + 1) * (bottom - top + 1)
+            coverage.degradation_reason = (
+                f"l'area richiede {coverage.tiles_at_requested} tile a "
+                f"{cell_size:.1f} m, oltre il limite di {max_tiles}")
+            if not coverage.user_approved:
+                raise ResolutionNotApproved(coverage.proposal(), source_id=source.id)
+            zoom = fallback
+            x_min, y_min, x_max, y_max = grid_at(zoom)
+            feedback.push_warning(
+                f"DEM a {coverage.effective_cell_size_m:.1f} m invece di "
+                f"{cell_size:.1f} m: riduzione approvata.")
+        else:
+            coverage.effective_cell_size_m = cell_size
+
         tiles = [(x, y) for x in range(x_min, x_max + 1) for y in range(y_min, y_max + 1)]
         if not tiles:
             raise EngineError("No elevation tile covers the project area")
         coverage.zoom_used = zoom
         coverage.tiles_expected = len(tiles)
-        coverage.effective_cell_size_m = cell_size * (2 ** (coverage.zoom_requested - zoom))
         feedback.push_debug(f"{source.id}: zoom {zoom}, {len(tiles)} tiles")
 
         paths: List[str] = []
@@ -522,6 +612,48 @@ class TerrainEngine:
         if nodata is not None:
             data = numpy.ma.masked_equal(data, nodata)
         return data, transform
+
+    @staticmethod
+    def _describe_raster(dem_path: Path, stats: TerrainStats,
+                         source: DataSource) -> None:
+        """Record what the produced DEM actually is, read from the file itself.
+
+        The vertical reference is the one place where guessing would be dangerous: a
+        plausible-looking datum invites someone to compare elevations that are not
+        comparable. It is copied from the descriptor when the source documents one, and
+        stays ``unknown`` otherwise.
+        """
+        gdal = _gdal()
+        dataset = None
+        try:
+            dataset = gdal.Open(str(dem_path))
+            if dataset is None:
+                return
+            transform = dataset.GetGeoTransform()
+            stats.pixel_size_m = abs(float(transform[1])) if transform else 0.0
+            band = dataset.GetRasterBand(1)
+            nodata = band.GetNoDataValue() if band is not None else None
+            stats.nodata = float(nodata) if nodata is not None else None
+            width, height = dataset.RasterXSize, dataset.RasterYSize
+            if transform:
+                left, top = transform[0], transform[3]
+                stats.extent = {
+                    "xmin": left, "ymax": top,
+                    "xmax": left + width * transform[1],
+                    "ymin": top + height * transform[5],
+                }
+            projection = dataset.GetProjection()
+        finally:
+            band = None
+            dataset = None
+        if projection:
+            from qgis.core import QgsCoordinateReferenceSystem
+
+            crs = QgsCoordinateReferenceSystem.fromWkt(projection)
+            stats.horizontal_crs = crs.authid() or ""
+        query = source.query or {}
+        stats.vertical_reference = str(query.get("vertical_reference", "") or "unknown")
+        stats.vertical_crs = str(query.get("vertical_crs", "") or "")
 
     def _elevation_stats(self, dem_path: Path, stats: TerrainStats) -> None:
         """Fill the elevation statistics and histogram."""

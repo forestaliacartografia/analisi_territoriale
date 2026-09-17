@@ -537,6 +537,24 @@ class TerrainStats:
     #: smaller area than the one the user asked about.
     tiles_expected: int = 0
     tiles_missing: int = 0
+    #: Tile budget, and how many tiles the requested detail would have needed.
+    max_tiles: int = 0
+    tiles_at_requested: int = 0
+    #: Finest detail the source itself can serve over this area.
+    available_cell_size_m: float = 0.0
+    #: Whether the result is coarser than requested, why, and whether that was accepted.
+    resolution_degradation: bool = False
+    degradation_reason: str = ""
+    user_approved: bool = False
+    #: Vertical datum, when the source documents one. Never inferred: a plausible guess
+    #: about a vertical reference is worse than admitting it is unknown.
+    vertical_reference: str = "unknown"
+    vertical_crs: str = ""
+    horizontal_crs: str = ""
+    nodata: Optional[float] = None
+    pixel_size_m: float = 0.0
+    extent: Dict[str, float] = field(default_factory=dict)
+    acquired_at: str = ""
     #: :class:`~territorial_suite.core.gaps.DataGap` values, as strings.
     gaps: List[str] = field(default_factory=list)
     coverage_note: str = ""

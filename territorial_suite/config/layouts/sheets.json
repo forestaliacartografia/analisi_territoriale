@@ -227,7 +227,11 @@
         "dem",
         "dtm",
         "rilievo"
-      ]
+      ],
+      "required_styles": [
+        "dem"
+      ],
+      "_comment": "required_styles: una carta altimetrica deve mostrare la quota rappresentata, non un raster grigio. Non si pretende anche 'hillshade' come stile a se': il layout ammette un solo tema di terreno per tavola, e l'ombreggiatura arriva alla stampa attraverso il composito 'shaded_dem', perche' l'export perde i blend mode. La sua assenza e' un'avvertenza, non un errore."
     },
     "slope_map": {
       "title": "Carta della pendenza",
@@ -241,6 +245,9 @@
       "title_keywords": [
         "pendenza",
         "acclivita"
+      ],
+      "required_styles": [
+        "slope"
       ]
     },
     "orthophoto_map": {

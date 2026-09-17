@@ -50,6 +50,10 @@ class AnalysisOptions:
     include_cadastre: bool = True
     include_constraints: bool = True
     include_cultural_heritage: bool = True
+    #: Hazard and risk themes. Off by default in quick mode: each theme is
+    #: a separate download, and the constraint step has already said what
+    #: intersects the area.
+    include_hazard_risk: bool = True
     include_terrain: bool = True
     include_download: bool = False
     download_categories: Optional[Sequence[str]] = None
@@ -140,6 +144,8 @@ class AnalysisOrchestrator:
             steps.append("constraints")
         if options.include_cultural_heritage:
             steps.append("cultural")
+        if options.include_hazard_risk:
+            steps.append("hazard_risk")
         if options.include_terrain:
             steps.append("terrain")
         if options.include_download:
@@ -200,6 +206,24 @@ class AnalysisOrchestrator:
         engine.attach(report, outcome)
         report.layers.extend(engine.layers)
         report.warnings.extend(outcome.warnings)
+
+    def _step_hazard_risk(self, area: ProjectArea, options: AnalysisOptions,
+                          report: AnalysisReport, feedback: Feedback) -> None:
+        """Measure hazard and risk themes, keeping each kind on its own record.
+
+        The generic constraint step already reports that these sources intersect the
+        area. What it cannot say is *which class*, or that a risk theme has no source at
+        all; that distinction is the reason this step exists.
+        """
+        from .hazard_risk import HazardRiskEngine
+
+        engine = HazardRiskEngine(registry=self.registry, http=self.http)
+        outcome = engine.run(area, feedback=feedback, refresh=options.refresh)
+        report.modules["hazard_risk"] = outcome.as_dict()
+        report.warnings.extend(outcome.warnings)
+        for theme in outcome.themes:
+            for warning in theme.warnings:
+                report.warnings.append(f"{theme.theme}: {warning}")
 
     def _step_terrain(self, area: ProjectArea, options: AnalysisOptions,
                       report: AnalysisReport, feedback: Feedback) -> None:

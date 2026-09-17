@@ -137,3 +137,45 @@ Il prompt chiede di non espandere acronimi a memoria. Titoli letti dalle capabil
 
 Nessuna fonte e' `verified` finche' un descrittore non porta questa evidenza con
 `last_verified` e nota.
+
+## 7. Conteggio feature su AOI reale — 2026-09-17
+
+Sondaggio precedente: raggiungibilita' e schema. Questo: **quante feature arrivano davvero**
+su un'area di progetto reale, attraverso il client del plugin (non con curl).
+
+AOI: piana di Pisa, `11.35, 43.69 - 10.45, 43.75` (EPSG:4326), distretto ITC.
+
+| Fonte | Feature | Campi restituiti |
+|---|---:|---|
+| `pcn.alluvioni.itc.hph` | 35 | `rbdname`, `uomcode`, `apsfrcode`, `category`, ... |
+| `pcn.alluvioni.itc.mph` | 52 | idem |
+| `pcn.alluvioni.itc.lph` | 35 | idem |
+| `pcn.pai.pericolosita.alluvione` | 180 | **solo** `fid`, `gml_id` |
+| `pcn.pai.pericolosita.frana_01` | 3 | **solo** `fid`, `gml_id` |
+| `pcn.euap` | 1 | **solo** `fid`, `gml_id` |
+| `pcn.natura2000` | 2 | **solo** `fid`, `gml_id` |
+| `pcn.ramsar` | 1 | **solo** `fid`, `gml_id` |
+| `pcn.bacini.principali` | 2 | `nome_bac`, `nome_corso`, `autorita`, ... |
+| `pcn.reticolo.fiumi_principali_secondari` | 2 | `nome`, `tipo`, `bacino_pri`, ... |
+| `pcn.edificato.capoluoghi` | **5000** | `id_edifici`, `codice_istat`, `altezza`, ... |
+| `pcn.iuti` | 351 | `id_25ha`, `cod_90`, ... |
+| `pcn.ferrovie.trattaferroviaria` | 43 | `nome`, `ente`, `tipologia`, ... |
+| `rt.aree_boscate.2016` | 127 | `comune`, `idrt`, ... |
+| `rt.zvn.1` | 0 | l'area non ricade nel gruppo 1: vanno interrogati tutti e sei |
+
+### Due esiti da registrare
+
+**`pcn.pai.rischio.alluvione` e `pcn.frane.poligonali` falliscono la lettura del GML**
+(`SourceSchemaError: Cannot read downloaded dataset page_0.gml`). Il servizio risponde 200
+e annuncia feature, ma GDAL non ne legge la geometria — lo stesso quadro gia' incontrato
+con alcuni strati SITAP.
+
+Questo e' il comportamento **voluto**: il client dichiara un errore invece di riportare
+«0 feature», che sarebbe indistinguibile da un'area senza rischio. La conseguenza per il
+motore e' che il tema `flood_risk` da PAI risulta `SOURCE_UNAVAILABLE`, non «rischio
+assente».
+
+**`pcn.edificato.capoluoghi` restituisce esattamente 5000 feature**, cioe' il tetto
+configurato: la risposta e' troncata. Ogni percentuale calcolata su un insieme troncato
+descrive le sole feature scaricate, e il motore lo dichiara con `PARTIAL_COVERAGE` invece
+di presentarla come completa.

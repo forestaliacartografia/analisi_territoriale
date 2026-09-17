@@ -91,7 +91,9 @@
     "hillshade_azimuth": 315,
     "hillshade_altitude": 45,
     "hillshade_z_factor": 1.0,
-    "shaded_relief": true
+    "shaded_relief": true,
+    "max_tiles": 64,
+    "allow_resolution_degradation": false
   },
   "download": {
     "categories": [

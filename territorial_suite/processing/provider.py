@@ -55,6 +55,7 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
 )
         from .algs.data import AnalyzeConstraintsAlgorithm, DownloadAreaAlgorithm
         from .algs.heritage import (
+    HazardRiskAlgorithm,
     HydrogeologicalConstraintAlgorithm,
             CulturalHeritageAlgorithm,
             ImageryProvidersAlgorithm,
@@ -69,6 +70,7 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
             AnalyzeConstraintsAlgorithm(),
             CulturalHeritageAlgorithm(),
             HydrogeologicalConstraintAlgorithm(),
+            HazardRiskAlgorithm(),
             QueryCadastreAlgorithm(),
             TerrainStatisticsAlgorithm(),
             ElevationProfileAlgorithm(),

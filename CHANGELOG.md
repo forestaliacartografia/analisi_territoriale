@@ -8,8 +8,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 ## [Non rilasciato] - Tessuto dati nazionale e contratto delle tavole
 
 La versione resta **0.1.1**: il bump appartiene a chi decide il rilascio.
-Suite: **495 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
-+100), 0 falliti, 16 saltati. Bandit 0 rilievi, Flake8 0 E741.
+Suite: **532 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
++137), 0 falliti, 16 saltati. Bandit 0 rilievi, Flake8 0 E741.
 
 ### Aggiunto
 
@@ -29,6 +29,50 @@ Suite: **495 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione
 - Algoritmo Processing **Valida tavola**, sullo stesso engine della GUI e dell'export.
 - `docs/SHEET_QA.md`, `docs/probes/PCN_MASE_PROBE_LOG.md`,
   `docs/probes/TOSCANA_PROBE_LOG.md`.
+
+### Aggiunto (quarto blocco)
+
+- **`engines/hazard_risk/`**: pericolosita e rischio misurati tenendo distinti
+  inventario, suscettibilita, pericolosita e rischio. Nessuna conversione fra i quattro.
+  Un tema senza fonte risulta **non determinabile** e non viene mai dedotto dal tema
+  vicino: un rischio ricavato da una pericolosita e' un numero che nessuno ha calcolato.
+  Il codice ufficiale della classe resta sempre accanto al livello normalizzato.
+- `config/rules/hazard_classes.json`: temi, regole di classificazione e scala
+  normalizzata. `unclassified` significa «la fonte non ha pubblicato la classe», non
+  «livello basso».
+- Passo `hazard_risk` nell'orchestratore: il risultato entra in `AnalysisReport.modules`.
+- Algoritmi Processing «Analizza pericolosita e rischio» e «Analizza vincolo
+  idrogeologico». Totale 20.
+- QA cartografica: `required_styles` nel contratto di tavola. Una carta altimetrica che
+  porta un raster grigio soddisfa il titolo e tradisce il lettore; l'assenza del
+  composito ombreggiato e' un'avvertenza, perche' in stampa il rilievo esce piatto.
+
+### Corretto (quarto blocco)
+
+- **Il DEM non degrada piu' da solo.** Oltre il limite di tile l'acquisizione non
+  abbassa lo zoom: solleva `ResolutionNotApproved`, dichiara quante tile servirebbero,
+  propone la risoluzione alternativa e chiede approvazione esplicita
+  (`approve_degradation`, oppure `terrain.allow_resolution_degradation`).
+- Metadati DEM completi: risoluzione richiesta, disponibile ed effettiva, tile attese e
+  mancanti, budget, degradazione con motivo e approvazione, CRS orizzontale, pixel,
+  nodata, estensione. Il riferimento verticale resta `unknown` quando la fonte non lo
+  documenta, con un avviso: un datum verosimile invita a confrontare quote che non sono
+  confrontabili.
+- Il motore di pericolosita dichiara `PARTIAL_COVERAGE` quando la risposta e' troncata
+  al tetto di feature o quando il servizio annuncia feature che non consegna: una
+  percentuale su un insieme troncato descrive le sole feature scaricate.
+
+### Verificato sul campo (quarto blocco)
+
+- Conteggio feature su AOI reale (piana di Pisa) attraverso il client del plugin:
+  alluvioni ITC 35/52/35 con attributi completi; PAI pericolosita alluvione 180 con
+  soli `fid`/`gml_id`; EUAP 1, Natura 2000 2, Ramsar 1, tutti senza attributi.
+- **`pcn.pai.rischio.alluvione` e `pcn.frane.poligonali` non superano la lettura del
+  GML**: il servizio risponde 200 ma GDAL non ne legge la geometria. Il client dichiara
+  l'errore invece di riportare «0 feature», quindi il tema risulta `SOURCE_UNAVAILABLE`
+  e non «rischio assente».
+- `pcn.edificato.capoluoghi` restituisce esattamente 5000 feature: e' il tetto
+  configurato, la risposta e' troncata e viene dichiarata come tale.
 
 ### Aggiunto (terzo blocco)
 

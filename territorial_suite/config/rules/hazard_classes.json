@@ -1,0 +1,89 @@
+{
+  "_comment": "Come si ricava la classe da una fonte di pericolosita' o rischio, e come la si rende confrontabile fra fonti diverse. Regola non negoziabile: 'normalised' e' un secondo valore accanto al codice ufficiale, mai un suo sostituto. Una tavola o un report possono aggregare per livello, ma il codice della fonte resta nel risultato. Nessun endpoint qui: le fonti stanno nel registry, questo file dice solo come leggerne il contenuto.",
+  "version": "1.0",
+
+  "themes": {
+    "flood_hazard": {
+      "kind": "hazard",
+      "label_it": "Pericolosita idraulica",
+      "categories": ["flood_hazard"]
+    },
+    "flood_risk": {
+      "kind": "risk",
+      "label_it": "Rischio idraulico",
+      "categories": ["flood_risk"]
+    },
+    "landslide_hazard": {
+      "kind": "hazard",
+      "label_it": "Pericolosita da frana",
+      "categories": ["landslide_hazard"]
+    },
+    "landslide_risk": {
+      "kind": "risk",
+      "label_it": "Rischio da frana",
+      "categories": ["landslide_risk"]
+    },
+    "landslide_inventory": {
+      "kind": "inventory",
+      "label_it": "Inventario dei fenomeni franosi",
+      "categories": ["landslide_inventory"],
+      "_comment": "Un fenomeno censito non e' una perimetrazione di pericolosita'. Il tema esiste per poterlo dire, non per essere sommato agli altri."
+    }
+  },
+
+  "rules": [
+    {
+      "_comment": "PGRA 2018: il campo category porta lo scenario di probabilita' per esteso. E' la fonte migliore disponibile perche' pubblica davvero gli attributi.",
+      "match": {"source_prefix": "pcn.alluvioni"},
+      "field": "category",
+      "plan": "PGRA 2018 - Direttiva 2007/60/CE, D.Lgs. 49/2010",
+      "values": {
+        "HighProbabilityHazard": {"label": "Elevata probabilita (HPH)", "normalised": "high"},
+        "MediumProbabilityHazard": {"label": "Media probabilita (MPH)", "normalised": "medium"},
+        "LowProbabilityHazard": {"label": "Scarsa probabilita (LPH)", "normalised": "low"}
+      }
+    },
+    {
+      "_comment": "PAI: la mosaicatura nazionale non pubblica attributi. DescribeFeatureType dichiara solo msGeometry, verificato. L'unica distinzione disponibile e' lo strato, e va dichiarata come tale: derived_from='layer'.",
+      "match": {"source_prefix": "pcn.pai"},
+      "field": "",
+      "derived_from": "layer",
+      "plan": "Piani di Assetto Idrogeologico - D.Lgs. 152/2006 (mosaicatura nazionale)",
+      "limitation": "La fonte pubblica la sola geometria: la classe ufficiale non e' fra gli attributi e la distinzione disponibile e' soltanto lo strato. Il piano vigente resta quello dell'Autorita' di bacino competente.",
+      "layer_values": {
+        "RN.PAI.PERICOLOSITA.ALLUVIONE": {"label": "Pericolosita idraulica PAI", "normalised": "unclassified"},
+        "RN.PAI.PERICOLOSITA.FRANA_01": {"label": "Pericolosita da frana PAI (livello 1)", "normalised": "unclassified"},
+        "RN.PAI.PERICOLOSITA.FRANA_02": {"label": "Pericolosita da frana PAI (livello 2)", "normalised": "unclassified"},
+        "RN.PAI.RISCHIO.ALLUVIONE": {"label": "Rischio idraulico PAI", "normalised": "unclassified"},
+        "RN.PAI.RISCHIO.FRANA_01": {"label": "Rischio da frana PAI (livello 1)", "normalised": "unclassified"},
+        "RN.PAI.RISCHIO.FRANA_02": {"label": "Rischio da frana PAI (livello 2)", "normalised": "unclassified"}
+      }
+    },
+    {
+      "_comment": "Catalogo frane: inventario di fenomeni osservati. Anche qui nessun attributo pubblicato.",
+      "match": {"source_prefix": "pcn.frane"},
+      "field": "",
+      "derived_from": "layer",
+      "plan": "Catalogo nazionale delle frane",
+      "limitation": "Inventario di fenomeni osservati: non e' una perimetrazione di pericolosita' e non e' un vincolo. La fonte pubblica la sola geometria.",
+      "layer_values": {
+        "RN.CATALOGO_FRANE.POLIGONALI": {"label": "Aree in frana", "normalised": "observed"},
+        "RN.CATALOGO_FRANE.DGPV": {"label": "Deformazioni gravitative profonde", "normalised": "observed"},
+        "RN.CATALOGO_FRANE.AREE.FRANE.DIFFUSE": {"label": "Aree a franosita diffusa", "normalised": "observed"}
+      }
+    }
+  ],
+
+  "normalised_levels": {
+    "_comment": "Scala comparabile del plugin, dichiaratamente sua. 'unclassified' significa che la fonte non ha pubblicato una classe: non e' un livello basso, e' l'assenza del dato di classe.",
+    "order": ["unclassified", "observed", "low", "medium", "high", "very_high"],
+    "labels_it": {
+      "unclassified": "classe non pubblicata dalla fonte",
+      "observed": "fenomeno osservato",
+      "low": "bassa",
+      "medium": "media",
+      "high": "elevata",
+      "very_high": "molto elevata"
+    }
+  }
+}

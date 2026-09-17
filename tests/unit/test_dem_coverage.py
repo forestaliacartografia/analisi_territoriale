@@ -106,5 +106,98 @@ class TestStatsCarryTheGaps(unittest.TestCase):
         self.assertEqual(TerrainStats().gaps, [])
 
 
+class TestDegradationIsNeverSilent(unittest.TestCase):
+    """The rule: a coarser DEM may be returned, but never without being asked for."""
+
+    def test_the_budget_and_the_cost_are_both_recorded(self):
+        coverage = TileCoverage(requested_cell_size_m=5.0, effective_cell_size_m=20.0,
+                                zoom_requested=14, zoom_used=12,
+                                max_tiles=64, tiles_at_requested=900,
+                                tiles_expected=60,
+                                degradation_reason="oltre il limite")
+        self.assertEqual(coverage.max_tiles, 64)
+        self.assertEqual(coverage.tiles_at_requested, 900)
+        self.assertTrue(coverage.reduced)
+
+    def test_the_proposal_names_an_alternative_and_how_to_accept_it(self):
+        coverage = TileCoverage(requested_cell_size_m=5.0, effective_cell_size_m=20.0,
+                                zoom_requested=14, zoom_used=12,
+                                max_tiles=64, tiles_at_requested=900, tiles_expected=60)
+        text = coverage.proposal()
+        self.assertIn("900 tile", text)
+        self.assertIn("limite di 64", text)
+        self.assertIn("20.0 m", text)
+        self.assertIn("approve_degradation", text)
+
+    def test_an_unapproved_reduction_says_so_in_the_note(self):
+        coverage = TileCoverage(requested_cell_size_m=5.0, effective_cell_size_m=20.0,
+                                zoom_requested=14, zoom_used=12, tiles_expected=60,
+                                user_approved=False, degradation_reason="oltre il limite")
+        self.assertIn("non approvato", coverage.note())
+
+    def test_an_approved_reduction_says_that_instead(self):
+        coverage = TileCoverage(requested_cell_size_m=5.0, effective_cell_size_m=20.0,
+                                zoom_requested=14, zoom_used=12, tiles_expected=60,
+                                user_approved=True, degradation_reason="oltre il limite")
+        self.assertIn("approvato dall'utente", coverage.note())
+
+    def test_the_refusal_is_its_own_error_type(self):
+        from territorial_suite.core.errors import EngineError, ResolutionNotApproved
+
+        self.assertTrue(issubclass(ResolutionNotApproved, EngineError))
+
+    def test_the_engine_refuses_rather_than_lowering_the_zoom(self):
+        """Reading the source: no loop may silently walk the zoom down any more."""
+        import ast
+
+        from territorial_suite.core.paths import plugin_dir
+
+        source = (plugin_dir() / "engines" / "terrain.py").read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        target = None
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name == "_download_tiles":
+                target = node
+        self.assertIsNotNone(target)
+        raises = {n.func.id for n in ast.walk(target)
+                  if isinstance(n, ast.Raise) and isinstance(n.exc, ast.Call)
+                  and isinstance(n.exc.func, ast.Name)
+                  for n in [n.exc]}
+        self.assertIn("ResolutionNotApproved", raises,
+                      "l'acquisizione deve rifiutare, non degradare da sola")
+
+
+class TestDemMetadata(unittest.TestCase):
+    """What the report has to be able to say about the DEM it used."""
+
+    def test_every_required_field_exists(self):
+        stats = TerrainStats()
+        for name in ("requested_cell_size_m", "available_cell_size_m", "cell_size_m",
+                     "tiles_expected", "max_tiles", "tiles_at_requested",
+                     "resolution_degradation", "degradation_reason", "user_approved",
+                     "vertical_reference", "vertical_crs", "horizontal_crs",
+                     "extent", "pixel_size_m", "nodata", "acquired_at"):
+            self.assertTrue(hasattr(stats, name), name)
+
+    def test_the_vertical_reference_defaults_to_unknown_not_to_a_guess(self):
+        self.assertEqual(TerrainStats().vertical_reference, "unknown")
+
+    def test_the_metadata_survives_the_dossier(self):
+        stats = TerrainStats(cell_size_m=20.0, requested_cell_size_m=5.0,
+                             available_cell_size_m=2.4, max_tiles=64,
+                             tiles_at_requested=900, resolution_degradation=True,
+                             degradation_reason="oltre il limite", user_approved=True,
+                             horizontal_crs="EPSG:32632", pixel_size_m=20.0,
+                             nodata=-9999.0, extent={"xmin": 1.0, "ymin": 2.0,
+                                                     "xmax": 3.0, "ymax": 4.0})
+        back = TerrainStats.from_dict(stats.as_dict())
+        self.assertTrue(back.resolution_degradation)
+        self.assertTrue(back.user_approved)
+        self.assertEqual(back.available_cell_size_m, 2.4)
+        self.assertEqual(back.horizontal_crs, "EPSG:32632")
+        self.assertEqual(back.nodata, -9999.0)
+        self.assertEqual(back.extent["xmax"], 3.0)
+
+
 if __name__ == "__main__":
     unittest.main()

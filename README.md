@@ -107,7 +107,7 @@ Adding a regional WFS means dropping one JSON file — see
 "C:\Program Files\QGIS 4.0.0\bin\python-qgis.bat" scripts\run_tests.py
 ```
 
-495 tests, no network required (recorded fixtures), green on both QGIS versions. Add
+532 tests, no network required (recorded fixtures), green on both QGIS versions. Add
 `--network` to also run the scenarios that hit the real services.
 
 ## Credits and data

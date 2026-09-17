@@ -289,5 +289,45 @@ class TestExportRefusesABrokenSheet(SheetCase):
         self.assertFalse(result.qa.blocking)
 
 
+class TestDemSheetsMustShowTheRelief(SheetCase):
+    """A grey single-band raster satisfies "the DEM is there" and fails the reader."""
+
+    def styled_layer(self, name, category, style):
+        from territorial_suite.core.constants import PLUGIN_ID
+
+        layer = themed_layer(self.project, name, category)
+        layer.setCustomProperty(f"{PLUGIN_ID}/style", style)
+        return layer
+
+    def test_the_contract_demands_the_elevation_be_represented(self):
+        spec = specification_for("elevation_map")
+        self.assertIn("dem", spec.required_styles)
+
+    def test_an_elevation_sheet_without_any_elevation_layer_is_an_error(self):
+        self.styled_layer("Comuni", "administrative", "admin_boundaries")
+        report = validate_layout(self.build("elevation_map"), "elevation_map")
+        self.assertEqual(report.level, ERROR)
+
+    def test_a_dem_without_the_shaded_composite_warns_about_a_flat_print(self):
+        """The layout takes one terrain theme per sheet; shading arrives baked."""
+        self.styled_layer("DEM", "terrain", "dem")
+        report = validate_layout(self.build("elevation_map"), "elevation_map")
+        self.assertIn("relief_not_shaded", [f.code for f in report.warnings])
+        self.assertNotIn("relief_not_shaded", [f.code for f in report.errors],
+                         "una stampa piatta e' un difetto, non un blocco")
+
+    def test_a_baked_composite_counts_for_both(self):
+        """The composite *is* the tint over the shading, flattened."""
+        self.styled_layer("Rilievo ombreggiato", "terrain", "shaded_dem")
+        report = validate_layout(self.build("elevation_map"), "elevation_map")
+        self.assertNotIn("required_style_missing", [f.code for f in report.errors])
+
+    def test_a_sheet_with_no_style_requirement_is_unaffected(self):
+        themed_layer(self.project, "Comuni", "administrative")
+        report = validate_layout(self.build("territorial_overview"),
+                                 "territorial_overview")
+        self.assertNotIn("required_style_missing", [f.code for f in report.findings])
+
+
 if __name__ == "__main__":
     unittest.main()

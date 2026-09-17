@@ -69,3 +69,12 @@ class UserCancelled(TerritorialSuiteError):
 
     def __init__(self, message: str = "Operation cancelled by the user") -> None:
         super().__init__(message)
+
+
+class ResolutionNotApproved(EngineError):
+    """The requested detail does not fit the tile budget and nobody approved a coarser one.
+
+    Raised instead of quietly returning a lower-resolution DEM. The message carries the
+    alternative resolution and how to accept it, so the caller can ask the user rather
+    than guess on their behalf.
+    """

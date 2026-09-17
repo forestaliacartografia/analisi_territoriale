@@ -317,3 +317,77 @@ class HydrogeologicalConstraintAlgorithm(TerritorialAlgorithm):
                 encoding="utf-8")
         return {self.OUTPUT: out_path or "", "ESITO": outcome.presence.value,
                 "MISURABILE": outcome.measurable}
+
+
+class HazardRiskAlgorithm(TerritorialAlgorithm):
+    """Measure hazard and risk themes over the area, without conflating them."""
+
+    THEMES = "THEMES"
+    OUTPUT = "OUTPUT"
+
+    def __init__(self) -> None:
+        super().__init__()
+        from ...engines.hazard_risk import rules as hazard_rules
+
+        self._themes = list((hazard_rules().get("themes") or {}).items())
+
+    def name(self) -> str:
+        return "analyze_hazard_risk"
+
+    def displayName(self) -> str:  # noqa: N802 - QGIS API
+        return "Analizza pericolosita e rischio"
+
+    def shortHelpString(self) -> str:  # noqa: N802 - QGIS API
+        return ("Misura i temi di pericolosita e rischio sull'area di progetto tenendoli "
+                "distinti: inventario, suscettibilita, pericolosita e rischio sono "
+                "affermazioni diverse e non vengono mai convertite l'una nell'altra.\n\n"
+                "Le superfici sono calcolate sulla parte di poligono realmente interna "
+                "all'area. Il codice ufficiale della classe e' sempre conservato accanto "
+                "al livello normalizzato.\n\n"
+                "Se un tema non ha una fonte che possa rispondere, il risultato dichiara "
+                "che non e' determinabile: non viene mai ricavato dal tema vicino. Un "
+                "rischio dedotto da una pericolosita e' un numero che nessuno ha "
+                "calcolato, presentato come se qualcuno l'avesse fatto.")
+
+    def initAlgorithm(self, config=None) -> None:  # noqa: N802 - QGIS API
+        self.add_area_parameter()
+        labels = [f"{name} ({conf.get('kind', '')})" for name, conf in self._themes]
+        self.addParameter(QgsProcessingParameterEnum(
+            self.THEMES, "Temi da misurare", labels or ["(nessun tema configurato)"],
+            allowMultiple=True,
+            defaultValue=list(range(len(self._themes))) or [0]))
+        self.addParameter(QgsProcessingParameterFileDestination(
+            self.OUTPUT, "Esito (JSON)", fileFilter="JSON (*.json)",
+            optional=True, createByDefault=False))
+
+    def processAlgorithm(self, parameters, context, feedback):  # noqa: N802 - QGIS API
+        from ...engines.hazard_risk import HazardRiskEngine
+
+        if not self._themes:
+            raise QgsProcessingException("Nessun tema di pericolosita configurato.")
+        area = self.project_area(parameters, context, feedback)
+        chosen = self.parameterAsEnums(parameters, self.THEMES, context)
+        names = [self._themes[i][0] for i in chosen] or [n for n, _ in self._themes]
+
+        outcome = HazardRiskEngine().run(area, themes=names,
+                                         feedback=self.feedback_adapter(feedback))
+        for theme in outcome.themes:
+            feedback.pushInfo(theme.statement())
+            for row in theme.classes:
+                origin = "" if row.derived_from == "attribute" else "  [classe dallo strato]"
+                feedback.pushInfo(
+                    f"    {row.official_label[:46]:46s} {row.area_m2 / 10_000:9.2f} ha "
+                    f"{row.percentage:5.1f}%  [{row.normalised}]{origin}")
+            for limitation in theme.limitations:
+                feedback.pushWarning(f"    {limitation}")
+            for gap in theme.gaps:
+                feedback.pushInfo(f"    lacuna: {gap}")
+
+        out_path = self.parameterAsFileOutput(parameters, self.OUTPUT, context)
+        if out_path:
+            Path(out_path).write_text(
+                json.dumps(outcome.as_dict(), ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        determinable = sum(1 for t in outcome.themes if t.determinable)
+        return {self.OUTPUT: out_path or "", "TEMI": len(outcome.themes),
+                "DETERMINABILI": determinable}
