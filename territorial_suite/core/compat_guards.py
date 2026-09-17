@@ -39,8 +39,8 @@ def apply() -> None:
                     "openpyxl e' gia' stato importato con il backend lxml da un altro "
                     "componente: l'export XLSX usera' il fallback CSV per evitare "
                     "instabilita' con GDAL.")
-        except Exception:  # pragma: no cover - defensive
-            pass
+        except Exception as exc:  # pragma: no cover - defensive
+            log.debug(f"apply: operazione non riuscita ({type(exc).__name__}: {exc})")
 
 
 def openpyxl_is_safe() -> bool:

@@ -119,7 +119,8 @@ def analyse_layer(area: ProjectArea, layer: QgsVectorLayer, *,
         if needs_transform:
             try:
                 geometry = crs_utils.transform_geometry(geometry, layer.crs(), work_crs)
-            except Exception:  # pragma: no cover - broken feature
+            except Exception as exc:  # pragma: no cover - broken feature
+                log.debug(f"analyse_layer: elemento saltato ({type(exc).__name__}: {exc})")
                 continue
         try:
             geometry = geom_utils.ensure_valid(geometry, context="feature")

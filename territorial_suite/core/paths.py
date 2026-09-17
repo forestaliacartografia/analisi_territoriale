@@ -17,6 +17,8 @@ import re
 import tempfile
 from pathlib import Path
 
+from . import log
+
 PLUGIN_PACKAGE = "territorial_suite"
 
 _UNSAFE = re.compile(r"[^A-Za-z0-9._@ -]+")
@@ -45,8 +47,8 @@ def _profile_dir() -> Path:
         path = QgsApplication.qgisSettingsDirPath()
         if path:
             return Path(path)
-    except Exception:  # pragma: no cover - QGIS not available (pure unit tests)
-        pass
+    except Exception as exc:  # pragma: no cover - QGIS not available (pure unit tests)
+        log.debug(f"_profile_dir: operazione non riuscita ({type(exc).__name__}: {exc})")
     return Path(tempfile.gettempdir()) / "qgis_profile_stub"
 
 

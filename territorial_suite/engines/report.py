@@ -135,14 +135,14 @@ class ReportEngine:
             writer.setPageSize(QPageSize(QPageSize.PageSizeId.A4))
             writer.setPageMargins(QMarginsF(15, 15, 15, 15), QPageLayout.Unit.Millimeter)
             writer.setResolution(300)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"write_pdf: operazione non riuscita ({type(exc).__name__}: {exc})")
         document = QTextDocument()
         document.setHtml(self.to_html())
         try:
             document.setPageSize(QSizeF(writer.width(), writer.height()))
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"write_pdf: operazione non riuscita ({type(exc).__name__}: {exc})")
         printer = getattr(document, "print", None) or getattr(document, "print_")
         printer(writer)
         if not path.exists():

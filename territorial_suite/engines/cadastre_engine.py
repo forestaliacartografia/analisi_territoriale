@@ -319,11 +319,13 @@ class CadastreEngine:
             if layer.crs() != work_crs:
                 try:
                     geometry = crs_utils.transform_geometry(geometry, layer.crs(), work_crs)
-                except Exception:  # pragma: no cover - broken feature
+                except Exception as exc:  # pragma: no cover - broken feature
+                    log.debug(f"_build_rows: elemento saltato ({type(exc).__name__}: {exc})")
                     continue
             try:
                 geometry = geom_utils.ensure_valid(geometry, context="parcel")
-            except Exception:
+            except Exception as exc:
+                log.debug(f"_build_rows: elemento saltato ({type(exc).__name__}: {exc})")
                 continue
             if not geometry.intersects(area_geom):
                 continue

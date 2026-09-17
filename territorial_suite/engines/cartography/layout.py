@@ -330,7 +330,10 @@ class LayoutBuilder:
             try:
                 grid.setAnnotationDisplay(
                     QgsLayoutItemMapGrid.DisplayMode.ShowAll, position)
-            except Exception:  # pragma: no cover - API differences
+            except Exception as exc:  # pragma: no cover - API differences
+                # One side failing means this build does not take the call at all.
+                log.debug(f"_grid: annotazioni della griglia non impostate "
+                          f"({type(exc).__name__}: {exc})")
                 break
         font = QFont()
         font.setPointSizeF(6.0)
@@ -338,8 +341,8 @@ class LayoutBuilder:
             text_format = grid.annotationTextFormat()
             text_format.setSize(6.0)
             grid.setAnnotationTextFormat(text_format)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"_configure_grid: operazione non riuscita ({type(exc).__name__}: {exc})")
         map_item.updateBoundingRect()
 
     def layers_for(self, template: Dict[str, Any], spec: MapSpec) -> List[QgsMapLayer]:
@@ -508,8 +511,8 @@ class LayoutBuilder:
         font.setItalic(italic)
         try:
             label.setFont(font)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"_label: operazione non riuscita ({type(exc).__name__}: {exc})")
         label.setHAlign(Qt.AlignmentFlag.AlignLeft)
         label.setVAlign(Qt.AlignmentFlag.AlignTop)
         label.setMargin(1.0)
@@ -533,8 +536,8 @@ class LayoutBuilder:
             try:
                 legend.setColumnCount(int(config.columns))
                 legend.setSplitLayer(True)
-            except Exception:  # pragma: no cover - API differences
-                pass
+            except Exception as exc:  # pragma: no cover - API differences
+                log.debug(f"_legend: operazione non riuscita ({type(exc).__name__}: {exc})")
         size = config.font_size or size
         font = QFont()
         font.setPointSizeF(size)
@@ -545,7 +548,10 @@ class LayoutBuilder:
                 title_font.setBold(style == QgsLegendStyle.Style.Title)
                 title_font.setPointSizeF(size + (1.0 if style == QgsLegendStyle.Style.Title else 0))
                 legend.setStyleFont(style, title_font)
-            except Exception:  # pragma: no cover - API differences
+            except Exception as exc:  # pragma: no cover - API differences
+                # One style failing means this build does not take the call at all.
+                log.debug(f"_legend: carattere della legenda lasciato al predefinito "
+                          f"({type(exc).__name__}: {exc})")
                 break
         try:
             legend.setResizeToContents(False)
@@ -637,9 +643,10 @@ class LayoutBuilder:
             for node in children:
                 root.removeChildNode(node)
             root.insertChildNodes(0, clones)
-        except Exception:  # pragma: no cover - layer-tree API differences
+        except Exception as exc:  # pragma: no cover - layer-tree API differences
             # Reordering is cosmetic: never risk corrupting the tree for it.
-            pass
+            log.debug(f"_reorder_legend: ordine della legenda invariato "
+                      f"({type(exc).__name__}: {exc})")
 
     @staticmethod
     def _scalebar(layout: QgsPrintLayout, map_item: QgsLayoutItemMap, spec: MapSpec,
@@ -656,8 +663,8 @@ class LayoutBuilder:
             bar.setNumberOfSegments(2)
             bar.setNumberOfSegmentsLeft(0)
             bar.setHeight(2.2)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"_scalebar: operazione non riuscita ({type(exc).__name__}: {exc})")
         # Let QGIS pick a round segment length that fits the panel, otherwise the bar
         # renders as a "0 m" stub.
         try:
@@ -670,14 +677,14 @@ class LayoutBuilder:
             segment = scale_engine.grid_interval(spec.scale or map_item.scale()) / 2.0
             try:
                 bar.setUnitsPerSegment(segment)
-            except Exception:
-                pass
+            except Exception as exc:
+                log.debug(f"_scalebar: operazione non riuscita ({type(exc).__name__}: {exc})")
         try:
             text_format = bar.textFormat()
             text_format.setSize(size)
             bar.setTextFormat(text_format)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"_scalebar: operazione non riuscita ({type(exc).__name__}: {exc})")
         bar.update()
         bar.attemptMove(QgsLayoutPoint(x, y, Qgis.LayoutUnit.Millimeters))
         bar.attemptResize(QgsLayoutSize(width, height * 0.6, Qgis.LayoutUnit.Millimeters))
@@ -788,8 +795,8 @@ class LayoutBuilder:
         try:
             picture.setResizeMode(QgsLayoutItemPicture.ResizeMode.Zoom if keep_aspect
                                   else QgsLayoutItemPicture.ResizeMode.Stretch)
-        except Exception:  # pragma: no cover - API differences
-            pass
+        except Exception as exc:  # pragma: no cover - API differences
+            log.debug(f"_picture: operazione non riuscita ({type(exc).__name__}: {exc})")
         picture.attemptMove(QgsLayoutPoint(x, y, Qgis.LayoutUnit.Millimeters))
         picture.attemptResize(QgsLayoutSize(width, height, Qgis.LayoutUnit.Millimeters))
         return picture

@@ -110,8 +110,8 @@ def resolve_work_crs(geometry: QgsGeometry, crs: CrsLike, mode: str = "auto_utm"
             project_crs = QgsProject.instance().crs()
             if project_crs.isValid() and is_metric(project_crs):
                 return project_crs
-        except Exception:  # pragma: no cover - outside QGIS app
-            pass
+        except Exception as exc:  # pragma: no cover - outside QGIS app
+            log.debug(f"resolve_work_crs: operazione non riuscita ({type(exc).__name__}: {exc})")
     return auto_work_crs(geometry, crs)
 
 

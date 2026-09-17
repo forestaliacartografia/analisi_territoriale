@@ -172,8 +172,8 @@ class HttpClient:
         try:
             for name, value in reply.rawHeaderPairs():
                 headers[bytes(name).decode("latin-1").lower()] = bytes(value).decode("latin-1")
-        except Exception:  # pragma: no cover - defensive
-            pass
+        except Exception as exc:  # pragma: no cover - defensive
+            log.debug(f"_headers: operazione non riuscita ({type(exc).__name__}: {exc})")
         return headers
 
     # ------------------------------------------------------------------ requests

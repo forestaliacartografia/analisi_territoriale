@@ -88,7 +88,22 @@ def quantise_bbox(min_x: float, min_y: float, max_x: float, max_y: float,
 def make_key(source_id: str, **parts: Any) -> str:
     """Build a deterministic cache key from a source id and query parameters."""
     payload = json.dumps({"source": source_id, **parts}, sort_keys=True, default=str)
-    return hashlib.sha1(payload.encode("utf-8")).hexdigest()
+    # Not a security primitive: this only has to turn a query into a short, stable file
+    # name. ``usedforsecurity=False`` says so, and keeps the plugin installable on builds
+    # that run Python in FIPS mode, where the plain constructor would raise.
+    return hashlib.sha1(payload.encode("utf-8"), usedforsecurity=False).hexdigest()
+
+
+#: Filter clause shared by the statements below. Each pair of parameters is
+#: ``(value, value)``: when the value is empty the first test succeeds and the column is
+#: not compared at all, so one constant statement serves every combination of filters.
+_FILTER = ("WHERE (? = '' OR key = ?)"
+           "  AND (? = '' OR source_id = ?)"
+           "  AND (? = '' OR area_id = ?)"
+           "  AND (? = '' OR kind = ?)")
+_SELECT_FILTERED = f"SELECT * FROM entries {_FILTER}"      # nosec B608 - no caller data
+_DELETE_FILTERED = f"DELETE FROM entries {_FILTER}"        # nosec B608 - no caller data
+_SELECT_BY_KIND = "SELECT * FROM entries WHERE (? = '' OR kind = ?)"
 
 
 class CacheManager:
@@ -227,28 +242,19 @@ class CacheManager:
     def invalidate(self, *, key: str = "", source_id: str = "", area_id: str = "",
                    kind: str = "") -> int:
         """Delete cache entries matching the given filters. Returns the number removed."""
-        clauses, params = [], []
-        if key:
-            clauses.append("key=?")
-            params.append(key)
-        if source_id:
-            clauses.append("source_id=?")
-            params.append(source_id)
-        if area_id:
-            clauses.append("area_id=?")
-            params.append(area_id)
-        if kind:
-            clauses.append("kind=?")
-            params.append(kind)
-        where = " AND ".join(clauses) if clauses else "1=1"
+        # The filters are optional, but the SQL is not assembled from them: an empty
+        # filter neutralises its own clause through a parameter. The statements below are
+        # therefore constant strings, with every value bound - there is no code path that
+        # can put caller data into the SQL text.
+        params = (key, key, source_id, source_id, area_id, area_id, kind, kind)
         removed = 0
         try:
             with _LOCK, self._connect() as connection:
-                rows = connection.execute(f"SELECT * FROM entries WHERE {where}", params).fetchall()
+                rows = connection.execute(_SELECT_FILTERED, params).fetchall()
                 for row in rows:
                     self._remove_payload(Path(row["path"]))
                     removed += 1
-                connection.execute(f"DELETE FROM entries WHERE {where}", params)
+                connection.execute(_DELETE_FILTERED, params)
         except sqlite3.Error as exc:  # pragma: no cover - defensive
             log.warning(f"Cache invalidation failed: {exc}")
         return removed
@@ -379,11 +385,9 @@ class CacheManager:
         A list, not a generator: the SQLite connection must be closed before the caller
         starts deleting files, otherwise Windows keeps the index locked.
         """
-        query = "SELECT * FROM entries" + (" WHERE kind=?" if kind else "")
-        params = (kind,) if kind else ()
         try:
             with _LOCK, self._connect() as connection:
-                rows = connection.execute(query, params).fetchall()
+                rows = connection.execute(_SELECT_BY_KIND, (kind, kind)).fetchall()
             return [self._row_to_entry(row) for row in rows]
         except sqlite3.Error:  # pragma: no cover - defensive
             return []

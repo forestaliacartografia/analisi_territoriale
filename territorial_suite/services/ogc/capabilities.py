@@ -7,11 +7,43 @@ plugin needs (title, layer/typename list, CRS, formats), never the full document
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
-from xml.etree import ElementTree
+# nosec B405 - every document goes through _safe_root() below, which refuses the DTD
+# constructs this module would otherwise be exposed to.
+from xml.etree import ElementTree  # nosec B405
 
 from ...core.errors import SourceSchemaError
+
+try:  # pragma: no cover - not shipped with QGIS, used when a distribution provides it
+    from defusedxml.ElementTree import fromstring as _defused_fromstring
+except ImportError:  # pragma: no cover - the normal case
+    _defused_fromstring = None
+
+#: A capabilities document arrives from the network, so it is untrusted input.
+#: ``xml.etree`` does not resolve *external* entities - verified: an external entity
+#: raises "undefined entity" - but it does expand *internal* ones, which is enough to
+#: build an expansion bomb out of a few nested declarations. OGC capabilities are
+#: schema-based (XSD) and never legitimately carry a DTD, so the whole construct is
+#: refused rather than parsed.
+_DOCTYPE = re.compile(rb"<!\s*(DOCTYPE|ENTITY)\b", re.IGNORECASE)
+
+
+def _safe_root(payload: bytes) -> "ElementTree.Element":
+    """Parse an untrusted capabilities document.
+
+    :raises SourceSchemaError: when the document declares a DTD or cannot be parsed.
+    """
+    if _DOCTYPE.search(payload if isinstance(payload, bytes) else payload.encode("utf-8")):
+        raise SourceSchemaError(
+            "Il documento delle capabilities dichiara una DTD: rifiutato",
+            detail="I servizi OGC pubblicano documenti basati su schema XSD; una "
+                   "dichiarazione DOCTYPE o ENTITY non e' legittima e puo' essere usata "
+                   "per un attacco di espansione.")
+    if _defused_fromstring is not None:  # pragma: no cover - depends on the environment
+        return _defused_fromstring(payload)
+    return ElementTree.fromstring(payload)  # nosec B314 - DTD refused above
 
 
 def local_name(tag: str) -> str:
@@ -79,7 +111,7 @@ class Capabilities:
 def parse(payload: bytes) -> Capabilities:
     """Parse a WFS or WMS/WMTS capabilities document."""
     try:
-        root = ElementTree.fromstring(payload)
+        root = _safe_root(payload)
     except ElementTree.ParseError as exc:
         raise SourceSchemaError("Malformed capabilities document", detail=str(exc)) from exc
 

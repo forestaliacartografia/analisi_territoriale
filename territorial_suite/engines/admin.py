@@ -158,7 +158,8 @@ class AdminResolver:
             if layer.crs() != work_crs:
                 try:
                     geometry = crs_utils.transform_geometry(geometry, layer.crs(), work_crs)
-                except Exception:  # pragma: no cover - broken feature
+                except Exception as exc:  # pragma: no cover - broken feature
+                    log.debug(f"_shares_by_code: elemento saltato ({type(exc).__name__}: {exc})")
                     continue
             by_code.setdefault(code, []).append(QgsGeometry(geometry))
         shares: Dict[str, float] = {}
@@ -220,7 +221,8 @@ class AdminResolver:
             if layer.crs() != work_crs:
                 try:
                     geometry = crs_utils.transform_geometry(geometry, layer.crs(), work_crs)
-                except Exception:  # pragma: no cover - broken feature
+                except Exception as exc:  # pragma: no cover - broken feature
+                    log.debug(f"_units_from_osm_layer: elemento saltato ({type(exc).__name__}: {exc})")
                     continue
             clipped = geom_utils.intersection(geometry, area_geom)
             if clipped.isEmpty():
