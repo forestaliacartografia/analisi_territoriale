@@ -529,6 +529,17 @@ class TerrainStats:
     #: Layouts and packages use these because print and PDF export drop blend modes.
     shaded_paths: Dict[str, str] = field(default_factory=dict)
     contours_path: str = ""
+    #: Detail the caller asked for. When it differs from ``cell_size_m`` the DEM
+    #: was produced coarser than requested, and ``gaps`` says so.
+    requested_cell_size_m: float = 0.0
+    #: Tiles the area needed, and how many never arrived. A mosaic built from an
+    #: incomplete set has holes, and a statistic computed on it describes a
+    #: smaller area than the one the user asked about.
+    tiles_expected: int = 0
+    tiles_missing: int = 0
+    #: :class:`~territorial_suite.core.gaps.DataGap` values, as strings.
+    gaps: List[str] = field(default_factory=list)
+    coverage_note: str = ""
     provenance: Optional[Provenance] = None
     note: str = ""
 

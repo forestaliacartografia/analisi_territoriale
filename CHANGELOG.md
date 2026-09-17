@@ -7,10 +7,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and the proje
 
 ## [Non rilasciato] - Tessuto dati nazionale e contratto delle tavole
 
-La versione resta **0.1.1**: la slice non ha superato tutti i gate previsti (Print
-Manager 2.0, DEM multi-fonte e CORINE Land Cover non sono di questo lavoro).
-Suite: **418 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
-+23), 0 falliti, 16 saltati.
+La versione resta **0.1.1**: restano fuori CTR, ZVN e il vincolo idrogeologico come
+engine proprio.
+Suite: **472 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
++77), 0 falliti, 16 saltati. Bandit 0 rilievi, Flake8 0 E741.
 
 ### Aggiunto
 
@@ -30,6 +30,33 @@ Suite: **418 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione
 - Algoritmo Processing **Valida tavola**, sullo stesso engine della GUI e dell'export.
 - `docs/SHEET_QA.md`, `docs/probes/PCN_MASE_PROBE_LOG.md`,
   `docs/probes/TOSCANA_PROBE_LOG.md`.
+
+### Aggiunto (secondo blocco)
+
+- **`DataGap` promosso in `core/gaps.py`** con quattro valori nuovi: `VIEW_ONLY`,
+  `REGIONAL_SOURCE_REQUIRED`, `PARTIAL_COVERAGE`, `REDUCED_RESOLUTION`. Un solo valore,
+  `NO_FEATURE_FOUND`, puo' essere letto come «non c'e'»: lo impone un test.
+  `cultural_heritage` continua a importarlo da dove lo importava.
+- **CORINE Land Cover**: descrittore della fonte EEA (layer vettoriale, non solo
+  raster), nomenclatura ufficiale a 3 livelli in `config/nomenclature/` e
+  `engines/land_cover.py`. Le superfici sono misurate sulla parte di poligono
+  realmente interna all'area, mai sul campo `Area_Ha` della fonte; l'aggregazione per
+  livello conserva sempre i codici ufficiali di origine.
+- **Print Manager** (`engines/cartography/print_manager.py`): le stampe hanno
+  `print_id`, versione e cronologia, vivono nel progetto QGIS e si riaprono,
+  aggiornano, duplicano e ripristinano. Cio' che viene salvato e' la ricetta, non il
+  disegno: un PDF si puo' ristampare, una specifica si puo' ricostruire sui dati nuovi.
+- Tre algoritmi Processing: «Valida tavola», «Analizza uso e copertura del suolo
+  (CORINE)», «Aggiorna stampa». Totale 18.
+
+### Corretto (secondo blocco)
+
+- **Il DEM degradava in silenzio.** Oltre il limite di tile il motore abbassava lo zoom
+  restituendo un DEM piu' grossolano di quello richiesto, e le tile non scaricate
+  producevano un mosaico bucato: in entrambi i casi senza dirlo. Ora `TerrainStats`
+  porta risoluzione richiesta, tile attese e mancanti, e dichiara
+  `REDUCED_RESOLUTION` o `PARTIAL_COVERAGE`. Una statistica calcolata su un mosaico
+  incompleto descrive un'area diversa da quella chiesta, e ora si vede.
 
 ### Corretto
 

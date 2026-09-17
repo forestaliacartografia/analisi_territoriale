@@ -24,6 +24,8 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from enum import Enum
+
+from ...core.gaps import DataGap
 from typing import Any, Dict, List, Optional
 
 UNKNOWN = "unknown"
@@ -49,41 +51,9 @@ class Finding(str, Enum):
         }[self]
 
 
-class DataGap(str, Enum):
-    """Why a theme produced no record. These are **not** interchangeable.
-
-    "No cultural asset was found" never means "there is no cultural asset".
-    """
-
-    #: The source answered and there is genuinely nothing in the area.
-    NO_FEATURE_FOUND = "NO_FEATURE_FOUND"
-    #: No source at all is configured for this theme.
-    NO_DATA = "NO_DATA"
-    #: The source is configured but did not answer.
-    SOURCE_UNAVAILABLE = "SOURCE_UNAVAILABLE"
-    #: The area falls outside the declared coverage of the source.
-    SOURCE_OUTSIDE_COVERAGE = "SOURCE_OUTSIDE_COVERAGE"
-    #: The request failed (schema, CRS, unreadable geometries).
-    QUERY_FAILED = "QUERY_FAILED"
-    #: The source exists in the catalogue but is not operational.
-    SOURCE_NOT_VERIFIED = "SOURCE_NOT_VERIFIED"
-
-    @property
-    def label_it(self) -> str:
-        """Italian wording used in the dossier."""
-        return {
-            DataGap.NO_FEATURE_FOUND: "nessun elemento nell'area",
-            DataGap.NO_DATA: "nessuna fonte configurata per il tema",
-            DataGap.SOURCE_UNAVAILABLE: "fonte non disponibile",
-            DataGap.SOURCE_OUTSIDE_COVERAGE: "area fuori dalla copertura della fonte",
-            DataGap.QUERY_FAILED: "interrogazione non riuscita",
-            DataGap.SOURCE_NOT_VERIFIED: "fonte censita ma non operativa",
-        }[self]
-
-    @property
-    def means_absence(self) -> bool:
-        """Whether this gap may be read as "there is nothing here"."""
-        return self is DataGap.NO_FEATURE_FOUND
+#: Re-exported so that the engines that already import it here keep working; the enum
+#: itself moved to ``core`` when other engines started needing the same distinctions.
+DataGap = DataGap
 
 
 @dataclass

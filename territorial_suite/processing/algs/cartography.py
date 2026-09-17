@@ -7,7 +7,10 @@ from pathlib import Path
 from typing import List
 
 from qgis.core import (
+    QgsProcessing,
     QgsProcessingException,
+    QgsProcessingParameterField,
+    QgsProcessingParameterVectorLayer,
     QgsProcessingParameterBoolean,
     QgsProcessingParameterEnum,
     QgsProcessingParameterFile,
@@ -336,3 +339,140 @@ class ValidateSheetAlgorithm(TerritorialAlgorithm):
                 f"titolo e non vanno esportate.")
         return {self.OUTPUT: out_path or "", "ERRORI": blocking,
                 "TAVOLE": len(reports)}
+
+
+class LandCoverAlgorithm(TerritorialAlgorithm):
+    """Measure land cover over the area from a classified vector layer.
+
+    Same engine as the GUI: the surfaces are computed on the part of each polygon that
+    really falls inside the area, never on the polygon's own extent.
+    """
+
+    LAYER = "LAYER"
+    FIELD = "FIELD"
+    LEVEL = "LEVEL"
+    OUTPUT = "OUTPUT"
+    LEVELS = ["Livello 1 (5 classi)", "Livello 2 (15 classi)", "Livello 3 (44 classi)"]
+
+    def name(self) -> str:
+        return "analyze_land_cover"
+
+    def displayName(self) -> str:  # noqa: N802 - QGIS API
+        return "Analizza uso e copertura del suolo (CORINE)"
+
+    def shortHelpString(self) -> str:  # noqa: N802 - QGIS API
+        return ("Calcola la superficie e la percentuale di ciascuna classe di uso del "
+                "suolo sull'area di progetto, a partire da uno strato classificato "
+                "(CORINE Land Cover o equivalente). Le superfici sono misurate sulla "
+                "parte di poligono realmente interna all'area. L'aggregazione per "
+                "livello conserva sempre il codice ufficiale di origine, e una copertura "
+                "parziale viene dichiarata invece di essere ignorata.")
+
+    def initAlgorithm(self, config=None) -> None:  # noqa: N802 - QGIS API
+        self.add_area_parameter()
+        self.addParameter(QgsProcessingParameterVectorLayer(
+            self.LAYER, "Strato classificato", types=[QgsProcessing.TypeVectorPolygon]))
+        self.addParameter(QgsProcessingParameterField(
+            self.FIELD, "Campo del codice", parentLayerParameterName=self.LAYER,
+            defaultValue="Code_18"))
+        self.addParameter(QgsProcessingParameterEnum(
+            self.LEVEL, "Livello di aggregazione", self.LEVELS, defaultValue=2))
+        self.addParameter(QgsProcessingParameterFileDestination(
+            self.OUTPUT, "Esito (JSON)", fileFilter="JSON (*.json)",
+            optional=True, createByDefault=False))
+
+    def processAlgorithm(self, parameters, context, feedback):  # noqa: N802 - QGIS API
+        from ...engines.land_cover import LandCoverEngine
+
+        area = self.project_area(parameters, context, feedback)
+        layer = self.parameterAsVectorLayer(parameters, self.LAYER, context)
+        if layer is None or not layer.isValid():
+            raise QgsProcessingException("Strato classificato non valido.")
+        field = self.parameterAsString(parameters, self.FIELD, context)
+        level = self.parameterAsEnum(parameters, self.LEVEL, context) + 1
+
+        outcome = LandCoverEngine(code_field=field).measure_layer(
+            area, layer, level=level)
+        if not outcome.ok:
+            for gap in outcome.gaps:
+                feedback.reportError(f"Nessuna classe misurata: {gap}")
+            raise QgsProcessingException(
+                "Nessuna classe di uso del suolo interseca l'area di progetto.")
+
+        feedback.pushInfo(f"Area di progetto: {outcome.area_m2 / 10_000:.2f} ha")
+        feedback.pushInfo(f"Classificata: {outcome.coverage_pct:.1f}%")
+        for row in outcome.classes:
+            mark = "" if row.recognised else "  [codice non in nomenclatura]"
+            feedback.pushInfo(f"  {row.code:>3s} {row.label[:44]:44s} "
+                              f"{row.area_m2 / 10_000:9.2f} ha  {row.percentage:5.1f}%{mark}")
+        for warning in outcome.warnings:
+            feedback.pushWarning(warning)
+
+        out_path = self.parameterAsFileOutput(parameters, self.OUTPUT, context)
+        if out_path:
+            Path(out_path).write_text(
+                json.dumps(outcome.as_dict(), ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        return {self.OUTPUT: out_path or "", "CLASSI": len(outcome.classes),
+                "COPERTURA_PCT": round(outcome.coverage_pct, 2)}
+
+
+class UpdatePrintAlgorithm(TerritorialAlgorithm):
+    """Rebuild a stored print against the current data, keeping its identity."""
+
+    PRINT = "PRINT"
+    OUTPUT = "OUTPUT"
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._records = []
+
+    def flags(self):
+        """Layout creation belongs to the main thread."""
+        flags = super().flags()
+        return flags | NO_THREADING if NO_THREADING is not None else flags
+
+    def name(self) -> str:
+        return "update_print"
+
+    def displayName(self) -> str:  # noqa: N802 - QGIS API
+        return "Aggiorna stampa"
+
+    def shortHelpString(self) -> str:  # noqa: N802 - QGIS API
+        return ("Ricostruisce una stampa gia' salvata usando i dati correnti, "
+                "conservandone identificativo e cronologia: la versione precedente "
+                "resta recuperabile. Al termine la tavola viene verificata contro il "
+                "contratto del proprio template.")
+
+    def initAlgorithm(self, config=None) -> None:  # noqa: N802 - QGIS API
+        from ...engines.cartography.print_manager import PrintManager
+
+        self.add_area_parameter()
+        self._records = PrintManager(QgsProject.instance()).records()
+        labels = [f"{r.label} (v{r.version})" for r in self._records]
+        self.addParameter(QgsProcessingParameterEnum(
+            self.PRINT, "Stampa da aggiornare",
+            labels or ["(nessuna stampa salvata)"], defaultValue=0))
+
+    def processAlgorithm(self, parameters, context, feedback):  # noqa: N802 - QGIS API
+        from ...engines.cartography.print_manager import PrintManager
+
+        if not self._records:
+            raise QgsProcessingException(
+                "Il progetto non contiene stampe salvate da aggiornare.")
+        area = self.project_area(parameters, context, feedback)
+        index = self.parameterAsEnum(parameters, self.PRINT, context)
+        record = self._records[min(index, len(self._records) - 1)]
+
+        manager = PrintManager(QgsProject.instance())
+        updated, _layout = manager.update(record.print_id, area)
+        feedback.pushInfo(f"«{updated.label}» aggiornata alla versione {updated.version}.")
+        feedback.pushInfo(f"Versioni conservate: {len(updated.history)}")
+        if updated.qa_level == "error":
+            feedback.reportError(
+                f"La tavola aggiornata contraddice il proprio titolo: "
+                f"{updated.qa_summary}. Non va esportata cosi'.")
+        elif updated.qa_summary:
+            feedback.pushInfo(f"Controlli: {updated.qa_summary}")
+        return {"PRINT_ID": updated.print_id, "VERSIONE": updated.version,
+                "QA": updated.qa_level}

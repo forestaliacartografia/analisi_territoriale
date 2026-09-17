@@ -1,0 +1,466 @@
+{
+ "_comment": "Nomenclatura CORINE Land Cover, livelli 1-3. Dato di riferimento pubblicato, non inventato dal plugin: il servizio EEA restituisce il solo codice (campo Code_18) e le etichette provengono dalla nomenclatura ufficiale del programma CORINE Land Cover (Agenzia Europea dell'Ambiente; versione italiana ISPRA). Il codice ufficiale va sempre conservato accanto all'etichetta.",
+ "version": "CLC 2018",
+ "attribution": "European Environment Agency - CORINE Land Cover",
+ "reference_url": "https://land.copernicus.eu/en/products/corine-land-cover",
+ "levels": {
+  "1": [
+   {
+    "code": "1",
+    "label_en": "Artificial surfaces",
+    "label_it": "Superfici artificiali"
+   },
+   {
+    "code": "2",
+    "label_en": "Agricultural areas",
+    "label_it": "Superfici agricole utilizzate"
+   },
+   {
+    "code": "3",
+    "label_en": "Forest and semi-natural areas",
+    "label_it": "Territori boscati e ambienti semi-naturali"
+   },
+   {
+    "code": "4",
+    "label_en": "Wetlands",
+    "label_it": "Zone umide"
+   },
+   {
+    "code": "5",
+    "label_en": "Water bodies",
+    "label_it": "Corpi idrici"
+   }
+  ],
+  "2": [
+   {
+    "code": "11",
+    "label_en": "Urban fabric",
+    "label_it": "Zone urbanizzate di tipo residenziale"
+   },
+   {
+    "code": "12",
+    "label_en": "Industrial, commercial and transport units",
+    "label_it": "Zone industriali, commerciali e reti di comunicazione"
+   },
+   {
+    "code": "13",
+    "label_en": "Mine, dump and construction sites",
+    "label_it": "Zone estrattive, discariche e cantieri"
+   },
+   {
+    "code": "14",
+    "label_en": "Artificial, non-agricultural vegetated areas",
+    "label_it": "Zone verdi artificiali non agricole"
+   },
+   {
+    "code": "21",
+    "label_en": "Arable land",
+    "label_it": "Seminativi"
+   },
+   {
+    "code": "22",
+    "label_en": "Permanent crops",
+    "label_it": "Colture permanenti"
+   },
+   {
+    "code": "23",
+    "label_en": "Pastures",
+    "label_it": "Prati stabili"
+   },
+   {
+    "code": "24",
+    "label_en": "Heterogeneous agricultural areas",
+    "label_it": "Zone agricole eterogenee"
+   },
+   {
+    "code": "31",
+    "label_en": "Forests",
+    "label_it": "Zone boscate"
+   },
+   {
+    "code": "32",
+    "label_en": "Scrub and/or herbaceous vegetation associations",
+    "label_it": "Zone caratterizzate da vegetazione arbustiva e/o erbacea"
+   },
+   {
+    "code": "33",
+    "label_en": "Open spaces with little or no vegetation",
+    "label_it": "Zone aperte con vegetazione rada o assente"
+   },
+   {
+    "code": "41",
+    "label_en": "Inland wetlands",
+    "label_it": "Zone umide interne"
+   },
+   {
+    "code": "42",
+    "label_en": "Maritime wetlands",
+    "label_it": "Zone umide marittime"
+   },
+   {
+    "code": "51",
+    "label_en": "Inland waters",
+    "label_it": "Acque continentali"
+   },
+   {
+    "code": "52",
+    "label_en": "Marine waters",
+    "label_it": "Acque marittime"
+   }
+  ]
+ },
+ "classes": [
+  {
+   "code": "111",
+   "level": 3,
+   "label_en": "Continuous urban fabric",
+   "label_it": "Tessuto urbano continuo",
+   "level2": "11",
+   "level1": "1"
+  },
+  {
+   "code": "112",
+   "level": 3,
+   "label_en": "Discontinuous urban fabric",
+   "label_it": "Tessuto urbano discontinuo",
+   "level2": "11",
+   "level1": "1"
+  },
+  {
+   "code": "121",
+   "level": 3,
+   "label_en": "Industrial or commercial units",
+   "label_it": "Aree industriali o commerciali",
+   "level2": "12",
+   "level1": "1"
+  },
+  {
+   "code": "122",
+   "level": 3,
+   "label_en": "Road and rail networks and associated land",
+   "label_it": "Reti stradali e ferroviarie e spazi accessori",
+   "level2": "12",
+   "level1": "1"
+  },
+  {
+   "code": "123",
+   "level": 3,
+   "label_en": "Port areas",
+   "label_it": "Aree portuali",
+   "level2": "12",
+   "level1": "1"
+  },
+  {
+   "code": "124",
+   "level": 3,
+   "label_en": "Airports",
+   "label_it": "Aeroporti",
+   "level2": "12",
+   "level1": "1"
+  },
+  {
+   "code": "131",
+   "level": 3,
+   "label_en": "Mineral extraction sites",
+   "label_it": "Aree estrattive",
+   "level2": "13",
+   "level1": "1"
+  },
+  {
+   "code": "132",
+   "level": 3,
+   "label_en": "Dump sites",
+   "label_it": "Discariche",
+   "level2": "13",
+   "level1": "1"
+  },
+  {
+   "code": "133",
+   "level": 3,
+   "label_en": "Construction sites",
+   "label_it": "Cantieri",
+   "level2": "13",
+   "level1": "1"
+  },
+  {
+   "code": "141",
+   "level": 3,
+   "label_en": "Green urban areas",
+   "label_it": "Aree verdi urbane",
+   "level2": "14",
+   "level1": "1"
+  },
+  {
+   "code": "142",
+   "level": 3,
+   "label_en": "Sport and leisure facilities",
+   "label_it": "Aree sportive e ricreative",
+   "level2": "14",
+   "level1": "1"
+  },
+  {
+   "code": "211",
+   "level": 3,
+   "label_en": "Non-irrigated arable land",
+   "label_it": "Seminativi in aree non irrigue",
+   "level2": "21",
+   "level1": "2"
+  },
+  {
+   "code": "212",
+   "level": 3,
+   "label_en": "Permanently irrigated land",
+   "label_it": "Seminativi in aree irrigue",
+   "level2": "21",
+   "level1": "2"
+  },
+  {
+   "code": "213",
+   "level": 3,
+   "label_en": "Rice fields",
+   "label_it": "Risaie",
+   "level2": "21",
+   "level1": "2"
+  },
+  {
+   "code": "221",
+   "level": 3,
+   "label_en": "Vineyards",
+   "label_it": "Vigneti",
+   "level2": "22",
+   "level1": "2"
+  },
+  {
+   "code": "222",
+   "level": 3,
+   "label_en": "Fruit trees and berry plantations",
+   "label_it": "Frutteti e frutti minori",
+   "level2": "22",
+   "level1": "2"
+  },
+  {
+   "code": "223",
+   "level": 3,
+   "label_en": "Olive groves",
+   "label_it": "Oliveti",
+   "level2": "22",
+   "level1": "2"
+  },
+  {
+   "code": "231",
+   "level": 3,
+   "label_en": "Pastures",
+   "label_it": "Prati stabili",
+   "level2": "23",
+   "level1": "2"
+  },
+  {
+   "code": "241",
+   "level": 3,
+   "label_en": "Annual crops associated with permanent crops",
+   "label_it": "Colture annuali associate a colture permanenti",
+   "level2": "24",
+   "level1": "2"
+  },
+  {
+   "code": "242",
+   "level": 3,
+   "label_en": "Complex cultivation patterns",
+   "label_it": "Sistemi colturali e particellari complessi",
+   "level2": "24",
+   "level1": "2"
+  },
+  {
+   "code": "243",
+   "level": 3,
+   "label_en": "Land principally occupied by agriculture, with significant areas of natural vegetation",
+   "label_it": "Aree prevalentemente occupate da colture agrarie con presenza di spazi naturali importanti",
+   "level2": "24",
+   "level1": "2"
+  },
+  {
+   "code": "244",
+   "level": 3,
+   "label_en": "Agro-forestry areas",
+   "label_it": "Aree agroforestali",
+   "level2": "24",
+   "level1": "2"
+  },
+  {
+   "code": "311",
+   "level": 3,
+   "label_en": "Broad-leaved forest",
+   "label_it": "Boschi di latifoglie",
+   "level2": "31",
+   "level1": "3"
+  },
+  {
+   "code": "312",
+   "level": 3,
+   "label_en": "Coniferous forest",
+   "label_it": "Boschi di conifere",
+   "level2": "31",
+   "level1": "3"
+  },
+  {
+   "code": "313",
+   "level": 3,
+   "label_en": "Mixed forest",
+   "label_it": "Boschi misti di conifere e latifoglie",
+   "level2": "31",
+   "level1": "3"
+  },
+  {
+   "code": "321",
+   "level": 3,
+   "label_en": "Natural grasslands",
+   "label_it": "Aree a pascolo naturale e praterie",
+   "level2": "32",
+   "level1": "3"
+  },
+  {
+   "code": "322",
+   "level": 3,
+   "label_en": "Moors and heathland",
+   "label_it": "Brughiere e cespuglieti",
+   "level2": "32",
+   "level1": "3"
+  },
+  {
+   "code": "323",
+   "level": 3,
+   "label_en": "Sclerophyllous vegetation",
+   "label_it": "Aree a vegetazione sclerofilla",
+   "level2": "32",
+   "level1": "3"
+  },
+  {
+   "code": "324",
+   "level": 3,
+   "label_en": "Transitional woodland-shrub",
+   "label_it": "Aree a vegetazione boschiva e arbustiva in evoluzione",
+   "level2": "32",
+   "level1": "3"
+  },
+  {
+   "code": "331",
+   "level": 3,
+   "label_en": "Beaches, dunes, sands",
+   "label_it": "Spiagge, dune e sabbie",
+   "level2": "33",
+   "level1": "3"
+  },
+  {
+   "code": "332",
+   "level": 3,
+   "label_en": "Bare rocks",
+   "label_it": "Rocce nude, falesie, rupi, affioramenti",
+   "level2": "33",
+   "level1": "3"
+  },
+  {
+   "code": "333",
+   "level": 3,
+   "label_en": "Sparsely vegetated areas",
+   "label_it": "Aree con vegetazione rada",
+   "level2": "33",
+   "level1": "3"
+  },
+  {
+   "code": "334",
+   "level": 3,
+   "label_en": "Burnt areas",
+   "label_it": "Aree percorse da incendi",
+   "level2": "33",
+   "level1": "3"
+  },
+  {
+   "code": "335",
+   "level": 3,
+   "label_en": "Glaciers and perpetual snow",
+   "label_it": "Ghiacciai e nevi perenni",
+   "level2": "33",
+   "level1": "3"
+  },
+  {
+   "code": "411",
+   "level": 3,
+   "label_en": "Inland marshes",
+   "label_it": "Paludi interne",
+   "level2": "41",
+   "level1": "4"
+  },
+  {
+   "code": "412",
+   "level": 3,
+   "label_en": "Peat bogs",
+   "label_it": "Torbiere",
+   "level2": "41",
+   "level1": "4"
+  },
+  {
+   "code": "421",
+   "level": 3,
+   "label_en": "Salt marshes",
+   "label_it": "Paludi salmastre",
+   "level2": "42",
+   "level1": "4"
+  },
+  {
+   "code": "422",
+   "level": 3,
+   "label_en": "Salines",
+   "label_it": "Saline",
+   "level2": "42",
+   "level1": "4"
+  },
+  {
+   "code": "423",
+   "level": 3,
+   "label_en": "Intertidal flats",
+   "label_it": "Zone intertidali",
+   "level2": "42",
+   "level1": "4"
+  },
+  {
+   "code": "511",
+   "level": 3,
+   "label_en": "Water courses",
+   "label_it": "Corsi d'acqua, canali e idrovie",
+   "level2": "51",
+   "level1": "5"
+  },
+  {
+   "code": "512",
+   "level": 3,
+   "label_en": "Water bodies",
+   "label_it": "Bacini d'acqua",
+   "level2": "51",
+   "level1": "5"
+  },
+  {
+   "code": "521",
+   "level": 3,
+   "label_en": "Coastal lagoons",
+   "label_it": "Lagune costiere",
+   "level2": "52",
+   "level1": "5"
+  },
+  {
+   "code": "522",
+   "level": 3,
+   "label_en": "Estuaries",
+   "label_it": "Estuari",
+   "level2": "52",
+   "level1": "5"
+  },
+  {
+   "code": "523",
+   "level": 3,
+   "label_en": "Sea and ocean",
+   "label_it": "Mari e oceani",
+   "level2": "52",
+   "level1": "5"
+  }
+ ]
+}

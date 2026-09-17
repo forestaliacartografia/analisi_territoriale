@@ -26,6 +26,7 @@ from ..core import cache as cache_module
 from ..core import crs as crs_utils
 from ..core import log, settings
 from ..core.cache import CacheManager, make_key
+from ..core.gaps import DataGap
 from ..core.errors import EngineError, SourceError, SourceUnavailableError, UserCancelled
 from ..core.feedback import ChildFeedback, Feedback, NullFeedback
 from ..core.models import LayerRef, SlopeClass, SourceType, TerrainStats
@@ -49,6 +50,54 @@ class TerrainOutputs:
     def available(self) -> bool:
         """Whether elevation statistics could be computed."""
         return self.stats.available
+
+
+@dataclass
+class TileCoverage:
+    """What the tile acquisition actually managed, as opposed to what was asked.
+
+    Two silent degradations used to be possible here and both are recorded now: a zoom
+    lowered to respect the tile budget, and tiles that never arrived. Either one makes a
+    later statistic describe something other than the area the user asked about.
+    """
+
+    requested_cell_size_m: float = 0.0
+    effective_cell_size_m: float = 0.0
+    zoom_requested: int = 0
+    zoom_used: int = 0
+    tiles_expected: int = 0
+    tiles_missing: int = 0
+
+    @property
+    def complete(self) -> bool:
+        """Whether every tile the area needed was obtained."""
+        return self.tiles_missing == 0
+
+    @property
+    def reduced(self) -> bool:
+        """Whether the detail had to be lowered to fit the tile budget."""
+        return self.zoom_used < self.zoom_requested
+
+    def gaps(self) -> List[str]:
+        """The gap values this acquisition has to declare."""
+        found: List[str] = []
+        if not self.complete:
+            found.append(DataGap.PARTIAL_COVERAGE.value)
+        if self.reduced:
+            found.append(DataGap.REDUCED_RESOLUTION.value)
+        return found
+
+    def note(self) -> str:
+        """One sentence for the dossier, empty when nothing degraded."""
+        parts: List[str] = []
+        if not self.complete:
+            parts.append(f"{self.tiles_missing} tile su {self.tiles_expected} non "
+                         f"scaricate: il mosaico non copre l'intera area")
+        if self.reduced:
+            parts.append(f"dettaglio ridotto a {self.effective_cell_size_m:.1f} m "
+                         f"(richiesti {self.requested_cell_size_m:.1f} m) per rispettare "
+                         f"il limite di tile")
+        return "; ".join(parts)
 
 
 def _gdal():
@@ -241,10 +290,13 @@ class TerrainEngine:
             return outputs
 
         cell_size = float(cell_size_m or settings.get("terrain.cell_size_m", 10))
+        coverage = TileCoverage(requested_cell_size_m=cell_size,
+                                effective_cell_size_m=cell_size)
         try:
             feedback.set_step(f"Acquisizione DEM ({source.name})")
             dem_path = self._acquire_dem(area, source, cell_size,
-                                         ChildFeedback(feedback, 0, 50), refresh=refresh)
+                                         ChildFeedback(feedback, 0, 50),
+                                         refresh=refresh, coverage=coverage)
         except UserCancelled:
             raise
         except (SourceError, EngineError) as exc:
@@ -254,9 +306,21 @@ class TerrainEngine:
 
         provenance = source.provenance(operation=f"DEM clip {cell_size:g} m",
                                        crs=area.work_crs.authid())
-        outputs.stats = TerrainStats(source_id=source.id, cell_size_m=cell_size,
-                                     dem_path=str(dem_path), provenance=provenance,
-                                     note=source.notes)
+        outputs.stats = TerrainStats(
+            source_id=source.id, cell_size_m=coverage.effective_cell_size_m or cell_size,
+            requested_cell_size_m=cell_size,
+            tiles_expected=coverage.tiles_expected, tiles_missing=coverage.tiles_missing,
+            gaps=coverage.gaps(), coverage_note=coverage.note(),
+            dem_path=str(dem_path), provenance=provenance, note=source.notes)
+        # A DEM that covers only part of the area, or that came back coarser than asked,
+        # is still useful - but every figure derived from it describes something other
+        # than what the user requested, so it is said out loud rather than logged.
+        if outputs.stats.coverage_note:
+            message = f"DEM: {outputs.stats.coverage_note}"
+            outputs.warnings.append(message)
+            feedback.push_warning(message)
+            if provenance is not None:
+                provenance.notes = f"{provenance.notes} {message}.".strip()
         outputs.layers.append(LayerRef(name="DEM", uri=str(dem_path), provider="gdal",
                                        category="terrain", group="Terrain", style="dem",
                                        source_id=source.id, is_raster=True))
@@ -285,12 +349,14 @@ class TerrainEngine:
     # ------------------------------------------------------------------ acquisition
 
     def _acquire_dem(self, area: ProjectArea, source: DataSource, cell_size: float,
-                     feedback: Feedback, *, refresh: bool) -> Path:
+                     feedback: Feedback, *, refresh: bool,
+                     coverage: "TileCoverage") -> Path:
         """Return a DEM clipped to the area, in the work CRS, at ``cell_size`` metres."""
         if source.type == SourceType.RASTER:
             raw = self._local_raster(source)
         elif source.type == SourceType.TERRAIN_TILES:
-            raw = self._download_tiles(area, source, cell_size, feedback, refresh=refresh)
+            raw = self._download_tiles(area, source, cell_size, feedback,
+                                       refresh=refresh, coverage=coverage)
         else:
             raise EngineError(f"Unsupported terrain source type {source.type.value}")
         return self._clip_to_area(area, raw, cell_size, source)
@@ -305,8 +371,13 @@ class TerrainEngine:
         return path
 
     def _download_tiles(self, area: ProjectArea, source: DataSource, cell_size: float,
-                        feedback: Feedback, *, refresh: bool) -> Path:
-        """Download the XYZ elevation tiles covering the area and build a VRT."""
+                        feedback: Feedback, *, refresh: bool,
+                        coverage: "TileCoverage") -> Path:
+        """Download the XYZ elevation tiles covering the area and build a VRT.
+
+        ``coverage`` is filled in as the work proceeds: the caller needs to know not only
+        that a DEM came back, but whether it is the DEM that was asked for.
+        """
         gdal = _gdal()
         tile_size = int(source.query.get("tile_size", 512))
         zmin = int(source.query.get("zmin", 0))
@@ -316,9 +387,14 @@ class TerrainEngine:
         bbox = area.context_bbox(crs_utils.WGS84, buffer_m=max(cell_size * 4, 100.0))
         centre = bbox.center()
         zoom = zoom_for_resolution(cell_size, centre.y(), tile_size, zmin=zmin, zmax=zmax)
+        coverage.requested_cell_size_m = cell_size
+        coverage.zoom_requested = zoom
 
         x_min, y_max = tile_for(bbox.xMinimum(), bbox.yMinimum(), zoom)
         x_max, y_min = tile_for(bbox.xMaximum(), bbox.yMaximum(), zoom)
+        # Lowering the zoom keeps the download bounded, but it hands back a coarser DEM
+        # than the caller asked for. That is a legitimate trade-off and an illegitimate
+        # secret, so the amount of the reduction is recorded and declared.
         while (x_max - x_min + 1) * (y_max - y_min + 1) > max_tiles and zoom > zmin:
             zoom -= 1
             x_min, y_max = tile_for(bbox.xMinimum(), bbox.yMinimum(), zoom)
@@ -326,6 +402,9 @@ class TerrainEngine:
         tiles = [(x, y) for x in range(x_min, x_max + 1) for y in range(y_min, y_max + 1)]
         if not tiles:
             raise EngineError("No elevation tile covers the project area")
+        coverage.zoom_used = zoom
+        coverage.tiles_expected = len(tiles)
+        coverage.effective_cell_size_m = cell_size * (2 ** (coverage.zoom_requested - zoom))
         feedback.push_debug(f"{source.id}: zoom {zoom}, {len(tiles)} tiles")
 
         paths: List[str] = []
@@ -344,6 +423,7 @@ class TerrainEngine:
                     self.http.get_to_file(url, target, source_id=source.id, feedback=feedback)
                 except SourceError as exc:
                     feedback.push_warning(f"Tile {zoom}/{x}/{y} non scaricata: {exc}")
+                    coverage.tiles_missing += 1
                     continue
                 self.cache.put(key, target, kind=cache_module.KIND_RASTER,
                                source_id=source.id, area_id=area.id,

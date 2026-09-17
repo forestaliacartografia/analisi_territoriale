@@ -49,6 +49,8 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
             GenerateMapSeriesAlgorithm,
             GenerateQuickMapAlgorithm,
             GenerateReportAlgorithm,
+    LandCoverAlgorithm,
+    UpdatePrintAlgorithm,
     ValidateSheetAlgorithm,
 )
         from .algs.data import AnalyzeConstraintsAlgorithm, DownloadAreaAlgorithm
@@ -74,6 +76,8 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
             ImageryProvidersAlgorithm(),
             GenerateMapSeriesAlgorithm(),
             ValidateSheetAlgorithm(),
+            LandCoverAlgorithm(),
+            UpdatePrintAlgorithm(),
             GenerateReportAlgorithm(),
             ExportPackageAlgorithm(),
         ]

@@ -1,0 +1,70 @@
+{
+ "_comment": "CORINE Land Cover 2018, servizio ArcGIS REST dell'Agenzia Europea dell'Ambiente. Evidenza in docs/probes/PCN_MASE_PROBE_LOG.md.",
+ "version": "1.0",
+ "sources": [
+  {
+   "id": "eu.eea.corine.clc2018",
+   "name": "CORINE Land Cover 2018",
+   "authority": "European Environment Agency",
+   "country": "EU",
+   "scope": {
+    "level": "european",
+    "codes": []
+   },
+   "category": "landuse_planning",
+   "subcategory": "land_cover",
+   "type": "ARCGIS_FEATURE",
+   "url": "https://image.discomap.eea.europa.eu/arcgis/rest/services/Corine/CLC2018_WM/MapServer",
+   "layer": "0",
+   "crs": [
+    "EPSG:3857",
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000,
+    "out_fields": "Code_18,Area_Ha,ID,Remark"
+   },
+   "fields": {
+    "code": "Code_18",
+    "area_ha": "Area_Ha",
+    "label": "Code_18"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "thematic",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: MapServer REST OK, il layer 0 e' un Feature Layer vettoriale (non solo il raster del layer 1) e il servizio dichiara Query. Interrogazione reale su Firenze: 5 feature con Code_18 '111' e '112' e Area_Ha valorizzato.",
+   "quality": {
+    "score": 85,
+    "completeness": "europea",
+    "notes": "Unita' minima cartografabile 25 ha e larghezza minima 100 m: una superficie piu' piccola non e' rappresentata. Il servizio restituisce il codice, non l'etichetta: la nomenclatura e' in config/nomenclature/."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Unione europea"
+    ]
+   },
+   "legal_reference": "",
+   "update_frequency": "ogni 6 anni",
+   "last_verified": "2026-09-17",
+   "license": "EEA standard re-use policy",
+   "attribution": "European Environment Agency - CORINE Land Cover 2018, programma Copernicus",
+   "official": true,
+   "metadata_url": "https://land.copernicus.eu/en/products/corine-land-cover",
+   "enabled": true,
+   "priority": 40,
+   "style": "planning_zone",
+   "group": "Uso e copertura del suolo",
+   "tags": [
+    "corine",
+    "clc",
+    "uso del suolo",
+    "copertura del suolo"
+   ],
+   "notes": "Il codice ufficiale (Code_18) va sempre conservato accanto alla classe normalizzata: l'aggregazione per livello non deve far perdere la classe di origine."
+  }
+ ]
+}

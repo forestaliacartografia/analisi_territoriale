@@ -36,6 +36,13 @@ PROP_LAYER_CATEGORY = f"{PLUGIN_ID}/category"
 #: needs it to know which contract the title was supposed to honour.
 PROP_LAYOUT_TEMPLATE = f"{PLUGIN_ID}/layout_template"
 
+#: Layout custom property: the stored print a layout belongs to.
+PROP_PRINT_ID = f"{PLUGIN_ID}/print_id"
+
+#: Project entry holding the register of prints. Prints live in the project the
+#: user saves and shares, not in a private directory the recipient would not get.
+PROP_PRINT_REGISTRY = f"{PLUGIN_ID}/prints"
+
 #: Layer-tree group names created by the plugin.
 GROUP_ROOT = PLUGIN_NAME
 GROUP_AREA = "Project area"
