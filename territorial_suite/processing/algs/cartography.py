@@ -263,3 +263,76 @@ class ExportPackageAlgorithm(TerritorialAlgorithm):
                           f"({len(result.files)} file, "
                           f"{result.size_bytes / 1024 / 1024:.1f} MB)")
         return {self.OUTPUT_FOLDER: str(result.root), "FILES": len(result.files)}
+
+
+class ValidateSheetAlgorithm(TerritorialAlgorithm):
+    """Check every layout of the project against the contract of its template.
+
+    Same engine as the GUI and the export: the rules live in one place, so a sheet that
+    Processing accepts is a sheet the export accepts, and the reverse.
+    """
+
+    OUTPUT = "OUTPUT"
+    STRICT = "STRICT"
+
+    def flags(self):
+        """Layouts belong to the main thread."""
+        flags = super().flags()
+        return flags | NO_THREADING if NO_THREADING is not None else flags
+
+    def name(self) -> str:
+        return "validate_sheet"
+
+    def displayName(self) -> str:  # noqa: N802 - QGIS API
+        return "Valida tavola"
+
+    def shortHelpString(self) -> str:  # noqa: N802 - QGIS API
+        return ("Verifica che ogni tavola del progetto rispetti il contratto del proprio "
+                "template: il tema dichiarato dal titolo deve essere presente nel "
+                "riquadro di mappa, non vuoto, dentro l'estensione stampata e in "
+                "legenda. Segnala anche le legende dominate da temi che il titolo non "
+                "dichiara. Le tavole senza tema dominante superano i controlli sul tema.")
+
+    def initAlgorithm(self, config=None) -> None:  # noqa: N802 - QGIS API
+        self.addParameter(QgsProcessingParameterBoolean(
+            self.STRICT, "Interrompi se una tavola contraddice il proprio titolo", False))
+        self.addParameter(QgsProcessingParameterFileDestination(
+            self.OUTPUT, "Esito dei controlli (JSON)", fileFilter="JSON (*.json)",
+            optional=True, createByDefault=False))
+
+    def processAlgorithm(self, parameters, context, feedback):  # noqa: N802 - QGIS API
+        from ...engines.cartography.sheet_spec import ERROR, WARNING
+
+        project = QgsProject.instance()
+        layouts = [lay for lay in project.layoutManager().layouts()
+                   if hasattr(lay, "pageCollection")]
+        if not layouts:
+            raise QgsProcessingException("Il progetto non contiene alcuna tavola.")
+
+        strict = self.parameterAsBool(parameters, self.STRICT, context)
+        reports, blocking = [], 0
+        for layout in layouts:
+            qa = export_module.ExportCenter.validate(layout)
+            if qa is None:
+                feedback.pushInfo(f"{layout.name()}: nessun contratto dichiarato, "
+                                  f"controlli sul tema non applicabili.")
+                continue
+            reports.append({"layout": layout.name(), **qa.as_dict()})
+            feedback.pushInfo(f"{layout.name()}: {qa.level.upper()} - {qa.summary()}")
+            for finding in qa.findings:
+                if finding.level == ERROR:
+                    feedback.reportError(f"    {finding.code}: {finding.message}")
+                    blocking += 1
+                elif finding.level == WARNING:
+                    feedback.pushWarning(f"    {finding.code}: {finding.message}")
+
+        out_path = self.parameterAsFileOutput(parameters, self.OUTPUT, context)
+        if out_path:
+            Path(out_path).write_text(json.dumps(reports, ensure_ascii=False, indent=2),
+                                      encoding="utf-8")
+        if blocking and strict:
+            raise QgsProcessingException(
+                f"{blocking} controlli bloccanti: le tavole contraddicono il proprio "
+                f"titolo e non vanno esportate.")
+        return {self.OUTPUT: out_path or "", "ERRORI": blocking,
+                "TAVOLE": len(reports)}

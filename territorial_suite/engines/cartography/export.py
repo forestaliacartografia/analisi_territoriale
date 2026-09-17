@@ -38,6 +38,9 @@ class ExportResult:
     format: str
     ok: bool = True
     message: str = ""
+    #: Result of the sheet contract check, when one ran. A refused export keeps it so
+    #: that the caller can show *why* rather than just that it failed.
+    qa: Optional["object"] = None
 
 
 def slugify(text: str, *, max_length: int = 60) -> str:
@@ -58,13 +61,45 @@ class ExportCenter:
     """Exports layouts produced by the cartography engine."""
 
     @staticmethod
+    def validate(layout: QgsPrintLayout):
+        """Check a sheet against the contract of the template it was built from.
+
+        :returns: the QA report, or ``None`` when the sheet declares no template.
+        """
+        from ...core.constants import PROP_LAYOUT_TEMPLATE
+        from .sheet_spec import validate_layout
+
+        template = layout.customProperty(PROP_LAYOUT_TEMPLATE, "") or ""
+        if not template:
+            return None
+        return validate_layout(layout, str(template))
+
+    @staticmethod
     def export(layout: QgsPrintLayout, out_path: Path, fmt: str = PDF, *,
-               dpi: Optional[int] = None) -> ExportResult:
-        """Export one layout. Raises :class:`EngineError` on an unsupported format."""
+               dpi: Optional[int] = None,
+               validate: Optional[bool] = None) -> ExportResult:
+        """Export one layout. Raises :class:`EngineError` on an unsupported format.
+
+        Before writing anything the sheet is checked against its contract. A sheet whose
+        title promises a theme it does not show is **not** written: a wrong map that
+        looks finished is worse than no map, because nothing downstream can detect it.
+        Pass ``validate=False`` to export a draft anyway.
+        """
         fmt = (fmt or PDF).lower()
         if fmt not in FORMATS:
             raise EngineError(f"Unsupported export format: {fmt}")
         out_path = Path(out_path)
+
+        if validate is None:
+            validate = bool(settings.get("cartography.validate_sheets", True))
+        qa = ExportCenter.validate(layout) if validate else None
+        if qa is not None and qa.blocking:
+            reasons = "; ".join(f.message for f in qa.errors)
+            log.warning(f"Export rifiutato per {out_path.name}: {reasons}")
+            return ExportResult(out_path, fmt, False,
+                                f"La tavola non rispetta il proprio contratto: {reasons}",
+                                qa=qa)
+
         out_path.parent.mkdir(parents=True, exist_ok=True)
         exporter = QgsLayoutExporter(layout)
         resolution = int(dpi or settings.get("cartography.dpi", 300))
@@ -93,8 +128,8 @@ class ExportCenter:
         if result != QgsLayoutExporter.ExportResult.Success:
             message = f"export result {result}"
             log.warning(f"Export failed for {out_path.name}: {message}")
-            return ExportResult(out_path, fmt, False, message)
-        return ExportResult(out_path, fmt, True)
+            return ExportResult(out_path, fmt, False, message, qa=qa)
+        return ExportResult(out_path, fmt, True, qa=qa)
 
     @staticmethod
     def export_series(layouts: Sequence[QgsPrintLayout], folder: Path, fmt: str = PDF, *,

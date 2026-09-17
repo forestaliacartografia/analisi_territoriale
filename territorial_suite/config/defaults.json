@@ -148,7 +148,8 @@
       "fill_color": "#d32f2f33",
       "centered": true,
       "inverted": false
-    }
+    },
+    "validate_sheets": true
   },
   "report": {
     "author": "",

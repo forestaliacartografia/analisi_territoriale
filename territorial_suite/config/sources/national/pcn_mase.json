@@ -1,0 +1,3220 @@
+{
+ "_comment": "Fonti del Geoportale Nazionale (PCN/MASE). Evidenza in docs/probes/PCN_MASE_PROBE_LOG.md. Attenzione: GetCapabilities annuncia WFS 2.0.0 ma GetFeature la rifiuta, quindi ogni descrittore impone version 1.1.0.",
+ "version": "1.0",
+ "sources": [
+  {
+   "id": "pcn.alluvioni.ita.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITA",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITA"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITA2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ita"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITA (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ita.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITA",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITA"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITA2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ita"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITA (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ita.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITA",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITA"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITA2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ita"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITA (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itb.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITB",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITB"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITB2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itb"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITB (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itb.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITB",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITB"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITB2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itb"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITB (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itb.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITB",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITB"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITB2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itb"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITB (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itc.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITC",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITC"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITC2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itc"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITC (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itc.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITC",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITC"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITC2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itc"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITC (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itc.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITC",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITC"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITC2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itc"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITC (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ite.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITE",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITE"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITE2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ite"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITE (distretto dell'Appennino Centrale). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ite.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITE",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITE"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITE2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ite"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITE (distretto dell'Appennino Centrale). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ite.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITE",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITE"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITE2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ite"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITE (distretto dell'Appennino Centrale). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itf.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITF",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITF"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITF2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itf"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITF (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itf.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITF",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITF"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITF2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itf"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITF (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itf.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITF",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITF"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITF2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itf"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITF (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itg.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITG",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITG"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITG2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itg"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITG (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itg.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITG",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITG"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITG2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itg"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITG (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.itg.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITG",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITG"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITG2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "itg"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITG (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ith.hph",
+   "name": "Aree allagabili - Elevata probabilita - distretto ITH",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITH"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "hph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITH2018_Estensione_HPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ith"
+   ],
+   "notes": "Scenario HighProbabilityHazard del PGRA 2018, distretto idrografico ITH (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ith.mph",
+   "name": "Aree allagabili - Media probabilita - distretto ITH",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITH"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "mph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITH2018_Estensione_MPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ith"
+   ],
+   "notes": "Scenario MediumProbabilityHazard del PGRA 2018, distretto idrografico ITH (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.alluvioni.ith.lph",
+   "name": "Aree allagabili - Scarsa probabilita - distretto ITH",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": [
+     "ITH"
+    ]
+   },
+   "category": "flood_hazard",
+   "subcategory": "lph",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Alluvioni_Estensione.map",
+   "layer": "ITH2018_Estensione_LPH",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "rbdname",
+    "code": "eu_cd_hp",
+    "class": "category"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 2007/60/CE; D.Lgs. 49/2010 (PGRA)",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 30,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pgra",
+    "alluvioni",
+    "pericolosita",
+    "ith"
+   ],
+   "notes": "Scenario LowProbabilityHazard del PGRA 2018, distretto idrografico ITH (denominazione ufficiale nel campo rbdname di ogni feature). Fuori dal distretto la richiesta non restituisce feature: assenza di dato, non assenza di pericolosita."
+  },
+  {
+   "id": "pcn.pai.pericolosita.alluvione",
+   "name": "PAI - Pericolosita idrogeologica - alluvione",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "flood_hazard",
+   "subcategory": "pericolosita",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "layer": "RN.PAI.PERICOLOSITA.ALLUVIONE",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "pericolosita",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.pai.pericolosita.frana_01",
+   "name": "PAI - Pericolosita idrogeologica - frana (1)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_hazard",
+   "subcategory": "pericolosita",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "layer": "RN.PAI.PERICOLOSITA.FRANA_01",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "pericolosita",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.pai.pericolosita.frana_02",
+   "name": "PAI - Pericolosita idrogeologica - frana (2)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_hazard",
+   "subcategory": "pericolosita",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "layer": "RN.PAI.PERICOLOSITA.FRANA_02",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "pericolosita",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.pai.rischio.alluvione",
+   "name": "PAI - Rischio idrogeologica - alluvione",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "flood_hazard",
+   "subcategory": "rischio",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "layer": "RN.PAI.RISCHIO.ALLUVIONE",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "rischio",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.pai.rischio.frana_01",
+   "name": "PAI - Rischio idrogeologica - frana (1)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_hazard",
+   "subcategory": "rischio",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "layer": "RN.PAI.RISCHIO.FRANA_01",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "rischio",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.pai.rischio.frana_02",
+   "name": "PAI - Rischio idrogeologica - frana (2)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_hazard",
+   "subcategory": "rischio",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "layer": "RN.PAI.RISCHIO.FRANA_02",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "D.Lgs. 152/2006 - Piani di Assetto Idrogeologico",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 35,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "pai",
+    "rischio",
+    "mosaicatura"
+   ],
+   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+  },
+  {
+   "id": "pcn.frane.poligonali",
+   "name": "Catalogo frane - aree in frana",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.POLIGONALI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.frane.dgpv",
+   "name": "Catalogo frane - deformazioni gravitative profonde",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.DGPV",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.frane.aree_frane_diffuse",
+   "name": "Catalogo frane - aree a franosita diffusa",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.AREE.FRANE.DIFFUSE",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.frane.lineari",
+   "name": "Catalogo frane - frane lineari",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.LINEARI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.frane.direzioni",
+   "name": "Catalogo frane - direzioni di movimento",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.DIREZIONI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.frane.piff",
+   "name": "Catalogo frane - punti identificativi (PIFF)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Catalogo_Frane.map",
+   "layer": "RN.CATALOGO_FRANE.PIFF",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPoint",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 40,
+   "style": "risk_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "frane",
+    "inventario"
+   ],
+   "notes": "Inventario dei fenomeni franosi: censimento di fenomeni osservati, non perimetrazione di pericolosita e non vincolo. L endpoint wfs/Frane.map indicato altrove risponde HTTP 500 e non e lo stesso servizio."
+  },
+  {
+   "id": "pcn.euap",
+   "name": "EUAP - VI Elenco ufficiale delle aree protette",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "protected_areas_national",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/EUAP.map",
+   "layer": "SP.SITIPROTETTI.EUAP",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "L. 394/1991",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 45,
+   "style": "protected_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "euap",
+    "aree protette"
+   ],
+   "notes": "Titolo ufficiale: VI Elenco ufficiale aree protette (EUAP). Pubblica la sola geometria: denominazione, codice e tipologia non sono ottenibili qui e vanno dichiarati come lacuna."
+  },
+  {
+   "id": "pcn.natura2000",
+   "name": "Rete Natura 2000 (SIC/ZSC e ZPS) - PCN",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "natura2000",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/SIC_ZSC_ZPS.map",
+   "layer": "SP.SITIPROTETTI.SIC_ZSC_ZPS",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Direttiva 92/43/CEE; Direttiva 2009/147/CE; D.P.R. 357/1997",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 70,
+   "style": "natura2000_sci",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "natura2000",
+    "sic",
+    "zsc",
+    "zps"
+   ],
+   "notes": "SIC, ZSC e ZPS stanno in un unico strato senza campo che li distingua: il tipo ufficiale non e ricavabile da questa fonte. Per l analisi si usa il servizio EEA (eu.eea.natura2000.*), che espone SITETYPE; questa fonte resta per la rappresentazione."
+  },
+  {
+   "id": "pcn.ramsar",
+   "name": "Zone umide di importanza internazionale (Ramsar)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "wetlands_ramsar",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/RAMSAR.map",
+   "layer": "RAMSAR",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "Convenzione di Ramsar 1971; D.P.R. 448/1976",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 50,
+   "style": "protected_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "ramsar",
+    "zone umide"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.zpe",
+   "name": "Zone di protezione ecologica (ZPE) - aree marine",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "protected_areas_marine",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/ZPE.map",
+   "layer": "SP.SITIPROTETTI.ZPE",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Acque marine italiane"
+    ],
+    "notes": "Solo aree marine: nessuna copertura terrestre."
+   },
+   "legal_reference": "L. 61/2006",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": false,
+   "priority": 90,
+   "style": "protected_area",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "zpe",
+    "marino"
+   ],
+   "notes": "Titolo ufficiale: Zone di protezione ecologica del Mediterraneo nord-occidentale, del Mar Ligure e del Mar Tirreno. E un tema MARINO, al largo: su un area di progetto terrestre non interseca mai. Disabilitato per difetto per non affollare l analisi con un esito sempre negativo."
+  },
+  {
+   "id": "pcn.aib.zonerosseprior",
+   "name": "Antincendi boschivi nei Parchi nazionali - zone rosse prioritarie",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "fire",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Progetto_Antincendi_Boschivi_PNZ.map",
+   "layer": "RN.ANTINCENDIBOSCHIVI.ZONEROSSEPRIOR",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Parchi nazionali"
+    ],
+    "notes": "Copertura limitata ai Parchi nazionali."
+   },
+   "legal_reference": "L. 353/2000",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 65,
+   "style": "generic_constraint",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "incendi",
+    "aib",
+    "parchi nazionali"
+   ],
+   "notes": "Titolo ufficiale: Progetto incendi - cartografia anti incendi boschivi (AIB) nei Parchi nazionali. NON e il catasto nazionale delle aree percorse dal fuoco, che resta comunale ai sensi della L. 353/2000. Il servizio espone anche gli incendi anno per anno dal 2007."
+  },
+  {
+   "id": "pcn.aib.zonizzazionepnz",
+   "name": "Antincendi boschivi nei Parchi nazionali - zonizzazione AIB",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "fire",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Progetto_Antincendi_Boschivi_PNZ.map",
+   "layer": "RN.ANTINCENDIBOSCHIVI.ZONIZZAZIONEPNZ",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Parchi nazionali"
+    ],
+    "notes": "Copertura limitata ai Parchi nazionali."
+   },
+   "legal_reference": "L. 353/2000",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 65,
+   "style": "generic_constraint",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "incendi",
+    "aib",
+    "parchi nazionali"
+   ],
+   "notes": "Titolo ufficiale: Progetto incendi - cartografia anti incendi boschivi (AIB) nei Parchi nazionali. NON e il catasto nazionale delle aree percorse dal fuoco, che resta comunale ai sensi della L. 353/2000. Il servizio espone anche gli incendi anno per anno dal 2007."
+  },
+  {
+   "id": "pcn.aib.incendisatellite",
+   "name": "Antincendi boschivi nei Parchi nazionali - incendi da satellite",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "fire",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/Progetto_Antincendi_Boschivi_PNZ.map",
+   "layer": "RN.ANTINCENDIBOSCHIVI.INCENDISATELLITE",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "quality": {
+    "score": 45,
+    "completeness": "nazionale",
+    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Parchi nazionali"
+    ],
+    "notes": "Copertura limitata ai Parchi nazionali."
+   },
+   "legal_reference": "L. 353/2000",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 65,
+   "style": "generic_constraint",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "incendi",
+    "aib",
+    "parchi nazionali"
+   ],
+   "notes": "Titolo ufficiale: Progetto incendi - cartografia anti incendi boschivi (AIB) nei Parchi nazionali. NON e il catasto nazionale delle aree percorse dal fuoco, che resta comunale ai sensi della L. 353/2000. Il servizio espone anche gli incendi anno per anno dal 2007."
+  },
+  {
+   "id": "pcn.bacini.principali",
+   "name": "Bacini idrografici principali",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "water",
+   "subcategory": "river_basins",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Bacini_idrografici.map",
+   "layer": "ID.ACQUEFISICHE.BACINIIDROGRAFICI.PRINCIPALI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome_bac",
+    "code": "dgc_codice",
+    "authority": "autorita"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "water_bodies",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "bacini",
+    "idrografia"
+   ],
+   "notes": "Il campo autorita riporta l Autorita di bacino competente."
+  },
+  {
+   "id": "pcn.bacini.secondari",
+   "name": "Bacini idrografici secondari",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "water",
+   "subcategory": "river_basins",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Bacini_idrografici.map",
+   "layer": "ID.ACQUEFISICHE.BACINIIDROGRAFICI.SECONDARI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome_bac",
+    "code": "dgc_codice",
+    "authority": "autorita"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "water_bodies",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "bacini",
+    "idrografia"
+   ],
+   "notes": "Il campo autorita riporta l Autorita di bacino competente."
+  },
+  {
+   "id": "pcn.reticolo.fiumi_principali_secondari",
+   "name": "Reticolo idrografico - fiumi principali e secondari",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Aste_fluviali.map",
+   "layer": "ID.RETICOLO.FIUMI_PRINCIPALI_SECONDARI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "type": "tipo"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "hydrography",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "idrografia",
+    "reticolo"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.reticolo.fiumi_torrenti",
+   "name": "Reticolo idrografico - fiumi e torrenti",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Aste_fluviali.map",
+   "layer": "ID.RETICOLO.FIUMI_TORRENTI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "type": "tipo"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "hydrography",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "idrografia",
+    "reticolo"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.reticolo.corsi_acqua",
+   "name": "Reticolo idrografico - corsi d acqua",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Aste_fluviali.map",
+   "layer": "ID.RETICOLO.CORSI_ACQUA",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "type": "tipo"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "hydrography",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "idrografia",
+    "reticolo"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.reticolo.elementi_idrici",
+   "name": "Reticolo idrografico - elementi idrici",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Aste_fluviali.map",
+   "layer": "ID.RETICOLO.ELEMENTI_IDRICI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "type": "tipo"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 55,
+   "style": "hydrography",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "idrografia",
+    "reticolo"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.edificato.capoluoghi",
+   "name": "Edificato dei capoluoghi",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "buildings",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Edifici.map",
+   "layer": "ED.EDIFICATO.CAPOLUOGHI.",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "code": "id_edifici",
+    "istat": "codice_istat",
+    "height": "altezza"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Comuni capoluogo"
+    ],
+    "notes": "Solo comuni capoluogo."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 75,
+   "style": "buildings",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "edificato",
+    "capoluoghi"
+   ],
+   "notes": "Solo i capoluoghi: non e l edificato nazionale. Porta quota al suolo, quota di gronda e altezza."
+  },
+  {
+   "id": "pcn.iuti",
+   "name": "IUTI - Inventario dell uso delle terre d Italia",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landuse_planning",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/IUTI.map",
+   "layer": "LC.INVENTARIO_IUTI",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "code": "cod_90"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 70,
+   "style": "planning_zone",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "uso del suolo",
+    "iuti"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.ferrovie.trattaferroviaria",
+   "name": "Rete ferroviaria - tratte",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "infrastructure",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Rete_ferroviaria.map",
+   "layer": "RT.RETEFERROVIARIA.TRATTAFERROVIARIA",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiCurve",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "operator": "ente"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 75,
+   "style": "railways",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "ferrovie"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.ferrovie.nodoferroviario",
+   "name": "Rete ferroviaria - nodi",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "infrastructure",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Rete_ferroviaria.map",
+   "layer": "RT.RETEFERROVIARIA.NODOFERROVIARIO",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPoint",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {
+    "label": "nome",
+    "operator": "ente"
+   },
+   "evidence_level": "cartographic",
+   "data_nature": "network",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326.",
+   "quality": {
+    "score": 80,
+    "completeness": "nazionale",
+    "notes": ""
+   },
+   "coverage": {
+    "completeness": "complete",
+    "covered": [
+     "Italia"
+    ]
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 75,
+   "style": "railways",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [
+    "ferrovie"
+   ],
+   "notes": ""
+  },
+  {
+   "id": "pcn.frane.wfs_legacy",
+   "name": "Frane (endpoint storico)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "landslide_inventory",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Frane.map",
+   "layer": "",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "unavailable",
+   "verification_note": "Sondato il 2026-09-17: HTTP 500 costante sia come WMS sia come WFS, su piu tentativi. Censito per non ripresentarlo come fonte nuova e per distinguere servizio non disponibile da dato assente.",
+   "quality": {
+    "score": 0,
+    "completeness": "sconosciuta"
+   },
+   "coverage": {
+    "completeness": "unknown",
+    "covered": []
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": false,
+   "priority": 200,
+   "style": "",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [],
+   "notes": ""
+  },
+  {
+   "id": "pcn.reticolo.legacy",
+   "name": "Rete idrografica (endpoint storico)",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "hydrography",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Rete_idrografica.map",
+   "layer": "",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "unavailable",
+   "verification_note": "Sondato il 2026-09-17: HTTP 500 costante sia come WMS sia come WFS, su piu tentativi. Censito per non ripresentarlo come fonte nuova e per distinguere servizio non disponibile da dato assente.",
+   "quality": {
+    "score": 0,
+    "completeness": "sconosciuta"
+   },
+   "coverage": {
+    "completeness": "unknown",
+    "covered": []
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": false,
+   "priority": 200,
+   "style": "",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [],
+   "notes": ""
+  },
+  {
+   "id": "pcn.limiti_amministrativi",
+   "name": "Limiti amministrativi",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "administrative",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/Limiti_Amministrativi.map",
+   "layer": "",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "unavailable",
+   "verification_note": "Sondato il 2026-09-17: HTTP 500 costante sia come WMS sia come WFS, su piu tentativi. Censito per non ripresentarlo come fonte nuova e per distinguere servizio non disponibile da dato assente.",
+   "quality": {
+    "score": 0,
+    "completeness": "sconosciuta"
+   },
+   "coverage": {
+    "completeness": "unknown",
+    "covered": []
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": false,
+   "priority": 200,
+   "style": "",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [],
+   "notes": ""
+  },
+  {
+   "id": "pcn.scuole",
+   "name": "Scuole",
+   "authority": "MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "infrastructure",
+   "subcategory": "",
+   "type": "WFS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/scuole.map",
+   "layer": "",
+   "crs": [
+    "EPSG:4326"
+   ],
+   "geometry": "MultiPolygon",
+   "query": {
+    "version": "1.1.0",
+    "bbox_crs": "EPSG:4326",
+    "page_size": 500,
+    "max_features": 5000
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "perimeter",
+   "verification_status": "unavailable",
+   "verification_note": "Sondato il 2026-09-17: HTTP 500 costante sia come WMS sia come WFS, su piu tentativi. Censito per non ripresentarlo come fonte nuova e per distinguere servizio non disponibile da dato assente.",
+   "quality": {
+    "score": 0,
+    "completeness": "sconosciuta"
+   },
+   "coverage": {
+    "completeness": "unknown",
+    "covered": []
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Geoportale Nazionale - Ministero dell'Ambiente e della Sicurezza Energetica (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": false,
+   "priority": 200,
+   "style": "",
+   "group": "Dati nazionali (PCN/MASE)",
+   "tags": [],
+   "notes": ""
+  }
+ ]
+}

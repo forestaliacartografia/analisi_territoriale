@@ -301,6 +301,66 @@
       "label_it": "Competenze delle Soprintendenze",
       "report_section": "Paesaggio",
       "description_it": "Ambiti di competenza territoriale delle Soprintendenze e degli istituti del Ministero della Cultura."
+    },
+    {
+      "id": "flood_hazard",
+      "order": 410,
+      "kind": "knowledge",
+      "parent": "risk",
+      "label_en": "Flood hazard",
+      "label_it": "Pericolosita idraulica",
+      "report_section": "Rischi idrogeologici",
+      "description_it": "Aree allagabili per scenario di probabilita (PGRA, D.Lgs. 49/2010) e pericolosita idraulica dei PAI. La pericolosita descrive la probabilita dell evento, non il danno atteso."
+    },
+    {
+      "id": "flood_risk",
+      "order": 420,
+      "kind": "knowledge",
+      "parent": "risk",
+      "label_en": "Flood risk",
+      "label_it": "Rischio idraulico",
+      "report_section": "Rischi idrogeologici",
+      "description_it": "Classi di rischio idraulico: combinano la pericolosita con gli elementi esposti. Non vanno confuse con la pericolosita."
+    },
+    {
+      "id": "landslide_hazard",
+      "order": 430,
+      "kind": "knowledge",
+      "parent": "risk",
+      "label_en": "Landslide hazard",
+      "label_it": "Pericolosita da frana",
+      "report_section": "Rischi idrogeologici",
+      "description_it": "Perimetrazioni di pericolosita da frana dei PAI. Distinte dall inventario dei fenomeni osservati."
+    },
+    {
+      "id": "landslide_risk",
+      "order": 440,
+      "kind": "knowledge",
+      "parent": "risk",
+      "label_en": "Landslide risk",
+      "label_it": "Rischio da frana",
+      "report_section": "Rischi idrogeologici",
+      "description_it": "Classi di rischio da frana dei PAI, distinte dalla pericolosita."
+    },
+    {
+      "id": "landslide_inventory",
+      "order": 450,
+      "kind": "knowledge",
+      "parent": "risk",
+      "label_en": "Landslide inventory",
+      "label_it": "Inventario dei fenomeni franosi",
+      "report_section": "Rischi idrogeologici",
+      "description_it": "Censimento di fenomeni franosi osservati (IFFI, Catalogo frane). Un fenomeno censito non e ne una perimetrazione di pericolosita ne un vincolo."
+    },
+    {
+      "id": "fire",
+      "order": 460,
+      "kind": "knowledge",
+      "parent": "anthropic_pressure",
+      "label_en": "Fire",
+      "label_it": "Incendi",
+      "report_section": "Pressioni e usi del territorio",
+      "description_it": "Cartografie antincendio e incendi rilevati. Il catasto delle aree percorse dal fuoco previsto dalla L. 353/2000 e comunale: una cartografia nazionale non lo sostituisce."
     }
   ]
 }

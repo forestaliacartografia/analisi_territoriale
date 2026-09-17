@@ -196,7 +196,11 @@
       "layers": {
         "categories": [
           "risk",
-          "hydro_geomorphological"
+          "flood_hazard",
+          "flood_risk",
+          "landslide_hazard",
+          "landslide_risk",
+          "landslide_inventory"
         ],
         "basemap": "osm.basemap.standard",
         "terrain": ""
@@ -302,6 +306,139 @@
         "categories": [],
         "basemap": "",
         "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "flood_hazard_map",
+      "order": 20,
+      "name": "20 - Carta della pericolosita idraulica",
+      "title": "Carta della pericolosita idraulica",
+      "layers": {
+        "categories": [
+          "flood_hazard",
+          "hydrography",
+          "water"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "flood_risk_map",
+      "order": 21,
+      "name": "21 - Carta del rischio idraulico",
+      "title": "Carta del rischio idraulico",
+      "layers": {
+        "categories": [
+          "flood_risk",
+          "hydrography",
+          "water"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "landslide_hazard_map",
+      "order": 22,
+      "name": "22 - Carta della pericolosita da frana",
+      "title": "Carta della pericolosita da frana",
+      "layers": {
+        "categories": [
+          "landslide_hazard",
+          "landslide_inventory"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "landslide_inventory_map",
+      "order": 23,
+      "name": "23 - Carta dei fenomeni franosi",
+      "title": "Carta dei fenomeni franosi",
+      "layers": {
+        "categories": [
+          "landslide_inventory",
+          "landslide_hazard"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "hydrogeological_constraint_map",
+      "order": 24,
+      "name": "24 - Carta del vincolo idrogeologico",
+      "title": "Carta del vincolo idrogeologico",
+      "layers": {
+        "categories": [
+          "hydro_geomorphological",
+          "forest_vegetation"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "protected_areas_map",
+      "order": 25,
+      "name": "25 - Carta delle aree protette",
+      "title": "Carta delle aree protette",
+      "layers": {
+        "categories": [
+          "protected_areas_national",
+          "protected_areas_regional",
+          "natura2000",
+          "wetlands_ramsar",
+          "protected_areas_other",
+          "forest_vegetation"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "natura2000_map",
+      "order": 26,
+      "name": "26 - Carta della Rete Natura 2000",
+      "title": "Carta della Rete Natura 2000",
+      "layers": {
+        "categories": [
+          "natura2000",
+          "protected_areas_national"
+        ],
+        "basemap": "osm.basemap.standard",
+        "terrain": ""
+      }
+    },
+    {
+      "id": "fire_map",
+      "order": 27,
+      "name": "27 - Carta degli incendi boschivi",
+      "title": "Carta degli incendi boschivi",
+      "layers": {
+        "categories": [
+          "fire",
+          "forest_vegetation",
+          "protected_areas_national"
+        ],
+        "basemap": "",
+        "terrain": "hillshade"
+      }
+    },
+    {
+      "id": "landcover_map",
+      "order": 28,
+      "name": "28 - Carta dell uso e copertura del suolo",
+      "title": "Carta dell uso e copertura del suolo",
+      "layers": {
+        "categories": [
+          "landuse_planning",
+          "forest_vegetation"
+        ],
+        "basemap": "",
+        "terrain": ""
       }
     }
   ],

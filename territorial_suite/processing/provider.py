@@ -49,7 +49,8 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
             GenerateMapSeriesAlgorithm,
             GenerateQuickMapAlgorithm,
             GenerateReportAlgorithm,
-        )
+    ValidateSheetAlgorithm,
+)
         from .algs.data import AnalyzeConstraintsAlgorithm, DownloadAreaAlgorithm
         from .algs.heritage import (
             CulturalHeritageAlgorithm,
@@ -72,6 +73,7 @@ class TerritorialSuiteProvider(QgsProcessingProvider):
             OrthophotoSheetAlgorithm(),
             ImageryProvidersAlgorithm(),
             GenerateMapSeriesAlgorithm(),
+            ValidateSheetAlgorithm(),
             GenerateReportAlgorithm(),
             ExportPackageAlgorithm(),
         ]

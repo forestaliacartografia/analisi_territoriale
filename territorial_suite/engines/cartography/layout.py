@@ -39,7 +39,8 @@ from qgis.PyQt.QtGui import QColor, QFont
 
 from ...core import log, measure, settings
 from ...core.errors import LayoutError
-from ...core.constants import PLUGIN_NAME, PROP_LAYER_CATEGORY, PROP_LAYER_SOURCE_ID
+from ...core.constants import (PLUGIN_NAME, PROP_LAYER_CATEGORY, PROP_LAYER_SOURCE_ID,
+                              PROP_LAYOUT_TEMPLATE)
 from ...core.models import AnalysisReport
 from ...core.paths import config_dir, resources_dir, user_dir
 from ...core.project_area import ProjectArea
@@ -244,6 +245,9 @@ class LayoutBuilder:
         layout = QgsPrintLayout(self.project)
         layout.initializeDefaults()
         layout.setName(self._layout_name(area, spec))
+        # The sheet has to remember which contract it was built under, otherwise the
+        # export can only guess what the title was supposed to promise.
+        layout.setCustomProperty(PROP_LAYOUT_TEMPLATE, spec.template)
         layout.setUnits(Qgis.LayoutUnit.Millimeters)
         page = layout.pageCollection().page(0)
         page.setPageSize(QgsLayoutSize(page_width, page_height, Qgis.LayoutUnit.Millimeters))

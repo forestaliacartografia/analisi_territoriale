@@ -32,6 +32,10 @@ PROP_LAYER_SOURCE_ID = f"{PLUGIN_ID}/source_id"
 PROP_LAYER_AREA_ID = f"{PLUGIN_ID}/area_id"
 PROP_LAYER_CATEGORY = f"{PLUGIN_ID}/category"
 
+#: Layout custom property: the template a sheet was built from. The sheet QA
+#: needs it to know which contract the title was supposed to honour.
+PROP_LAYOUT_TEMPLATE = f"{PLUGIN_ID}/layout_template"
+
 #: Layer-tree group names created by the plugin.
 GROUP_ROOT = PLUGIN_NAME
 GROUP_AREA = "Project area"

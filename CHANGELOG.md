@@ -5,6 +5,60 @@ documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses
 [semantic versioning](https://semver.org/).
 
+## [Non rilasciato] - Tessuto dati nazionale e contratto delle tavole
+
+La versione resta **0.1.1**: la slice non ha superato tutti i gate previsti (Print
+Manager 2.0, DEM multi-fonte e CORINE Land Cover non sono di questo lavoro).
+Suite: **418 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline di sessione: 395,
++23), 0 falliti, 16 saltati.
+
+### Aggiunto
+
+- **54 descrittori di fonte PCN/MASE** in `config/sources/national/pcn_mase.json`,
+  ciascuno con l'evidenza del sondaggio: alluvioni PGRA 2018 (7 distretti x 3 scenari),
+  PAI pericolosita e rischio tenuti distinti, catalogo frane, EUAP, Rete Natura 2000,
+  Ramsar, incendi AIB, bacini, reticolo idrografico, edificato, IUTI, ferrovie.
+  Il registry passa da 37 a 84 fonti.
+- **Contratto delle tavole** (`config/layouts/sheets.json`) e controllo semantico
+  bidirezionale titolo-legenda in `engines/cartography/sheet_spec.py`. Una tavola il cui
+  titolo promette un tema che non mostra **non viene esportata**.
+- Nove template tematici: pericolosita e rischio idraulico, pericolosita da frana,
+  fenomeni franosi, vincolo idrogeologico, aree protette, Rete Natura 2000, incendi,
+  uso del suolo.
+- Sei categorie di tassonomia: `flood_hazard`, `flood_risk`, `landslide_hazard`,
+  `landslide_risk`, `landslide_inventory`, `fire`.
+- Algoritmo Processing **Valida tavola**, sullo stesso engine della GUI e dell'export.
+- `docs/SHEET_QA.md`, `docs/probes/PCN_MASE_PROBE_LOG.md`,
+  `docs/probes/TOSCANA_PROBE_LOG.md`.
+
+### Corretto
+
+- **La «Carta del rischio» stampava un vincolo.** Il template `risk_map` raccoglieva
+  `hydro_geomorphological`: il vincolo idrogeologico e' un vincolo, non un rischio, e
+  finiva su una tavola intitolata a un altro istituto. Ora il template non lo raccoglie
+  e il contratto lo esclude esplicitamente.
+
+### Verificato sul campo
+
+- I servizi PCN annunciano WFS 2.0.0 nelle capabilities ma la GetFeature la rifiuta:
+  parlano **1.1.0**. Classificarli dalle sole capabilities sarebbe stato un errore.
+- In WFS 1.1.0 con EPSG:4326 l'ordine degli assi e' latitudine per prima.
+- `DescribeFeatureType` dichiara che EUAP e Rete Natura 2000 pubblicano **solo**
+  geometria: denominazione, codice e il tipo SIC/ZSC/ZPS non sono ottenibili da PCN.
+  Per Natura 2000 la fonte analitica resta quella EEA, che espone SITETYPE.
+- Quattro endpoint indicati sono morti (HTTP 500 costante): `Frane.map`,
+  `Rete_idrografica.map`, `Limiti_Amministrativi.map`, `scuole.map`. Censiti come non
+  disponibili per distinguere «servizio assente» da «dato assente».
+- ZPE e' un tema marino, l'AIB copre i soli Parchi nazionali e «Edifici» contiene i soli
+  capoluoghi: nessuno dei tre e' cio' che il nome breve suggerisce.
+
+### Limitazioni note
+
+- Print Manager 2.0 (persistenza, riapertura, versioning delle stampe) non implementato.
+- DEM: il multi-tile esiste gia', ma oltre `max_tiles` il motore abbassa lo zoom invece
+  di dichiarare un limite, e l'unica fonte reale resta globale.
+- CORINE Land Cover non sondato.
+
 ## [0.1.1] - 2026-09-17
 
 Rilascio di sicurezza e confezionamento. **Nessuna modifica al comportamento**: non
