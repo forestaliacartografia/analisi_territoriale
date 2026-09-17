@@ -66,6 +66,12 @@ def validate() -> List[str]:
         problems.append(f"icona mancante: {icon}")
     if not (PLUGIN_DIR / "__init__.py").exists():
         problems.append("manca __init__.py")
+    # The official repository rejects the upload with "Cannot find LICENSE in the plugin
+    # package" when the licence sits only at the root of the repository: it has to travel
+    # inside the plugin folder, because that folder is all the user installs.
+    if not (PLUGIN_DIR / "LICENSE").exists():
+        problems.append("manca LICENSE dentro il pacchetto del plugin "
+                        "(non basta averla nella radice del repository)")
     return problems
 
 
