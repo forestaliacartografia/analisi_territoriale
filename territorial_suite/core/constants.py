@@ -12,7 +12,7 @@ from __future__ import annotations
 #: break existing projects, saved models and user settings.
 PLUGIN_NAME = "Analisi territoriale"
 PLUGIN_ID = "territorial_suite"
-PLUGIN_VERSION = "0.1.0"
+PLUGIN_VERSION = "0.1.1"
 
 #: QgsMessageLog channel used by :mod:`core.log`.
 LOG_CHANNEL = PLUGIN_NAME

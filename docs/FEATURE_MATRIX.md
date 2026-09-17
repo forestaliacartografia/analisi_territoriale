@@ -1,4 +1,4 @@
-# Feature matrix — Analisi territoriale 0.1.0
+# Feature matrix — Analisi territoriale 0.1.1
 
 > Deliverable di Phase 0. Stato **misurato** il 2026-09-17 leggendo il codice ed eseguendo
 > la suite, non dichiarato.

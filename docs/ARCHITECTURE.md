@@ -12,7 +12,7 @@
 |---|---|
 | Nome visibile | **Analisi territoriale** |
 | ID tecnico / package Python | `territorial_suite` — **invariato**, e con esso chiavi `QgsSettings`, `PROP_*` dei layer e id degli algoritmi Processing |
-| Versione | 0.1.0 (experimental) |
+| Versione | 0.1.1 (experimental) |
 | QGIS | 3.40 LTR (Qt5) e 4.0.0 (Qt6) |
 | Licenza | GPL-2.0-or-later |
 

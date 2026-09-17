@@ -5,9 +5,54 @@ documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and the project uses
 [semantic versioning](https://semver.org/).
 
+## [0.1.1] - 2026-09-17
+
+Rilascio di sicurezza e confezionamento. **Nessuna modifica al comportamento**: non
+cambia un solo risultato prodotto dal plugin.
+Suite: **395 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0, 0 falliti, 16 saltati.
+Bandit: 0 rilievi a ogni severita'. Flake8: 0 E741.
+
+### Corretto
+
+- **`LICENSE` viaggia dentro il pacchetto.** Era solo nella radice del repository, ma
+  l'archivio contiene la sola cartella `territorial_suite/`, che e' tutto cio' che
+  l'utente installa. Il caricamento veniva rifiutato con «Cannot find LICENSE in the
+  plugin package». `scripts/package.py` ora si rifiuta di costruire l'archivio se manca.
+- **Link dei metadati.** `repository`, `tracker` e `homepage` puntavano a un segnaposto
+  (`github.com/example/...`) irraggiungibile; `repository` e `tracker` sono obbligatori.
+- **19 gestori di eccezione silenziosi** (`except Exception: pass` / `continue`).
+  Violavano la regola C4 del progetto: ciascuno ora registra cosa e' stato saltato e
+  perche'.
+
+### Sicurezza
+
+- **XML non fidato.** Le capabilities arrivano dall'host indicato da un descrittore.
+  Misurato su Python 3.12: `xml.etree` rifiuta le entita' esterne ma espande quelle
+  interne, sufficiente a costruire una bomba di espansione. I documenti OGC sono basati
+  su XSD e non portano mai una DTD: una dichiarazione `DOCTYPE` o `ENTITY` viene ora
+  rifiutata prima del parsing. `defusedxml` e' usato se la distribuzione lo fornisce.
+- **SQL della cache.** Le tre segnalazioni di «injection» erano falsi positivi, ma le
+  istruzioni sono ora stringhe costanti con parametri che neutralizzano i filtri vuoti:
+  non resta SQL dinamico da verificare.
+- **SHA-1 della chiave di cache** dichiarato `usedforsecurity=False`: non e' una
+  primitiva di sicurezza, e cosi' il plugin resta installabile in modalita' FIPS.
+
+### Aggiunto
+
+- `tests/unit/test_capabilities_xml.py` — 6 test sulla difesa XML, bomba di espansione
+  ed entita' esterna incluse.
+- `tests/unit/test_no_silent_failures.py` — fa fallire la suite se un gestore ampio
+  torna muto.
+
+### Limitazioni note
+
+- 12 gestori ristretti a eccezioni specifiche scartano comunque l'errore, e 19 gestori
+  ampi non legano l'eccezione con `as`. Bandit non li segnala; non sono stati toccati per
+  non allargare la modifica a ridosso del rilascio.
+
 ## [Non rilasciato] - Phase 0 + P0
 
-Audit di riferimento e correzione dei difetti bloccanti. La versione **resta 0.1.0**.
+Audit di riferimento e correzione dei difetti bloccanti. Lavoro poi rilasciato in 0.1.1.
 Suite: **365 test verdi** su QGIS 3.40.15 LTR e QGIS 4.0.0 (baseline Phase 0: 327, +38),
 0 falliti su entrambe.
 

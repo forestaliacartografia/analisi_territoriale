@@ -16,7 +16,7 @@ layouts and a territorial dossier — with the provenance of every single datum.
 | **QGIS** | 3.40 LTR → 4.0 (Qt5 and Qt6, tested on both) |
 | **Dependencies** | none beyond what QGIS ships (PyQGIS, GDAL, numpy; openpyxl optional) |
 | **Licence** | GPL-3.0-or-later |
-| **Status** | 0.1.0 — experimental, MVP complete end to end |
+| **Status** | 0.1.1 — experimental, MVP complete end to end |
 
 ---
 
