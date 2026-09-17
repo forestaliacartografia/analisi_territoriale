@@ -107,85 +107,45 @@ def payload_to_file(payload: bytes, folder: Path, *, content_type: str = "",
     return path
 
 
-def looks_transposed(layer: QgsVectorLayer, expected: "QgsRectangle" = None) -> bool:
-    """Whether a geographic layer's coordinates are latitude-first.
+#: Axis orders a source may declare. ``xy`` is longitude/easting first, ``yx`` is
+#: latitude/northing first. ``auto`` leaves the reader to its own defaults.
+AXIS_XY = "xy"
+AXIS_YX = "yx"
+AXIS_AUTO = "auto"
 
-    WFS 1.1.0 returns ``EPSG:4326`` in latitude/longitude order, but several services -
-    the Geoportale Nazionale among them, verified - label the document with the short
-    ``EPSG:4326`` form. GDAL reads that form as longitude/latitude and leaves the
-    ordinates alone, so every geometry comes back with its coordinates swapped. Nothing
-    reports an error: the layer is valid, the features are all there, and they sit
-    somewhere else entirely, which is why an intersection with the project area quietly
-    returns zero.
 
-    Detection compares the result against the window that was asked for, because the
-    arithmetic alone is not enough: over Italy both ordinates are under 90, so a swap
-    produces perfectly plausible-looking numbers. A result that misses the requested
-    window but hits it once flipped is the wrong way round.
+def normalise_axes(path: Path, response_axis_order: str = AXIS_AUTO) -> Path:
+    """Rewrite a GML whose coordinates are latitude-first into a canonical file.
+
+    Some WFS 1.1.0 services label their answer ``EPSG:4326`` in the short form while
+    writing latitude first, which is what the standard prescribes for that CRS and the
+    opposite of what the short form tells GDAL. The reader then places every geometry
+    with its ordinates exchanged: valid, plausible, and somewhere else. An intersection
+    with the project area returns zero and nothing anywhere says why.
+
+    The order is **declared by the source**, never guessed from the numbers. Over Italy
+    both ordinates sit below 90, so any rule of the form "if x looks like a latitude"
+    would be a coin toss dressed as logic, and would flip correct data as readily as
+    wrong data.
+
+    The rewrite happens while ``GML_CONSIDER_EPSG_AS_URN`` is set, which makes GDAL read
+    the short form with the axis order the standard assigns it. The result is written to
+    a GeoPackage rather than handed back as a lazily-opened layer: the provider reads
+    when it pleases, and by then the configuration option would be gone.
+
+    :returns: the canonical file, or ``path`` unchanged when no rewrite was asked for.
     """
-    if layer is None or not layer.isValid():
-        return False
-    extent = layer.extent()
-    if extent.isEmpty():
-        return False
-    if expected is not None and not expected.isEmpty():
-        from qgis.core import QgsRectangle
-
-        flipped = QgsRectangle(extent.yMinimum(), extent.xMinimum(),
-                               extent.yMaximum(), extent.xMaximum())
-        return not expected.intersects(extent) and expected.intersects(flipped)
-    # Without a reference window only the impossible case can be caught, and only for a
-    # geographic CRS: longitude cannot exceed 180 and latitude cannot exceed 90.
-    if not layer.crs().isGeographic():
-        return False
-    x_span = max(abs(extent.xMinimum()), abs(extent.xMaximum()))
-    y_span = max(abs(extent.yMinimum()), abs(extent.yMaximum()))
-    return y_span > 90.0 >= x_span
-
-
-def open_vector(path: Path, *, name: str = "", crs_hint: str = "",
-                expected: "QgsRectangle" = None) -> QgsVectorLayer:
-    """Open a vector file with the OGR provider, applying a CRS hint when the file lacks one.
-
-    ``expected`` is the window the caller asked the service for, used to notice a service
-    that answered with its axes the wrong way round.
-    """
-    layer = QgsVectorLayer(str(path), name or path.stem, "ogr")
-    if not layer.isValid():
-        raise SourceSchemaError(f"Cannot read downloaded dataset {path.name}")
-    # The hint goes on first: the transposition check needs to know whether the
-    # coordinates are supposed to be geographic, and a GML without a usable CRS would
-    # otherwise skip the check entirely.
-    if crs_hint and not layer.crs().isValid():
-        layer.setCrs(crs_utils.crs_from(crs_hint))
-    if path.suffix.lower() == ".gml" and looks_transposed(layer, expected):
-        swapped = _reopen_swapped(path, name or path.stem)
-        if swapped is not None and not looks_transposed(swapped, expected):
-            if crs_hint and not swapped.crs().isValid():
-                swapped.setCrs(crs_utils.crs_from(crs_hint))
-            return swapped
-        # The service answered with its axes the wrong way round and the second reading
-        # did not put them back. Returning the layer anyway is the worst of the options:
-        # the geometries are valid, plausible and in the wrong place, so every
-        # intersection would quietly measure zero and nothing downstream could tell.
-        raise SourceSchemaError(
-            f"{path.name}: il servizio ha risposto con latitudine e longitudine "
-            f"invertite e la rilettura non le ha raddrizzate",
-            detail="Le geometrie sarebbero valide ma collocate altrove: un'intersezione "
-                   "con l'area restituirebbe zero senza che nulla lo segnali.")
-    return layer
-
-
-def _reopen_swapped(path: Path, name: str) -> Optional[QgsVectorLayer]:
-    """Re-read a GML telling GDAL to treat ``EPSG:4326`` as a URN, which swaps the axes.
-
-    :returns: the corrected layer, or ``None`` when the second attempt is no better - in
-        which case the caller keeps the first one rather than losing the data entirely.
-    """
+    if response_axis_order != AXIS_YX or path.suffix.lower() != ".gml":
+        return path
     try:
         from osgeo import gdal
     except ImportError:  # pragma: no cover - GDAL always ships with QGIS
-        return None
+        return path
+
+    # GeoPackage, verified against the live service. GeoJSON was tried and silently
+    # handed back the original ordering, which is exactly the failure this function
+    # exists to prevent - so the format is part of the fix, not an implementation detail.
+    target = path.with_suffix(".canonical.gpkg")
     previous = gdal.GetConfigOption("GML_CONSIDER_EPSG_AS_URN", None)
     try:
         gdal.SetConfigOption("GML_CONSIDER_EPSG_AS_URN", "YES")
@@ -193,26 +153,60 @@ def _reopen_swapped(path: Path, name: str) -> Optional[QgsVectorLayer]:
             stale = path.with_suffix(sidecar)
             if stale.exists():
                 stale.unlink()
-        retried = QgsVectorLayer(str(path), name, "ogr")
+        if target.exists():
+            target.unlink()
+        source = gdal.OpenEx(str(path), gdal.OF_VECTOR)
+        if source is None:
+            return path
+        # The returned dataset owns the file: it has to be closed before anything
+        # reads it, or the GeoPackage is opened empty and the geometries look lost.
+        written = gdal.VectorTranslate(str(target), source, format="GPKG")
+        count = 0
+        if written is not None:
+            layer = written.GetLayer(0)
+            count = layer.GetFeatureCount() if layer is not None else 0
+            layer = None
+        written = None
+        source = None
+        if count <= 0:
+            log.warning(f"{path.name}: la normalizzazione dell'ordine degli assi non ha "
+                        f"prodotto feature, si usa il file originale")
+            return path
     except Exception as exc:  # pragma: no cover - driver differences
-        log.debug(f"_reopen_swapped: secondo tentativo non riuscito "
-                  f"({type(exc).__name__}: {exc})")
-        return None
+        log.warning(f"{path.name}: normalizzazione dell'ordine degli assi non riuscita "
+                    f"({type(exc).__name__}: {exc})")
+        return path
     finally:
         gdal.SetConfigOption("GML_CONSIDER_EPSG_AS_URN", previous)
-    if not retried.isValid():
-        return None
-    log.warning(f"{path.name}: coordinate latitudine/longitudine invertite dal servizio, "
-                f"lette nuovamente con l'ordine corretto")
-    return retried
+    if not target.exists():
+        return path
+    log.debug(f"{path.name}: coordinate latitudine-prima normalizzate in {target.name}")
+    return target
+
+
+def open_vector(path: Path, *, name: str = "", crs_hint: str = "",
+                response_axis_order: str = AXIS_AUTO) -> QgsVectorLayer:
+    """Open a vector file with the OGR provider, applying a CRS hint when it lacks one.
+
+    ``response_axis_order`` is what the *source descriptor* says the service writes, not
+    a guess: see :func:`normalise_axes`.
+    """
+    path = normalise_axes(path, response_axis_order)
+    layer = QgsVectorLayer(str(path), name or path.stem, "ogr")
+    if not layer.isValid():
+        raise SourceSchemaError(f"Cannot read downloaded dataset {path.name}")
+    if crs_hint and not layer.crs().isValid():
+        layer.setCrs(crs_utils.crs_from(crs_hint))
+    return layer
 
 
 def layer_from_payload(payload: bytes, folder: Path, *, name: str = "",
                        content_type: str = "", crs_hint: str = "",
-                       expected: "QgsRectangle" = None) -> QgsVectorLayer:
+                       response_axis_order: str = AXIS_AUTO) -> QgsVectorLayer:
     """Materialise a service payload and open it as a vector layer."""
     path = payload_to_file(payload, folder, content_type=content_type, stem=name)
-    return open_vector(path, name=name, crs_hint=crs_hint, expected=expected)
+    return open_vector(path, name=name, crs_hint=crs_hint,
+                       response_axis_order=response_axis_order)
 
 
 def _writer_options(layer_name: str, *, exists: bool, append: bool,

@@ -1367,9 +1367,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "pericolosita",
@@ -1384,7 +1385,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",
@@ -1434,9 +1435,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "pericolosita",
@@ -1451,7 +1453,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",
@@ -1501,9 +1503,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "pericolosita",
@@ -1518,7 +1521,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",
@@ -1568,9 +1571,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "rischio",
@@ -1585,7 +1589,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",
@@ -1635,9 +1639,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "rischio",
@@ -1652,7 +1657,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",
@@ -1702,9 +1707,10 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
-    "bbox_axis_order": "xy",
     "page_size": 500,
-    "max_features": 5000
+    "max_features": 5000,
+    "request_axis_order": "yx",
+    "response_axis_order": "yx"
    },
    "fields": {
     "class": "rischio",
@@ -1719,7 +1725,7 @@
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. Ordine assi verificato con il CRS incluso nella BBOX, come la invia il client: richiesta lat,lon (48 feature) contro lon,lat (0). La risposta e' anch'essa lat,lon e viene normalizzata alla lettura.",
    "quality": {
     "score": 78,
     "completeness": "nazionale",

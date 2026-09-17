@@ -111,6 +111,15 @@ class WfsClient:
         return str(self.source.query.get("version", "2.0.0"))
 
     @property
+    def response_axis_order(self) -> str:
+        """Axis order the service writes its geometries in, as the descriptor declares it.
+
+        Never inferred from the coordinates: over Italy latitude and longitude are both
+        below 90, so a value-based rule would flip correct data as often as wrong data.
+        """
+        return str(self.source.query.get("response_axis_order", "auto")).lower()
+
+    @property
     def params_names(self) -> Dict[str, str]:
         """Parameter names for the negotiated version."""
         return _PARAMS.get(self.version, _PARAMS["2.0.0"])
@@ -127,7 +136,11 @@ class WfsClient:
 
     def bbox_param(self, rect: QgsRectangle, crs: CrsLike) -> str:
         """Build the ``BBOX`` value with the right axis order, precision and CRS token."""
-        order = str(self.source.query.get("bbox_axis_order", "auto")).lower()
+        # The order of the *request* is a separate fact from the order of the
+        # *response*: a service may well take one and answer in the other, and the PCN
+        # PAI services do exactly that. ``bbox_axis_order`` is kept as the older spelling.
+        order = str(self.source.query.get("request_axis_order")
+                    or self.source.query.get("bbox_axis_order", "auto")).lower()
         inverted = crs_utils.axis_inverted(crs) if order == "auto" else order == "yx"
         if inverted:
             values = [rect.yMinimum(), rect.xMinimum(), rect.yMaximum(), rect.xMaximum()]
@@ -276,7 +289,7 @@ class WfsClient:
                 page_layer = vector_io.layer_from_payload(
                     response.content, work_folder, name=f"page_{page_index}",
                     content_type=response.content_type, crs_hint=service_crs.authid(),
-                    expected=rect)
+                    response_axis_order=self.response_axis_order)
                 page_features = list(page_layer.getFeatures())
             except SourceSchemaError:
                 if features:
