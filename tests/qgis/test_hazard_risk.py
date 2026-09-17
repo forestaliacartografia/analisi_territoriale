@@ -65,11 +65,27 @@ def pgra_source():
 
 
 def pai_source(layer="RN.PAI.PERICOLOSITA.FRANA_01", category="landslide_hazard"):
-    """A descriptor shaped like PAI: geometry only, no published attributes."""
+    """A descriptor shaped like PAI, which publishes its classes as attributes."""
     return DataSource.from_dict({
         "id": "pcn.pai.pericolosita.frana_01", "name": "PAI - pericolosita frana",
         "type": "WFS", "url": "http://example.invalid/ogc", "layer": layer,
         "category": category, "crs": ["EPSG:4326"],
+        "fields": {"class": "pericolosita"},
+    })
+
+
+def catalogue_source():
+    """The landslide catalogue: geometry and nothing else, verified.
+
+    Used where the point is a source that publishes no attributes at all. PAI used to
+    be that source, until the richer /ms_ogc/wfs/ endpoint was probed and turned out to
+    publish its classes properly.
+    """
+    return DataSource.from_dict({
+        "id": "pcn.frane.poligonali", "name": "Catalogo frane - aree in frana",
+        "type": "WFS", "url": "http://example.invalid/ogc",
+        "layer": "RN.CATALOGO_FRANE.POLIGONALI",
+        "category": "landslide_inventory", "crs": ["EPSG:4326"],
     })
 
 
@@ -245,14 +261,20 @@ class TestClassification(RuleCase):
 
 
 class TestASourceWithoutAttributesIsHonestAboutIt(RuleCase):
-    """PAI publishes geometry only - verified. The result must not imply otherwise."""
+    """The landslide catalogue publishes geometry only. The result must say so.
+
+    PAI used to be the example here. Probing the /ms_ogc/wfs/ endpoint named in the
+    brief showed it publishes pericolosita, rischio, the basin authority, the plan and
+    the decree, so the earlier conclusion held only for the endpoint that had been
+    tried - and the tests moved to a source where the property is real.
+    """
 
     def setUp(self):
         super().setUp()
         self.engine = HazardRiskEngine(registry=DataSourceRegistry())
 
     def test_the_class_is_declared_as_coming_from_the_layer(self):
-        source = pai_source()
+        source = catalogue_source()
         layer = QgsVectorLayer("Polygon?crs=EPSG:4326", "pai", "memory")
         feature = QgsFeature()
         feature.setGeometry(QgsGeometry.fromRect(
@@ -263,7 +285,9 @@ class TestASourceWithoutAttributesIsHonestAboutIt(RuleCase):
         self.assertEqual(len(classes), 1)
         self.assertEqual(classes[0].derived_from, "layer")
         self.assertEqual(classes[0].official_code, source.layer)
-        self.assertEqual(classes[0].normalised, "unclassified")
+        # "observed" e non "unclassified": un fenomeno censito e' un fatto osservato,
+        # e la nomenclatura lo distingue da una classe che la fonte non pubblica.
+        self.assertEqual(classes[0].normalised, "observed")
 
     def test_unclassified_is_not_a_low_level(self):
         self.assertIn("non pubblicata", normalised_label("unclassified"))
@@ -274,11 +298,11 @@ class TestASourceWithoutAttributesIsHonestAboutIt(RuleCase):
         registry = DataSourceRegistry()
         registry.load()
         engine = HazardRiskEngine(registry=registry)
-        engine.sources_for = lambda theme: [pai_source()]
+        engine.sources_for = lambda theme: [catalogue_source()]
         # La fonte non risponde: cio' che conta qui e' che la limitazione dichiarata dal
         # descrittore arrivi comunque nel risultato.
         engine._fetch = lambda *a, **k: None
-        outcome = engine.run_theme(AREA, "landslide_hazard")
+        outcome = engine.run_theme(AREA, "landslide_inventory")
         self.assertTrue(outcome.limitations)
         self.assertIn("sola geometria", " ".join(outcome.limitations))
 

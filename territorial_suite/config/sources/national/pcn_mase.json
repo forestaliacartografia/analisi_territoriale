@@ -1358,7 +1358,7 @@
    "category": "flood_hazard",
    "subcategory": "pericolosita",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_pericolosita.map",
    "layer": "RN.PAI.PERICOLOSITA.ALLUVIONE",
    "crs": [
     "EPSG:4326"
@@ -1367,18 +1367,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "pericolosita",
+    "type": "tipo_pericolosita",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1401,7 +1411,7 @@
     "pericolosita",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.pai.pericolosita.frana_01",
@@ -1415,7 +1425,7 @@
    "category": "landslide_hazard",
    "subcategory": "pericolosita",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_pericolosita.map",
    "layer": "RN.PAI.PERICOLOSITA.FRANA_01",
    "crs": [
     "EPSG:4326"
@@ -1424,18 +1434,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "pericolosita",
+    "type": "tipo_pericolosita",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1458,7 +1478,7 @@
     "pericolosita",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.pai.pericolosita.frana_02",
@@ -1472,7 +1492,7 @@
    "category": "landslide_hazard",
    "subcategory": "pericolosita",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_pericolosita.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_pericolosita.map",
    "layer": "RN.PAI.PERICOLOSITA.FRANA_02",
    "crs": [
     "EPSG:4326"
@@ -1481,18 +1501,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "pericolosita",
+    "type": "tipo_pericolosita",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1515,7 +1545,7 @@
     "pericolosita",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.pai.rischio.alluvione",
@@ -1529,7 +1559,7 @@
    "category": "flood_risk",
    "subcategory": "rischio",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_rischio.map",
    "layer": "RN.PAI.RISCHIO.ALLUVIONE",
    "crs": [
     "EPSG:4326"
@@ -1538,18 +1568,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "rischio",
+    "type": "tipo_rischio",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1572,7 +1612,7 @@
     "rischio",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.pai.rischio.frana_01",
@@ -1586,7 +1626,7 @@
    "category": "landslide_risk",
    "subcategory": "rischio",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_rischio.map",
    "layer": "RN.PAI.RISCHIO.FRANA_01",
    "crs": [
     "EPSG:4326"
@@ -1595,18 +1635,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "rischio",
+    "type": "tipo_rischio",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1629,7 +1679,7 @@
     "rischio",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.pai.rischio.frana_02",
@@ -1643,7 +1693,7 @@
    "category": "landslide_risk",
    "subcategory": "rischio",
    "type": "WFS",
-   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/Vettoriali/PAI_rischio.map",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/wfs/PAI_rischio.map",
    "layer": "RN.PAI.RISCHIO.FRANA_02",
    "crs": [
     "EPSG:4326"
@@ -1652,18 +1702,28 @@
    "query": {
     "version": "1.1.0",
     "bbox_crs": "EPSG:4326",
+    "bbox_axis_order": "xy",
     "page_size": 500,
     "max_features": 5000
    },
-   "fields": {},
+   "fields": {
+    "class": "rischio",
+    "type": "tipo_rischio",
+    "authority": "adb",
+    "basin": "bacino",
+    "plan": "piano",
+    "act": "delibera",
+    "updated": "data_aggiornamento",
+    "return_period": "tr"
+   },
    "evidence_level": "cartographic",
    "data_nature": "perimeter",
    "verification_status": "verified",
-   "verification_note": "Sondato il 2026-09-17: GetCapabilities WFS OK, GetFeature 1.1.0 OK con geometria reale in EPSG:4326. DescribeFeatureType dichiara solo msGeometry: nessun attributo pubblicato.",
+   "verification_note": "Sondato il 2026-09-17: endpoint /ms_ogc/wfs/, diverso da quello sotto WMS_v1.3/Vettoriali/ e molto piu' ricco. GetFeature 1.1.0 OK con attributi reali (pericolosita/rischio, tipo, adb, bacino, piano, delibera, data_aggiornamento, tr). Su un'AOI pisana: 133 feature, classi P1-P4, PU, APL, PL, ALVEO, GOLENA, autorita' ARNO e SERCHIO. ATTENZIONE: questo servizio vuole la BBOX in ordine lon,lat mentre restituisce le geometrie lat,lon.",
    "quality": {
-    "score": 45,
+    "score": 78,
     "completeness": "nazionale",
-    "notes": "Solo geometria: denominazione, codice e classe non sono ottenibili da questa fonte."
+    "notes": "Mosaicatura dei PAI: le classi sono quelle di ciascuna Autorita' di bacino e non sono uniformi fra autorita' diverse. Il piano vigente resta quello dell'Autorita' competente."
    },
    "coverage": {
     "completeness": "complete",
@@ -1686,7 +1746,7 @@
     "rischio",
     "mosaicatura"
    ],
-   "notes": "Mosaicatura nazionale dei PAI. La classe ufficiale NON e fra gli attributi: l unica distinzione disponibile e lo strato. Il piano vigente resta quello dell Autorita di bacino competente. Pericolosita e rischio sono dataset distinti e non vanno fusi."
+   "notes": "Mosaicatura nazionale dei PAI. Le classi ufficiali variano per Autorita' di bacino (P1-P4 in alcune, PA/PB in altre, piu' categorie come ALVEO o GOLENA): il codice della fonte va sempre conservato. Pericolosita' e rischio sono dataset distinti e non vanno fusi."
   },
   {
    "id": "pcn.frane.poligonali",
@@ -3215,6 +3275,360 @@
    "group": "Dati nazionali (PCN/MASE)",
    "tags": [],
    "notes": ""
+  },
+  {
+   "id": "pcn.igm.25000.utm32",
+   "name": "IGM 1:25.000 - fuso UTM 32",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_25000.map",
+   "layer": "CB.IGM25000.32",
+   "crs": [
+    "EPSG:32632",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 25.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 32"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 12,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm32"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
+  },
+  {
+   "id": "pcn.igm.25000.utm33",
+   "name": "IGM 1:25.000 - fuso UTM 33",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_25000.map",
+   "layer": "CB.IGM25000.33",
+   "crs": [
+    "EPSG:32633",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 25.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 33"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 12,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm33"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
+  },
+  {
+   "id": "pcn.igm.100000.utm32",
+   "name": "IGM 1:100.000 - fuso UTM 32",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_100000.map",
+   "layer": "MB.IGM100000.32",
+   "crs": [
+    "EPSG:32632",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 100.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 32"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 14,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm32"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
+  },
+  {
+   "id": "pcn.igm.100000.utm33",
+   "name": "IGM 1:100.000 - fuso UTM 33",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_100000.map",
+   "layer": "MB.IGM100000.33",
+   "crs": [
+    "EPSG:32633",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 100.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 33"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 14,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm33"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
+  },
+  {
+   "id": "pcn.igm.250000.utm32",
+   "name": "IGM 1:250.000 - fuso UTM 32",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_250000.map",
+   "layer": "CB.IGM250000.32",
+   "crs": [
+    "EPSG:32632",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 250.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 32"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 16,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm32"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
+  },
+  {
+   "id": "pcn.igm.250000.utm33",
+   "name": "IGM 1:250.000 - fuso UTM 33",
+   "authority": "Istituto Geografico Militare / MASE - Geoportale Nazionale",
+   "country": "IT",
+   "scope": {
+    "level": "national",
+    "codes": []
+   },
+   "category": "imagery",
+   "subcategory": "igm",
+   "type": "WMS",
+   "url": "http://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/IGM_250000.map",
+   "layer": "CB.IGM250000.33",
+   "crs": [
+    "EPSG:32633",
+    "EPSG:3857",
+    "EPSG:3003"
+   ],
+   "geometry": "",
+   "query": {
+    "version": "1.3.0",
+    "format": "image/png"
+   },
+   "fields": {},
+   "evidence_level": "cartographic",
+   "data_nature": "base_map",
+   "verification_status": "verified",
+   "verification_note": "Sondato il 2026-09-17: WMS GetCapabilities OK. Titolo del servizio «Cartografia di base - IGM 250.000». Due strati, uno per fuso UTM.",
+   "quality": {
+    "score": 70,
+    "completeness": "nazionale",
+    "notes": "Carta topografica storica resa come immagine: i toponimi sono quelli stampati sulla carta e non sono estraibili come dato."
+   },
+   "coverage": {
+    "completeness": "partial",
+    "covered": [
+     "Italia, fuso UTM 33"
+    ],
+    "notes": "Un fuso per strato: fuori dal fuso non disegna."
+   },
+   "legal_reference": "",
+   "last_verified": "2026-09-17",
+   "license": "Dati aperti del Geoportale Nazionale - citare la fonte",
+   "attribution": "Istituto Geografico Militare - Geoportale Nazionale (MASE)",
+   "official": true,
+   "metadata_url": "https://gn.mase.gov.it/portale/",
+   "enabled": true,
+   "priority": 16,
+   "style": "",
+   "group": "Cartografia di base (IGM)",
+   "tags": [
+    "igm",
+    "carta topografica",
+    "inquadramento",
+    "utm33"
+   ],
+   "notes": "Carta di inquadramento topografico. I toponimi sono parte dell'immagine: non vanno sostituiti con quelli di altre fonti, e non sono interrogabili."
   }
  ]
 }

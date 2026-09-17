@@ -151,6 +151,15 @@ class AnalysisOrchestrator:
                     detail=str(exc), evidence_level=EvidenceLevel.CARTOGRAPHIC))
             feedback.set_progress(end)
 
+        # The plan is part of the result, not of the printing: the dock and the report
+        # both need to say which sheets are justified and, for the others, why not.
+        try:
+            from .cartography.sheet_planner import SheetPlanner, plan_for
+
+            report.modules["sheet_plan"] = SheetPlanner.summary(plan_for(report))
+        except Exception as exc:  # pragma: no cover - never lose a run over the plan
+            log.warning(f"Pianificazione delle tavole non riuscita: {exc}")
+
         report.finished_at = utc_now()
         feedback.set_progress(100)
         feedback.push_info(self.summary_text(report))

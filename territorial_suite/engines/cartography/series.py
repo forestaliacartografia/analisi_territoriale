@@ -70,6 +70,27 @@ class MapSeriesEngine:
             result.warnings.append(f"Serie '{series}' non configurata")
             return result
 
+        # With an analysis in hand the series is decided by what the run established,
+        # not by the catalogue. A sheet nobody's data supports is not printed empty: an
+        # empty thematic sheet reads as "we looked and the area is clear", which is a
+        # different statement from "the service was down" and from "nobody asked".
+        plan = {}
+        if report is not None and skip_empty:
+            from .sheet_planner import plan_for
+
+            plan = {d.template: d for d in plan_for(report, templates=ids)}
+            refused = [d for d in plan.values() if not d.generate]
+            for decision in refused:
+                result.skipped.append(decision.template)
+                result.warnings.append(
+                    f"{decision.title or decision.template}: non generata - "
+                    f"{decision.label}. {decision.detail}".strip())
+            ids = [i for i in ids if plan.get(i) is None or plan[i].generate]
+            if not ids:
+                result.warnings.append(
+                    "Nessun tema dell'analisi giustifica una tavola tematica.")
+                return result
+
         for index, template_id in enumerate(ids, start=1):
             if feedback.is_canceled():
                 raise UserCancelled()

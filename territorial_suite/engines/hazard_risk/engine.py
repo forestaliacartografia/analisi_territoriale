@@ -273,6 +273,13 @@ class HazardRiskEngine:
         work_crs = area.work_crs
         area_geom = area.geometry_in(work_crs)
         field_name = rule.get("field") or (source.fields or {}).get("class", "")
+        # A rule can name alternatives: the PAI service calls the same column
+        # "pericolosita" in one mapfile and "rischio" in the other.
+        if field_name and layer.fields().indexOf(field_name) < 0:
+            for alternative in rule.get("alt_fields", []):
+                if layer.fields().indexOf(alternative) >= 0:
+                    field_name = alternative
+                    break
         derived = rule.get("derived_from", "attribute" if field_name else "layer")
         values = rule.get("values", {})
         layer_values = rule.get("layer_values", {})
